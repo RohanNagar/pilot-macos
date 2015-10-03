@@ -1,0 +1,6 @@
+framework module Pods_Pilot {
+  umbrella header "Pods-Pilot-umbrella.h"
+
+  export *
+  module * { export * }
+}
