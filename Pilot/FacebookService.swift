@@ -16,6 +16,7 @@ class FacebookService: NSObject {
                                      persistence: .ForSession)
   // Endpoints to use
   let photosEndpoint = "http://localhost:9000/facebook/photos"
+  let videosEndpoint = "http://localhost:9000/facebook/videos"
   
   /*
    * Sends a request to Lightning for all Facebook photo URLs the user has.
@@ -40,6 +41,31 @@ class FacebookService: NSObject {
         // Call completion handler with array of URLs
         completion(urls)
       }
+  }
+  
+  /*
+   * Sends a request to Lightning for all Facebook video URLs the user has.
+   *
+   * Parameters:
+   *    username: The name of the user to retrieve video URLs for.
+   *    completion: The method to call upon completion. Will pass in the array of URLs to the method.
+   */
+  func getFacebookVideoUrls(username: String, completion: (([String]) -> Void)) {
+    Alamofire.request(.GET, videosEndpoint, parameters: ["username": username])
+      .authenticate(usingCredential: lightningCredential)
+      .responseJSON { response in
+        var urls = [String]()
+        
+        // Iterate through JSON response, adding URLs to array
+        if let JSON = response.result.value {
+          for var i = 0; i < JSON.count; i++ {
+            urls.append(JSON[i]["url"] as! String)
+          }
+        }
+        
+        // Call completion handler with array of URLs
+        completion(urls)
+    }
   }
   
 }
