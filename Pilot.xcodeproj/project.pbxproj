@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		145EACD61BC0A4F800EE8790 /* FacebookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145EACD51BC0A4F800EE8790 /* FacebookService.swift */; settings = {ASSET_TAGS = (); }; };
 		14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51821BB777E20099C25E /* AppDelegate.swift */; };
 		14EA51851BB777E20099C25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51841BB777E20099C25E /* Assets.xcassets */; };
 		14EA51881BB777E20099C25E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51861BB777E20099C25E /* MainMenu.xib */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		145EACD51BC0A4F800EE8790 /* FacebookService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookService.swift; sourceTree = "<group>"; };
 		14EA517F1BB777E20099C25E /* Pilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14EA51821BB777E20099C25E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14EA51841BB777E20099C25E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		145EACD41BC0A49C00EE8790 /* service */ = {
+			isa = PBXGroup;
+			children = (
+				145EACD51BC0A4F800EE8790 /* FacebookService.swift */,
+			);
+			name = service;
+			sourceTree = "<group>";
+		};
 		14EA51761BB777E20099C25E = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +116,7 @@
 		14EA51811BB777E20099C25E /* Pilot */ = {
 			isa = PBXGroup;
 			children = (
+				145EACD41BC0A49C00EE8790 /* service */,
 				14EA51B01BB797010099C25E /* model */,
 				14EA51AB1BB778260099C25E /* interface */,
 				14EA51841BB777E20099C25E /* Assets.xcassets */,
@@ -352,6 +363,7 @@
 				14EA51B21BB797720099C25E /* Platform.swift in Sources */,
 				14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */,
 				14EA51AE1BB783640099C25E /* MainViewController.swift in Sources */,
+				145EACD61BC0A4F800EE8790 /* FacebookService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +498,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Pilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanction.Pilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -499,6 +512,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Pilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanction.Pilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
