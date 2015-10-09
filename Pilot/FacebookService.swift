@@ -8,6 +8,7 @@
 
 import Cocoa
 import Alamofire
+import SwiftyJSON
 
 class FacebookService: NSObject {
   // Headers to use on HTTP requests to Lightning
@@ -40,10 +41,15 @@ class FacebookService: NSObject {
       .responseJSON { response in
         var urls = [String]()
         
-        // Iterate through JSON response, adding URLs to array
-        if let JSON = response.result.value {
-          for var i = 0; i < JSON.count; i++ {
-            urls.append(JSON[i]["url"] as! String)
+        let json = JSON(data: response.data!)
+        
+        // Turn the JSON response into an array of Photos
+        if let photos = json.array {
+          // Iterate through array of photos, adding the URL of the photo to the list
+          for photo in photos {
+            if let url = photo["url"].string {
+              urls.append(url)
+            }
           }
         }
         
@@ -64,10 +70,15 @@ class FacebookService: NSObject {
       .responseJSON { response in
         var urls = [String]()
         
-        // Iterate through JSON response, adding URLs to array
-        if let JSON = response.result.value {
-          for var i = 0; i < JSON.count; i++ {
-            urls.append(JSON[i]["url"] as! String)
+        let json = JSON(data: response.data!)
+        
+        // Turn the JSON response into an array of Photos
+        if let videos = json.array {
+          // Iterate through array of photos, adding the URL of the photo to the list
+          for video in videos {
+            if let url = video["url"].string {
+              urls.append(url)
+            }
           }
         }
         
