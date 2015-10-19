@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1418CD121BD4825C00CD0540 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD101BD4825C00CD0540 /* LoginViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		1418CD131BD4825C00CD0540 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1418CD111BD4825C00CD0540 /* LoginViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		1418CD151BD4857900CD0540 /* PilotUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD141BD4857900CD0540 /* PilotUserService.swift */; settings = {ASSET_TAGS = (); }; };
+		1418CD171BD488AA00CD0540 /* PilotUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD161BD488AA00CD0540 /* PilotUser.swift */; settings = {ASSET_TAGS = (); }; };
+		1418CD191BD48AFA00CD0540 /* PasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD181BD48AFA00CD0540 /* PasswordService.swift */; settings = {ASSET_TAGS = (); }; };
+		1418CD1B1BD491B800CD0540 /* PasswordServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */; settings = {ASSET_TAGS = (); }; };
 		145EACD61BC0A4F800EE8790 /* FacebookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145EACD51BC0A4F800EE8790 /* FacebookService.swift */; settings = {ASSET_TAGS = (); }; };
 		14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51821BB777E20099C25E /* AppDelegate.swift */; };
 		14EA51851BB777E20099C25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51841BB777E20099C25E /* Assets.xcassets */; };
@@ -37,6 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1418CD101BD4825C00CD0540 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1418CD111BD4825C00CD0540 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		1418CD141BD4857900CD0540 /* PilotUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotUserService.swift; sourceTree = "<group>"; };
+		1418CD161BD488AA00CD0540 /* PilotUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotUser.swift; sourceTree = "<group>"; };
+		1418CD181BD48AFA00CD0540 /* PasswordService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordService.swift; sourceTree = "<group>"; };
+		1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordServiceTest.swift; sourceTree = "<group>"; };
 		145EACD51BC0A4F800EE8790 /* FacebookService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookService.swift; sourceTree = "<group>"; };
 		14EA517F1BB777E20099C25E /* Pilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14EA51821BB777E20099C25E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				145EACD51BC0A4F800EE8790 /* FacebookService.swift */,
+				1418CD141BD4857900CD0540 /* PilotUserService.swift */,
+				1418CD181BD48AFA00CD0540 /* PasswordService.swift */,
 			);
 			name = service;
 			sourceTree = "<group>";
@@ -130,6 +144,7 @@
 			children = (
 				14EA51921BB777E30099C25E /* PilotTests.swift */,
 				14EA51941BB777E30099C25E /* Info.plist */,
+				1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */,
 			);
 			path = PilotTests;
 			sourceTree = "<group>";
@@ -150,6 +165,8 @@
 				14EA51861BB777E20099C25E /* MainMenu.xib */,
 				14EA51AC1BB783640099C25E /* MainViewController.swift */,
 				14EA51AD1BB783640099C25E /* MainViewController.xib */,
+				1418CD101BD4825C00CD0540 /* LoginViewController.swift */,
+				1418CD111BD4825C00CD0540 /* LoginViewController.xib */,
 			);
 			name = interface;
 			sourceTree = "<group>";
@@ -158,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				14EA51B11BB797720099C25E /* Platform.swift */,
+				1418CD161BD488AA00CD0540 /* PilotUser.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -285,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1418CD131BD4825C00CD0540 /* LoginViewController.xib in Resources */,
 				14EA51851BB777E20099C25E /* Assets.xcassets in Resources */,
 				14EA51AF1BB783640099C25E /* MainViewController.xib in Resources */,
 				14EA51881BB777E20099C25E /* MainMenu.xib in Resources */,
@@ -363,7 +382,11 @@
 				14EA51B21BB797720099C25E /* Platform.swift in Sources */,
 				14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */,
 				14EA51AE1BB783640099C25E /* MainViewController.swift in Sources */,
+				1418CD151BD4857900CD0540 /* PilotUserService.swift in Sources */,
+				1418CD191BD48AFA00CD0540 /* PasswordService.swift in Sources */,
+				1418CD121BD4825C00CD0540 /* LoginViewController.swift in Sources */,
 				145EACD61BC0A4F800EE8790 /* FacebookService.swift in Sources */,
+				1418CD171BD488AA00CD0540 /* PilotUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1418CD1B1BD491B800CD0540 /* PasswordServiceTest.swift in Sources */,
 				14EA51931BB777E30099C25E /* PilotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

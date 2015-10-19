@@ -13,13 +13,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   @IBOutlet weak var window: NSWindow!
   var mainViewController: MainViewController!
+  var loginViewController: LoginViewController!
 
   func applicationDidFinishLaunching(aNotification: NSNotification) {
     mainViewController = MainViewController(nibName:"MainViewController", bundle:nil)
     mainViewController.setupPlatforms()
     
-    window.contentView!.addSubview(mainViewController.view)
-    mainViewController.view.frame = (window.contentView! as NSView).bounds
+    loginViewController = LoginViewController(nibName:"LoginViewController", bundle:nil)
+    
+//    window.contentView!.addSubview(mainViewController.view)
+//    mainViewController.view.frame = (window.contentView! as NSView).bounds
+//    window.contentView!.addSubview(loginViewController.view)
+//    loginViewController.view.frame = (window.contentView! as NSView).bounds
   }
 
   func applicationWillTerminate(aNotification: NSNotification) {

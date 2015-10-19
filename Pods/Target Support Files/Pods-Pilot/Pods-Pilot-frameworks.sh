@@ -53,9 +53,11 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-Pilot/Alamofire.framework'
+  install_framework 'Pods-Pilot/CryptoSwift.framework'
   install_framework 'Pods-Pilot/SwiftyJSON.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-Pilot/Alamofire.framework'
+  install_framework 'Pods-Pilot/CryptoSwift.framework'
   install_framework 'Pods-Pilot/SwiftyJSON.framework'
 fi
