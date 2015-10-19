@@ -4,7 +4,7 @@ PODS:
   - SwiftyJSON (2.3.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.0.0-beta.3)
+  - Alamofire (~> 3.0.0)
   - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`, branch `master`)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
