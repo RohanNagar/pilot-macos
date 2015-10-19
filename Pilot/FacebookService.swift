@@ -35,17 +35,25 @@ class FacebookService: NSObject {
    * Parameters:
    *    username: The name of the user to retrieve photo URLs for.
    *    completion: The method to call upon completion. Will pass in the array of URLs to the method.
+   *    failure: The method to call upon failure.
    */
-  func getFacebookPhotoUrls(username: String, completion: (([String]) -> Void)) {
+  func getFacebookPhotoUrls(username: String,
+                            completion: [String] -> Void,
+                            failure: Void -> Void) {
     Alamofire.request(.GET, photosEndpoint, headers: headers, parameters: ["username": username])
       .responseJSON { response in
-        var urls = [String]()
         
+        // Call failure handler and get out if request failed.
+        if response.result.isFailure {
+          failure()
+          return
+        }
+        
+        // If successful, build out array of URLs from the JSON response
+        var urls = [String]()
         let json = JSON(data: response.data!)
         
-        // Turn the JSON response into an array of Photos
         if let photos = json.array {
-          // Iterate through array of photos, adding the URL of the photo to the list
           for photo in photos {
             if let url = photo["url"].string {
               urls.append(url)
@@ -64,17 +72,25 @@ class FacebookService: NSObject {
    * Parameters:
    *    username: The name of the user to retrieve video URLs for.
    *    completion: The method to call upon completion. Will pass in the array of URLs to the method.
+   *    failure: The method to call upon failure.
    */
-  func getFacebookVideoUrls(username: String, completion: (([String]) -> Void)) {
+  func getFacebookVideoUrls(username: String,
+                            completion: [String] -> Void,
+                            failure: Void -> Void) {
     Alamofire.request(.GET, videosEndpoint, headers: headers, parameters: ["username": username])
       .responseJSON { response in
-        var urls = [String]()
         
+        // Get out if request failed.
+        if response.result.isFailure {
+          failure()
+          return
+        }
+        
+        // If successful, build out array of URLs from the JSON response
+        var urls = [String]()
         let json = JSON(data: response.data!)
         
-        // Turn the JSON response into an array of Photos
         if let videos = json.array {
-          // Iterate through array of photos, adding the URL of the photo to the list
           for video in videos {
             if let url = video["url"].string {
               urls.append(url)

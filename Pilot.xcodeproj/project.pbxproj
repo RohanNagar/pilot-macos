@@ -17,7 +17,6 @@
 		14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51821BB777E20099C25E /* AppDelegate.swift */; };
 		14EA51851BB777E20099C25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51841BB777E20099C25E /* Assets.xcassets */; };
 		14EA51881BB777E20099C25E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51861BB777E20099C25E /* MainMenu.xib */; };
-		14EA51931BB777E30099C25E /* PilotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51921BB777E30099C25E /* PilotTests.swift */; };
 		14EA519E1BB777E30099C25E /* PilotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA519D1BB777E30099C25E /* PilotUITests.swift */; };
 		14EA51AE1BB783640099C25E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51AC1BB783640099C25E /* MainViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		14EA51AF1BB783640099C25E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51AD1BB783640099C25E /* MainViewController.xib */; settings = {ASSET_TAGS = (); }; };
@@ -56,7 +55,6 @@
 		14EA51871BB777E20099C25E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		14EA51891BB777E20099C25E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14EA518E1BB777E30099C25E /* PilotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PilotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		14EA51921BB777E30099C25E /* PilotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilotTests.swift; sourceTree = "<group>"; };
 		14EA51941BB777E30099C25E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14EA51991BB777E30099C25E /* PilotUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PilotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14EA519D1BB777E30099C25E /* PilotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilotUITests.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 		14EA51911BB777E30099C25E /* PilotTests */ = {
 			isa = PBXGroup;
 			children = (
-				14EA51921BB777E30099C25E /* PilotTests.swift */,
 				14EA51941BB777E30099C25E /* Info.plist */,
 				1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */,
 			);
@@ -395,7 +392,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1418CD1B1BD491B800CD0540 /* PasswordServiceTest.swift in Sources */,
-				14EA51931BB777E30099C25E /* PilotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
