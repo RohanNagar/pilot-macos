@@ -49,6 +49,11 @@ class FacebookService: NSObject {
           return
         }
         
+        if response.data == nil {
+          failure()
+          return
+        }
+        
         // If successful, build out array of URLs from the JSON response
         var urls = [String]()
         let json = JSON(data: response.data!)
@@ -82,6 +87,11 @@ class FacebookService: NSObject {
         
         // Get out if request failed.
         if response.result.isFailure {
+          failure()
+          return
+        }
+        
+        if response.data == nil {
           failure()
           return
         }
