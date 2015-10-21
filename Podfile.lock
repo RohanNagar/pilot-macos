@@ -1,11 +1,13 @@
 PODS:
   - Alamofire (3.0.0)
   - CryptoSwift (0.1.1)
+  - HTTPStatusCodes (2.0.0)
   - SwiftyJSON (2.3.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0.0)
   - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`, branch `master`)
+  - HTTPStatusCodes (~> 2.0.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -26,6 +28,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: b61782387f81bcc538a0284cf2bb5d7995cd0a80
   CryptoSwift: c11640d3d66107efc8333e4131a5173f072b1d61
+  HTTPStatusCodes: e460c9dc5be0d9a0be0a4df9d7f210d2b8f22789
   SwiftyJSON: cacfe0373d584585716bd1d43202c24cc66afd65
 
 COCOAPODS: 0.38.2

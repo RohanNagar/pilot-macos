@@ -4,6 +4,7 @@ use_frameworks!
 
 target 'Pilot' do
   pod 'Alamofire', '~> 3.0.0'
+  pod 'HTTPStatusCodes', '~> 2.0.0'
   pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
   pod 'CryptoSwift', :git => "https://github.com/krzyzanowskim/CryptoSwift", :branch => "master"
 end
