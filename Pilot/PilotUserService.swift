@@ -20,6 +20,7 @@ class PilotUserService: NSObject {
 
   /* Default init */
   override init() {
+    // TODO pull these in from config file
     let user = "social-storm"
     let password = "67890"
     
@@ -30,7 +31,7 @@ class PilotUserService: NSObject {
   }
   
   /**
-   * Retreives a PilotUser from Thunder for the given username.
+   * Retreives a `PilotUser` from Thunder for the given username.
    *
    * - note: The network call is made asynchronously.
    *
@@ -43,26 +44,22 @@ class PilotUserService: NSObject {
                     completion: PilotUser -> Void,
                     failure: HTTPStatusCode -> Void) {
       Alamofire.request(.GET, endpoint, headers: headers, parameters: ["username": username])
+        .validate(statusCode: 200..<300)
         .responseJSON { response in
           
           // Error handling
           if response.result.isFailure {
             if let status = response.response {
-              let code = HTTPStatusCode(HTTPResponse: status)!
-              failure(code)
+              failure(HTTPStatusCode(HTTPResponse: status)!)
             } else {
+              // If the response is nil, that means the server is down.
               failure(HTTPStatusCode.InternalServerError)
             }
             
             return
           }
           
-          if let status = response.response where status.statusCode != 200 {
-            let code = HTTPStatusCode(HTTPResponse: status)!
-            failure(code)
-            return
-          }
-          
+          // TODO not sure if data can be nil if we make it to this point, this check may be unnecessary.
           if response.data == nil {
             failure(HTTPStatusCode.InternalServerError)
             return

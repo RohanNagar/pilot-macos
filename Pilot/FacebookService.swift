@@ -56,19 +56,17 @@ class FacebookService: NSObject {
           return
         }
         
-        // If successful, build out array of URLs from the JSON response
+        // Build out array of URLs from the JSON response
         var urls = [String]()
         let json = JSON(data: response.data!)
         
-        if let photos = json.array {
-          for photo in photos {
-            if let url = photo["url"].string {
-              urls.append(url)
-            }
+        let photos = json.arrayValue
+        for photo in photos {
+          if let url = photo["url"].string {
+            urls.append(url)
           }
         }
         
-        // Call completion handler with array of URLs
         completion(urls)
       }
   }
@@ -104,15 +102,13 @@ class FacebookService: NSObject {
         var urls = [String]()
         let json = JSON(data: response.data!)
         
-        if let videos = json.array {
-          for video in videos {
-            if let url = video["url"].string {
-              urls.append(url)
-            }
+        let videos = json.arrayValue
+        for video in videos {
+          if let url = video["url"].string {
+            urls.append(url)
           }
         }
         
-        // Call completion handler with array of URLs
         completion(urls)
     }
   }
