@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import HTTPStatusCodes
 
 class LoginViewController: NSViewController {
 
@@ -28,6 +29,26 @@ class LoginViewController: NSViewController {
     
     let hashedPassword = PasswordService.hashPassword(passwordTextField.stringValue)
     print("Hashed password: \(hashedPassword)")
+    
+    userService.getPilotUser(usernameTextField.stringValue,
+      completion: { user in
+        print("YES")
+        print(user.username)
+      },
+      failure: { statusCode in
+        switch statusCode {
+        case HTTPStatusCode.BadRequest:
+          print("Bad input, please fix and try again.")
+        case HTTPStatusCode.NotFound:
+          print("Unable to find username in database. Please try again or sign up.")
+        case HTTPStatusCode.InternalServerError:
+          print("Unable to connect to database. Please file a report and try again later.")
+        default:
+          print("WTF")
+        }
+      })
+    
+    
   }
   
 }

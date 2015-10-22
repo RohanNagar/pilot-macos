@@ -22,6 +22,6 @@ class PilotUser: NSObject {
     self.twitterAccessToken = twitterAccessToken
     self.twitterAccessSecret = twitterAccessSecret
   }
-  
-  
+
+
 }

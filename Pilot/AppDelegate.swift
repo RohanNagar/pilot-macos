@@ -23,8 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 //    window.contentView!.addSubview(mainViewController.view)
 //    mainViewController.view.frame = (window.contentView! as NSView).bounds
-//    window.contentView!.addSubview(loginViewController.view)
-//    loginViewController.view.frame = (window.contentView! as NSView).bounds
+    window.contentView!.addSubview(loginViewController.view)
+    loginViewController.view.frame = (window.contentView! as NSView).bounds
   }
 
   func applicationWillTerminate(aNotification: NSNotification) {

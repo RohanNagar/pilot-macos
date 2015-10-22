@@ -29,6 +29,6 @@ class PasswordService: NSObject {
    *    correct: The correct hashed password String.
    */
   static func checkValidity(attempt: String, correct: String) -> Bool {
-    return attempt == correct ? true : false
+    return attempt == correct
   }
 }
