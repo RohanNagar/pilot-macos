@@ -16,7 +16,7 @@ class MainViewController: NSViewController {
     super.viewDidLoad()
   }
   
-  /*
+  /**
    * Sets up the list of platforms for the left-side platform table.
    */
   func setupPlatforms() {
@@ -29,17 +29,17 @@ class MainViewController: NSViewController {
 
 }
 
-// MARK: - NSTableViewDataSource
+/// MARK: - NSTableViewDataSource
 extension MainViewController: NSTableViewDataSource {
   
-  /*
+  /**
    * Returns the number of rows that should be present in the TableView.
    */
   func numberOfRowsInTableView(tableView: NSTableView) -> Int {
     return self.platforms.count
   }
   
-  /*
+  /**
    * Returns the cell view for the requested column and row.
    */
   func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -57,7 +57,7 @@ extension MainViewController: NSTableViewDataSource {
   
 }
 
-// MARK: - NSTableViewDelegate
+/// MARK: - NSTableViewDelegate
 extension MainViewController: NSTableViewDelegate {
   
 }

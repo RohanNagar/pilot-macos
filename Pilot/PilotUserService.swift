@@ -29,6 +29,16 @@ class PilotUserService: NSObject {
     headers = ["Authorization": "Basic \(base64Credentials)"]
   }
   
+  /**
+   * Retreives a PilotUser from Thunder for the given username.
+   *
+   * - note: The network call is made asynchronously.
+   *
+   * - parameters:
+   *    - username: The name to retrieve user information for.
+   *    - completion: The method to call upon success.
+   *    - failure: The method to call upon failure. The `HTTPStatusCode` that resulted from the network request will be passed into this method.
+   */
   func getPilotUser(username: String,
                     completion: PilotUser -> Void,
                     failure: HTTPStatusCode -> Void) {

@@ -29,13 +29,15 @@ class FacebookService: NSObject {
     headers = ["Authorization": "Basic \(base64Credentials)"]
   }
   
-  /*
+  /**
    * Sends a request to Lightning for all Facebook photo URLs the user has.
    *
-   * Parameters:
-   *    username: The name of the user to retrieve photo URLs for.
-   *    completion: The method to call upon completion. Will pass in the array of URLs to the method.
-   *    failure: The method to call upon failure.
+   * - note: The network request is made asynchronously.
+   *
+   * - parameters:
+   *    - username: The name of the user to retrieve photo URLs for.
+   *    - completion: The method to call upon completion. Will pass in the array of URLs to the method.
+   *    - failure: The method to call upon failure.
    */
   func getFacebookPhotoUrls(username: String,
                             completion: [String] -> Void,
@@ -71,13 +73,15 @@ class FacebookService: NSObject {
       }
   }
   
-  /*
+  /**
    * Sends a request to Lightning for all Facebook video URLs the user has.
    *
-   * Parameters:
-   *    username: The name of the user to retrieve video URLs for.
-   *    completion: The method to call upon completion. Will pass in the array of URLs to the method.
-   *    failure: The method to call upon failure.
+   * - note: The network request is made asynchronously.
+   *
+   * - parameters:
+   *    - username: The name of the user to retrieve video URLs for.
+   *    - completion: The method to call upon completion. Will pass in the array of URLs to the method.
+   *    - failure: The method to call upon failure.
    */
   func getFacebookVideoUrls(username: String,
                             completion: [String] -> Void,
