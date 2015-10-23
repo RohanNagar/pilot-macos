@@ -23,5 +23,16 @@ class PilotUser: NSObject {
     self.twitterAccessSecret = twitterAccessSecret
   }
 
-
+  override func isEqual(object: AnyObject?) -> Bool {
+    if let obj = object as? PilotUser {
+      return self.username == obj.username
+    }
+    
+    return false
+  }
+  
+  override var description: String {
+    return "PilotUser{username=\(username), password=\(password), facebookAccessToken=\(facebookAccessToken), twitterAccessToken=\(twitterAccessToken), twitterAccessSecret=\(twitterAccessSecret)}"
+  }
+  
 }

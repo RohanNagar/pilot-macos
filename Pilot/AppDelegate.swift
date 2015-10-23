@@ -16,6 +16,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var loginViewController: LoginViewController!
 
   func applicationDidFinishLaunching(aNotification: NSNotification) {
+    window.backgroundColor = NSColor(red: 44.0/255.0, green: 181.0/255.0, blue: 233.0/255.0, alpha: 1)
+    
     mainViewController = MainViewController(nibName:"MainViewController", bundle:nil)
     mainViewController.setupPlatforms()
     

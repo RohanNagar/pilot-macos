@@ -93,14 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		145EACD41BC0A49C00EE8790 /* service */ = {
+		145EACD41BC0A49C00EE8790 /* services */ = {
 			isa = PBXGroup;
 			children = (
 				145EACD51BC0A4F800EE8790 /* FacebookService.swift */,
 				1418CD141BD4857900CD0540 /* PilotUserService.swift */,
 				1418CD181BD48AFA00CD0540 /* PasswordService.swift */,
 			);
-			name = service;
+			name = services;
 			sourceTree = "<group>";
 		};
 		14EA51761BB777E20099C25E = {
@@ -128,8 +128,8 @@
 		14EA51811BB777E20099C25E /* Pilot */ = {
 			isa = PBXGroup;
 			children = (
-				145EACD41BC0A49C00EE8790 /* service */,
-				14EA51B01BB797010099C25E /* model */,
+				145EACD41BC0A49C00EE8790 /* services */,
+				14EA51B01BB797010099C25E /* models */,
 				14EA51AB1BB778260099C25E /* interface */,
 				14EA51841BB777E20099C25E /* Assets.xcassets */,
 				14EA51891BB777E20099C25E /* Info.plist */,
@@ -168,13 +168,13 @@
 			name = interface;
 			sourceTree = "<group>";
 		};
-		14EA51B01BB797010099C25E /* model */ = {
+		14EA51B01BB797010099C25E /* models */ = {
 			isa = PBXGroup;
 			children = (
 				14EA51B11BB797720099C25E /* Platform.swift */,
 				1418CD161BD488AA00CD0540 /* PilotUser.swift */,
 			);
-			name = model;
+			name = models;
 			sourceTree = "<group>";
 		};
 		5DB0798408C11291695E1312 /* Frameworks */ = {

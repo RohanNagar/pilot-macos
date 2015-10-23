@@ -20,7 +20,7 @@ class MainViewController: NSViewController {
    * Sets up the list of platforms for the left-side platform table.
    */
   func setupPlatforms() {
-    let facebook = Platform(title: "Facebook", icon: NSImage(named: "icon-small-facebook"))
+    let facebook = Platform(title: "Facebook", icon: nil)
     let twitter = Platform(title: "Twitter", icon: nil)
     let dropbox = Platform(title: "Dropbox", icon: nil)
     

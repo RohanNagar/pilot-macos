@@ -22,4 +22,16 @@ class Platform: NSObject {
     self.name = title
     self.icon = icon
   }
+  
+  override func isEqual(object: AnyObject?) -> Bool {
+    if let obj = object as? Platform {
+      return self.name == obj.name
+    }
+    
+    return false
+  }
+  
+  override var description: String {
+    return "Platform{name=\(name), icon=\(icon)}"
+  }
 }
