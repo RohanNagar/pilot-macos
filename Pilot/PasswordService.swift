@@ -21,14 +21,4 @@ class PasswordService: NSObject {
     return password.md5()
   }
   
-  /*
-   * Checks the validity of a password attempt.
-   *
-   * - parameters:
-   *    - attempt: The hashed password String that the user supplied.
-   *    - correct: The correct hashed password String.
-   */
-  static func checkValidity(attempt: String, correct: String) -> Bool {
-    return attempt == correct
-  }
 }

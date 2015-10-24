@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Nimble
 @testable import Pilot
 
 class PasswordServiceTest: XCTestCase {
@@ -26,23 +27,14 @@ class PasswordServiceTest: XCTestCase {
     let firstHash = PasswordService.hashPassword("Password")
     let secondHash = PasswordService.hashPassword("Password")
     
-    XCTAssert(firstHash == secondHash)
+    expect(firstHash).to(equal(secondHash))
   }
   
   func testHashDifferentPassword() {
     let firstHash = PasswordService.hashPassword("FirstPassword")
     let secondHash = PasswordService.hashPassword("SecondPassword")
     
-    XCTAssert(firstHash != secondHash)
-  }
-
-  /* CheckValidity Tests */
-  func testCheckValidityTrue() {
-    XCTAssert(PasswordService.checkValidity("Test", correct: "Test") == true)
-  }
-  
-  func testCheckValidityFalse() {
-    XCTAssert(PasswordService.checkValidity("Test", correct: "Different") == false)
+    expect(firstHash).toNot(equal(secondHash))
   }
 
 }
