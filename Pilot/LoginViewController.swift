@@ -21,7 +21,35 @@ class LoginViewController: NSViewController {
     // Do view setup here.
   }
   
+  /**
+   * Called when `usernameTextField` sends an action.
+   *
+   * - parameters
+   *    - sender: The `NSTextField` object that sent the action.
+   */
+  @IBAction func didEndUsernameEditing(sender: NSTextField) {
+    print("Username did end editing")
+    passwordTextField.becomeFirstResponder()
+  }
   
+  /**
+   * Called when `passwordTextField sends an action.
+   *
+   * - parameters:
+   *    - sender: The `NSSecureTextField` object that sent the action.
+   */
+  @IBAction func didEndPasswordEditing(sender: NSSecureTextField) {
+    print("Password did end editing")
+    passwordTextField.resignFirstResponder()
+    signIn(sender)
+  }
+  
+  /**
+   * Called when the sign in button is pressed.
+   *
+   * - parameters:
+   *    - sender: The object that send the action.
+   */
   @IBAction func signIn(sender: AnyObject) {
     print("Pressed sign in.")
     print("Username: \(usernameTextField.stringValue)")

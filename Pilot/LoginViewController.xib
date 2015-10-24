@@ -25,6 +25,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <action selector="didEndUsernameEditing:" target="-2" id="TwQ-KY-Evb"/>
+                    </connections>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wgj-J2-Kod">
                     <rect key="frame" x="200" y="82" width="81" height="32"/>
@@ -64,6 +67,9 @@
                             <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                         </allowedInputSourceLocales>
                     </secureTextFieldCell>
+                    <connections>
+                        <action selector="didEndPasswordEditing:" target="-2" id="5at-nq-9oE"/>
+                    </connections>
                 </secureTextField>
             </subviews>
             <animations/>
