@@ -12,7 +12,7 @@ import HTTPStatusCodes
 class LoginViewController: NSViewController {
 
   @IBOutlet weak var usernameTextField: NSTextField!
-  @IBOutlet weak var passwordTextField: NSTextField!
+  @IBOutlet weak var passwordTextField: NSSecureTextField!
   
   let userService = PilotUserService()
   
