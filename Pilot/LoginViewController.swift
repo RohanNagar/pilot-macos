@@ -28,6 +28,10 @@ class LoginViewController: NSViewController {
    *    - sender: The `NSTextField` object that sent the action.
    */
   @IBAction func didEndUsernameEditing(sender: NSTextField) {
+    if sender != usernameTextField {
+      return
+    }
+    
     print("Username did end editing")
     passwordTextField.becomeFirstResponder()
   }
@@ -39,6 +43,10 @@ class LoginViewController: NSViewController {
    *    - sender: The `NSSecureTextField` object that sent the action.
    */
   @IBAction func didEndPasswordEditing(sender: NSSecureTextField) {
+    if sender != passwordTextField {
+      return
+    }
+    
     print("Password did end editing")
     passwordTextField.resignFirstResponder()
     signIn(sender)
@@ -60,8 +68,16 @@ class LoginViewController: NSViewController {
     
     userService.getPilotUser(usernameTextField.stringValue,
       completion: { user in
-        print("YES")
+        print("Found user.")
         print(user.username)
+        
+        if hashedPassword != user.password {
+          print("Password does not match.")
+          return
+        }
+        
+        print("Password matches")
+        self.view.window?.contentViewController = (NSApplication.sharedApplication().delegate as! AppDelegate).mainViewController
       },
       failure: { statusCode in
         switch statusCode {
