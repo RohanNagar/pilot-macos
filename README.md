@@ -1,4 +1,8 @@
 # Pilot (OS X)
+[![Build Status](https://travis-ci.org/RohanNagar/pilot-osx.svg?branch=master)](https://travis-ci.org/RohanNagar/pilot-osx)
+![Version](https://img.shields.io/badge/version-dev-7f8c8d.svg)
+[![Twitter](https://img.shields.io/badge/twitter-%40RohanNagar22-00aced.svg)](http://twitter.com/RohanNagar22)
+
 Pilot is a cloud-management application. Combine your files from Dropbox, Google Drive, Facebook, and more all in one location!
 
 * [Running Locally](#running-locally)
