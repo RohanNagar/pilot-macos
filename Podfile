@@ -10,10 +10,10 @@ target 'Pilot' do
 end
 
 target 'PilotTests' do
-  pod 'Nimble', '~> 2.0.0'
+  pod 'Nimble', '~> 3.0.0'
 end
 
 target 'PilotUITests' do
-  pod 'Nimble', '~> 2.0.0'
+  pod 'Nimble', '~> 3.0.0'
 end
 
