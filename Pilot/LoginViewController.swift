@@ -74,7 +74,12 @@ class LoginViewController: NSViewController {
         }
 
         print("Password matches")
-        self.view.window?.contentViewController = (NSApplication.sharedApplication().delegate as! AppDelegate).mainViewController
+
+        // Present the MainViewController to the user
+        if let appDelegate = NSApplication.sharedApplication().delegate as? AppDelegate {
+          let mainViewController = appDelegate.mainViewController
+          self.view.window?.contentViewController = mainViewController
+        }
       },
       failure: { statusCode in
         switch statusCode {

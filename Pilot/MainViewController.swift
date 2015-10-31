@@ -37,16 +37,22 @@ extension MainViewController: NSTableViewDataSource {
 
   /// Returns the cell view for the requested column and row.
   func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-    let cellView: NSTableCellView = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: self) as! NSTableCellView
 
-    if tableColumn!.identifier == "PlatformColumn" {
-      let platform = platforms[row]
-      cellView.imageView!.image = platform.icon
-      cellView.textField!.stringValue = platform.name
-      return cellView
+    // Make a cell view
+    if let cellView = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: self) as? NSTableCellView {
+
+      // If we're looking at the right column, set up the cell view
+      if tableColumn!.identifier == "PlatformColumn" {
+        let platform = platforms[row]
+        cellView.imageView!.image = platform.icon
+        cellView.textField!.stringValue = platform.name
+        return cellView
+      }
+
     }
 
-    return cellView
+    // Otherwise don't return a view
+    return nil
   }
 
 }
