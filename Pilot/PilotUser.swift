@@ -14,7 +14,7 @@ class PilotUser: NSObject {
   var facebookAccessToken: String
   var twitterAccessToken: String
   var twitterAccessSecret: String
-  
+
   init(username: String, password: String, facebookAccessToken: String, twitterAccessToken: String, twitterAccessSecret: String) {
     self.username = username
     self.password = password
@@ -27,12 +27,12 @@ class PilotUser: NSObject {
     if let obj = object as? PilotUser {
       return self.username == obj.username
     }
-    
+
     return false
   }
-  
+
   override var description: String {
     return "PilotUser{username=\(username), password=\(password), facebookAccessToken=\(facebookAccessToken), twitterAccessToken=\(twitterAccessToken), twitterAccessSecret=\(twitterAccessSecret)}"
   }
-  
+
 }

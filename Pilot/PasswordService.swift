@@ -11,14 +11,13 @@ import CryptoSwift
 
 class PasswordService: NSObject {
 
-  /**
-   * Returns a hashed version of the given String.
-   *
-   * - parameters:
-   *    - password: The String to hash.
-   */
+  /// Returns a hashed version of the given String.
+  ///
+  /// - parameters:
+  ///    - password: The String to hash.
+  ///
   static func hashPassword(password: String) -> String {
     return password.md5()
   }
-  
+
 }
