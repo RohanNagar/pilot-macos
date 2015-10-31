@@ -1,3 +1,5 @@
+<img align="left" src="Pilot/Assets.xcassets/AppIcon.appiconset/icon_128x128.png">
+
 # Pilot (OS X)
 [![Build Status](https://travis-ci.org/RohanNagar/pilot-osx.svg?branch=master)](https://travis-ci.org/RohanNagar/pilot-osx)
 ![Version](https://img.shields.io/badge/version-dev-7f8c8d.svg)
