@@ -20,7 +20,7 @@ class PilotUserService: NSObject {
 
   /* Default init */
   override init() {
-    // TODO pull these in from config file
+    // TODO: pull these in from config file
     let user = "social-storm"
     let password = "67890"
 
@@ -58,7 +58,7 @@ class PilotUserService: NSObject {
             return
           }
 
-          // TODO not sure if data can be nil if we make it to this point, this check may be unnecessary.
+          // TODO: not sure if data can be nil if we make it to this point, this check may be unnecessary.
           if response.data == nil {
             failure(HTTPStatusCode.InternalServerError)
             return
