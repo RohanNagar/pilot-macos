@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1418CD121BD4825C00CD0540 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD101BD4825C00CD0540 /* LoginViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		1418CD131BD4825C00CD0540 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1418CD111BD4825C00CD0540 /* LoginViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		1418CD151BD4857900CD0540 /* PilotUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD141BD4857900CD0540 /* PilotUserService.swift */; settings = {ASSET_TAGS = (); }; };
-		1418CD171BD488AA00CD0540 /* PilotUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD161BD488AA00CD0540 /* PilotUser.swift */; settings = {ASSET_TAGS = (); }; };
-		1418CD191BD48AFA00CD0540 /* PasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD181BD48AFA00CD0540 /* PasswordService.swift */; settings = {ASSET_TAGS = (); }; };
-		1418CD1B1BD491B800CD0540 /* PasswordServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */; settings = {ASSET_TAGS = (); }; };
-		145EACD61BC0A4F800EE8790 /* FacebookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145EACD51BC0A4F800EE8790 /* FacebookService.swift */; settings = {ASSET_TAGS = (); }; };
+		1418CD121BD4825C00CD0540 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD101BD4825C00CD0540 /* LoginViewController.swift */; };
+		1418CD131BD4825C00CD0540 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1418CD111BD4825C00CD0540 /* LoginViewController.xib */; };
+		1418CD151BD4857900CD0540 /* PilotUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD141BD4857900CD0540 /* PilotUserService.swift */; };
+		1418CD171BD488AA00CD0540 /* PilotUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD161BD488AA00CD0540 /* PilotUser.swift */; };
+		1418CD191BD48AFA00CD0540 /* PasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD181BD48AFA00CD0540 /* PasswordService.swift */; };
+		1418CD1B1BD491B800CD0540 /* PasswordServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */; };
+		145EACD61BC0A4F800EE8790 /* FacebookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145EACD51BC0A4F800EE8790 /* FacebookService.swift */; };
 		14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51821BB777E20099C25E /* AppDelegate.swift */; };
 		14EA51851BB777E20099C25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51841BB777E20099C25E /* Assets.xcassets */; };
 		14EA51881BB777E20099C25E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51861BB777E20099C25E /* MainMenu.xib */; };
 		14EA519E1BB777E30099C25E /* PilotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA519D1BB777E30099C25E /* PilotUITests.swift */; };
-		14EA51AE1BB783640099C25E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51AC1BB783640099C25E /* MainViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		14EA51AF1BB783640099C25E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51AD1BB783640099C25E /* MainViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		14EA51B21BB797720099C25E /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51B11BB797720099C25E /* Platform.swift */; settings = {ASSET_TAGS = (); }; };
+		14EA51AE1BB783640099C25E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51AC1BB783640099C25E /* MainViewController.swift */; };
+		14EA51AF1BB783640099C25E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51AD1BB783640099C25E /* MainViewController.xib */; };
+		14EA51B21BB797720099C25E /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51B11BB797720099C25E /* Platform.swift */; };
 		25AA732E1612C05649850CB2 /* Pods_PilotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D9101B1BE5A3FA9D01E1B0 /* Pods_PilotTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7A968EDB11FA62989E696764 /* Pods_PilotUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340DEA7FEF8345B7861ADDA4 /* Pods_PilotUITests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9737708B351782F901B3B6D9 /* Pods_Pilot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9FC8FCC51A7B69F45757E77 /* Pods_Pilot.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -223,6 +223,7 @@
 				14EA517D1BB777E20099C25E /* Resources */,
 				32822065C8C0500B0F58C049 /* Embed Pods Frameworks */,
 				B3CABE15175BF2A8373397F2 /* Copy Pods Resources */,
+				698FF7D4AD5DAEB972014A89 /* Tailor */,
 			);
 			buildRules = (
 			);
@@ -389,6 +390,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		698FF7D4AD5DAEB972014A89 /* Tailor */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Tailor;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/tailor --max-severity=error";
 		};
 		799CE12E2E72693182E9AE6F /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
