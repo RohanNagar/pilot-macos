@@ -4,17 +4,17 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'Pilot' do
-  pod 'Alamofire', '~> 3.0.0'
-  pod 'HTTPStatusCodes', '~> 2.0.0'
-  pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
-  pod 'CryptoSwift', :git => "https://github.com/krzyzanowskim/CryptoSwift", :branch => "master"
+  pod 'Alamofire', '~> 3.3.0'
+  pod 'HTTPStatusCodes', '~> 2.0.2'
+  pod 'SwiftyJSON', '~> 2.3.2'
+  pod 'CryptoSwift', '~> 0.3.1'
 end
 
 target 'PilotTests' do
-  pod 'Nimble', '~> 3.0.0'
+  pod 'Nimble', '~> 3.2.0'
 end
 
 target 'PilotUITests' do
-  pod 'Nimble', '~> 3.0.0'
+  pod 'Nimble', '~> 3.2.0'
 end
 

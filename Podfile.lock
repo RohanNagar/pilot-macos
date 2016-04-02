@@ -1,37 +1,22 @@
 PODS:
-  - Alamofire (3.0.0)
-  - CryptoSwift (0.1.1)
-  - HTTPStatusCodes (2.0.0)
-  - Nimble (3.0.0)
-  - SwiftyJSON (2.3.0)
+  - Alamofire (3.3.0)
+  - CryptoSwift (0.3.1)
+  - HTTPStatusCodes (2.0.2)
+  - Nimble (3.2.0)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.0.0)
-  - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`, branch `master`)
-  - HTTPStatusCodes (~> 2.0.0)
-  - Nimble (~> 3.0.0)
-  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
-
-EXTERNAL SOURCES:
-  CryptoSwift:
-    :branch: master
-    :git: https://github.com/krzyzanowskim/CryptoSwift
-  SwiftyJSON:
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
-
-CHECKOUT OPTIONS:
-  CryptoSwift:
-    :commit: d21fa94de84d163414c9af57cfd7217f9926cf7f
-    :git: https://github.com/krzyzanowskim/CryptoSwift
-  SwiftyJSON:
-    :commit: 83dc3138b14571200ea7f070933a2a510491e997
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+  - Alamofire (~> 3.3.0)
+  - CryptoSwift (~> 0.3.1)
+  - HTTPStatusCodes (~> 2.0.2)
+  - Nimble (~> 3.2.0)
+  - SwiftyJSON (~> 2.3.2)
 
 SPEC CHECKSUMS:
-  Alamofire: b61782387f81bcc538a0284cf2bb5d7995cd0a80
-  CryptoSwift: c11640d3d66107efc8333e4131a5173f072b1d61
-  HTTPStatusCodes: e460c9dc5be0d9a0be0a4df9d7f210d2b8f22789
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
-  SwiftyJSON: cacfe0373d584585716bd1d43202c24cc66afd65
+  Alamofire: 9054db4a1b1ca9e363223183e01cea380159a27c
+  CryptoSwift: baf01e3fb3226c0155cd54c266be882b13d45d5e
+  HTTPStatusCodes: 60713f0bc67cd1a03ebe2740c8a765788c720ef5
+  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.38.2
