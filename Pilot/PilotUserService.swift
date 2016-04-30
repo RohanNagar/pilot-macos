@@ -21,8 +21,8 @@ class PilotUserService: NSObject {
   /* Default init */
   override init() {
     // TODO: pull these in from config file
-    let user = "social-storm"
-    let password = "67890"
+    let user = "lightning"
+    let password = "secret"
 
     let credentialData = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
     let base64Credentials = credentialData.base64EncodedStringWithOptions([])

@@ -14,6 +14,7 @@
 		1418CD1B1BD491B800CD0540 /* PasswordServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */; };
 		145EACD61BC0A4F800EE8790 /* FacebookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145EACD51BC0A4F800EE8790 /* FacebookService.swift */; };
 		146693111BE94F1F006655A2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 146693101BE94F1F006655A2 /* LoginViewController.xib */; };
+		147E1A771CD4718500772D4E /* FileCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147E1A761CD4718500772D4E /* FileCollectionViewItem.xib */; };
 		14E1BD851C5321D20021FF9F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BD841C5321D20021FF9F /* File.swift */; };
 		14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51821BB777E20099C25E /* AppDelegate.swift */; };
 		14EA51851BB777E20099C25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51841BB777E20099C25E /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordServiceTest.swift; sourceTree = "<group>"; };
 		145EACD51BC0A4F800EE8790 /* FacebookService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookService.swift; sourceTree = "<group>"; };
 		146693101BE94F1F006655A2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		147E1A761CD4718500772D4E /* FileCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileCollectionViewItem.xib; sourceTree = "<group>"; };
 		14E1BD841C5321D20021FF9F /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		14EA517F1BB777E20099C25E /* Pilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14EA51821BB777E20099C25E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				14EA51AD1BB783640099C25E /* MainViewController.xib */,
 				1418CD101BD4825C00CD0540 /* LoginViewController.swift */,
 				146693101BE94F1F006655A2 /* LoginViewController.xib */,
+				147E1A761CD4718500772D4E /* FileCollectionViewItem.xib */,
 			);
 			name = interface;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			files = (
 				146693111BE94F1F006655A2 /* LoginViewController.xib in Resources */,
 				14EA51851BB777E20099C25E /* Assets.xcassets in Resources */,
+				147E1A771CD4718500772D4E /* FileCollectionViewItem.xib in Resources */,
 				14EA51AF1BB783640099C25E /* MainViewController.xib in Resources */,
 				14EA51881BB777E20099C25E /* MainMenu.xib in Resources */,
 			);

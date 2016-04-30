@@ -12,8 +12,17 @@ class MainViewController: NSViewController {
 
   var platforms = [Platform]()
 
+  @IBOutlet weak var fileCollectionView: NSCollectionView!
+
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    let layout = NSCollectionViewFlowLayout()
+    layout.sectionInset = NSEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+    layout.itemSize = CGSize(width: 90, height: 120)
+
+    fileCollectionView.collectionViewLayout = layout
+    fileCollectionView.registerNib(NSNib(nibNamed: "FileCollectionViewItem", bundle: nil), forItemWithIdentifier: "fileItem")
   }
 
   /// Sets up the list of platforms for the left-side platform table.
@@ -59,5 +68,25 @@ extension MainViewController: NSTableViewDataSource {
 
 /// MARK: - NSTableViewDelegate
 extension MainViewController: NSTableViewDelegate {
+
+}
+
+/// MARK: - NSCollectionViewDataSource
+extension MainViewController: NSCollectionViewDataSource {
+
+  func collectionView(collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 10
+  }
+
+  func collectionView(collectionView: NSCollectionView, itemForRepresentedObjectAtIndexPath indexPath: NSIndexPath) -> NSCollectionViewItem {
+    let item = collectionView.makeItemWithIdentifier("fileItem", forIndexPath: indexPath)
+
+    return item
+  }
+
+}
+
+/// MARK: - NSCollectionViewDelegateFlowLayout
+extension MainViewController: NSCollectionViewDelegateFlowLayout {
 
 }
