@@ -4,7 +4,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'Pilot' do
-  pod 'Alamofire', '~> 3.3.0'
+  pod 'Alamofire', '~> 3.2.1'
   pod 'HTTPStatusCodes', '~> 2.0.2'
   pod 'SwiftyJSON', '~> 2.3.2'
   pod 'CryptoSwift', '~> 0.3.1'
