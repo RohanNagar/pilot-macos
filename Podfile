@@ -7,7 +7,7 @@ target 'Pilot' do
   pod 'Alamofire', '~> 3.2.1'
   pod 'HTTPStatusCodes', '~> 2.0.2'
   pod 'SwiftyJSON', '~> 2.3.2'
-  pod 'CryptoSwift', '~> 0.3.1'
+  pod 'CryptoSwift', '~> 0.2.3'
 end
 
 target 'PilotTests' do

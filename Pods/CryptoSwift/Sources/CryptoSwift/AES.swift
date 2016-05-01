@@ -5,8 +5,6 @@
 //  Created by Marcin Krzyzanowski on 21/11/14.
 //  Copyright (c) 2014 Marcin Krzyzanowski. All rights reserved.
 //
-//  Implementation of Gladman algorithm http://www.gladman.me.uk/AES
-//
 
 final public class AES {
     
@@ -125,14 +123,7 @@ final public class AES {
 
 
         let blocks = finalBytes.chunks(AES.blockSize)
-        let encryptGenerator = blockMode.encryptGenerator(iv, cipherOperation: encryptBlock, inputGenerator: AnyGenerator<Array<UInt8>>(blocks.generate()))
-
-        var out = [UInt8]()
-        out.reserveCapacity(bytes.count)
-        for processedBlock in AnySequence<Array<UInt8>>({ encryptGenerator }) {
-            out.appendContentsOf(processedBlock)
-        }
-        return out
+        return try blockMode.encryptBlocks(blocks, iv: self.iv, cipherOperation: encryptBlock)
     }
 
     private func encryptBlock(block:[UInt8]) -> [UInt8]? {
@@ -205,20 +196,13 @@ final public class AES {
         }
         
         let blocks = bytes.chunks(AES.blockSize)
-        var out = [UInt8]()
-        out.reserveCapacity(bytes.count)
+        let out:[UInt8]
         switch (blockMode) {
-        case .CFB, .OFB, .CTR:
-            // CFB, OFB, CTR uses encryptBlock to decrypt
-            let decryptGenerator = blockMode.decryptGenerator(iv, cipherOperation: encryptBlock, inputGenerator: AnyGenerator<Array<UInt8>>(blocks.generate()))
-            for processedBlock in AnySequence<Array<UInt8>>({ decryptGenerator }) {
-                out.appendContentsOf(processedBlock)
-            }
+        case .CFB, .CTR:
+            // CFB, CTR uses encryptBlock to decrypt
+            out = try blockMode.decryptBlocks(blocks, iv: self.iv, cipherOperation: encryptBlock)
         default:
-            let decryptGenerator = blockMode.decryptGenerator(iv, cipherOperation: decryptBlock, inputGenerator: AnyGenerator<Array<UInt8>>(blocks.generate()))
-            for processedBlock in AnySequence<Array<UInt8>>({ decryptGenerator }) {
-                out.appendContentsOf(processedBlock)
-            }
+            out = try blockMode.decryptBlocks(blocks, iv: self.iv, cipherOperation: decryptBlock)
         }
         
         if let padding = padding {

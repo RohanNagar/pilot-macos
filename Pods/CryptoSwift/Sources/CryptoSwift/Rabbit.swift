@@ -64,12 +64,12 @@ final public class Rabbit {
         
         // Key divided into 8 subkeys
         var k = [UInt32](count: 8, repeatedValue: 0)
-        for j in 0..<8 {
+        for var j = 0; j < 8; j++ {
             k[j] = UInt32(key[Rabbit.blockSize - (2*j + 1)]) | (UInt32(key[Rabbit.blockSize - (2*j + 2)]) << 8)
         }
         
         // Initialize state and counter variables from subkeys
-        for j in 0..<8 {
+        for var j = 0; j < 8; j++ {
             if j % 2 == 0 {
                 x[j] = (k[(j+1) % 8] << 16) | k[j]
                 c[j] = (k[(j+4) % 8] << 16) | k[(j+5) % 8]
@@ -86,7 +86,7 @@ final public class Rabbit {
         nextState()
         
         // Reinitialize counter variables
-        for j in 0..<8 {
+        for var j = 0; j < 8; j++ {
             c[j] = c[j] ^ x[(j+4) % 8]
         }
         
@@ -123,7 +123,7 @@ final public class Rabbit {
     private func nextState() {
         // Before an iteration the counters are incremented
         var carry = p7
-        for j in 0..<8 {
+        for var j = 0; j < 8; j++ {
             let prev = c[j]
             c[j] = prev &+ a[j] &+ carry
             carry = prev > c[j] ? 1 : 0 // detect overflow
@@ -163,7 +163,7 @@ final public class Rabbit {
         output16[0] = UInt16(truncatingBitPattern: x[6] >> 16) ^ UInt16(truncatingBitPattern: x[1])
         
         var output8 = [UInt8](count: Rabbit.blockSize, repeatedValue: 0)
-        for j in 0..<output16.count {
+        for var j = 0; j < output16.count; j++ {
             output8[j * 2] = UInt8(truncatingBitPattern: output16[j] >> 8)
             output8[j * 2 + 1] = UInt8(truncatingBitPattern: output16[j])
         }
@@ -176,18 +176,13 @@ final public class Rabbit {
         
         var result = [UInt8](count: bytes.count, repeatedValue: 0)
         var output = nextOutput()
-        var byteIdx = 0
-        var outputIdx = 0
-        while byteIdx < bytes.count {
+        for var byteIdx = 0, outputIdx = 0; byteIdx < bytes.count; byteIdx++, outputIdx++ {
             if (outputIdx == Rabbit.blockSize) {
                 output = nextOutput()
                 outputIdx = 0
             }
             
             result[byteIdx] = bytes[byteIdx] ^ output[outputIdx]
-
-            byteIdx += 1
-            outputIdx += 1
         }
         return result
     }
