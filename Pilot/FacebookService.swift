@@ -15,8 +15,8 @@ class FacebookService: NSObject {
   var headers: [String: String]
 
   // Endpoints to use
-  let photosEndpoint = "http://localhost:9000/facebook/photos"
-  let videosEndpoint = "http://localhost:9000/facebook/videos"
+  let photosEndpoint = "http://lightning.sanctionco.com/facebook/photos"
+  let videosEndpoint = "http://lightning.sanctionco.com/facebook/videos"
 
   /* Default init */
   override init() {

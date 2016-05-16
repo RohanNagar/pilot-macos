@@ -15,8 +15,8 @@ class PilotUserService: NSObject {
   // Headers to use on HTTP requests to Thunder
   var headers: [String: String]
 
-  // Endpoint to connect to lightning
-  let endpoint = "http://localhost:8080/users"
+  // Endpoint to connect to Thunder
+  let endpoint = "http://thunder.sanctionco.com/users"
 
   /* Default init */
   override init() {
