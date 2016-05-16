@@ -4,17 +4,17 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'Pilot' do
-  pod 'Alamofire', '~> 3.2.1'
+  pod 'Alamofire', '~> 3.4.0'
   pod 'HTTPStatusCodes', '~> 2.0.2'
   pod 'SwiftyJSON', '~> 2.3.2'
-  pod 'CryptoSwift', '~> 0.2.3'
+  pod 'CryptoSwift', '~> 0.4.0'
 end
 
 target 'PilotTests' do
-  pod 'Nimble', '~> 3.2.0'
+  pod 'Nimble', '~> 4.0.1'
 end
 
 target 'PilotUITests' do
-  pod 'Nimble', '~> 3.2.0'
+  pod 'Nimble', '~> 4.0.1'
 end
 
