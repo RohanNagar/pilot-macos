@@ -12,22 +12,17 @@ import SwiftyJSON
 import HTTPStatusCodes
 
 class PilotUserService: NSObject {
-  // Headers to use on HTTP requests to Thunder
-  var headers: [String: String]
+
+  // Auth keys
+  let user: String = "lightning"
+  let secret: String = "secret"
 
   // Endpoint to connect to Thunder
   let endpoint = "http://thunder.sanctionco.com/users"
 
   /* Default init */
   override init() {
-    // TODO: pull these in from config file
-    let user = "lightning"
-    let password = "secret"
 
-    let credentialData = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
-    let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-
-    headers = ["Authorization": "Basic \(base64Credentials)"]
   }
 
   /// Retreives a `PilotUser` from Thunder for the given username.
@@ -39,12 +34,25 @@ class PilotUserService: NSObject {
   ///    - completion: The method to call upon success.
   ///    - failure: The method to call upon failure. The `HTTPStatusCode` that resulted from the network request will be passed into this method.
   ///
-  func getPilotUser(username: String,
+  func getPilotUser(username: String, password: String,
                     completion: PilotUser -> Void,
                     failure: HTTPStatusCode -> Void) {
-      Alamofire.request(.GET, endpoint, headers: headers, parameters: ["username": username])
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
+
+    // encode the authorization header
+    let base64Credentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
+
+    // build the authorization headers for the request
+    let headers: [String: String] = ["Authorization": "Basic \(base64Credentials)",
+                                     "password": "\(password)"]
+
+    // build the parameters for the request
+    let parameters: [String: String] = ["username": username]
+
+    Alamofire.request(.GET, endpoint, headers: headers, parameters: parameters)
+          .validate(statusCode: 200..<300)
+          .responseJSON { response in
+
+          print(response.timeline)
 
           // Error handling
           if response.result.isFailure {
@@ -75,7 +83,7 @@ class PilotUserService: NSObject {
             twitterAccessSecret: json["twitterAccessSecret"].stringValue)
 
           completion(user)
-        }
+    }
   }
 
 }

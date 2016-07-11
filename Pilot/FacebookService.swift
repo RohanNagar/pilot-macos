@@ -10,23 +10,25 @@ import Cocoa
 import Alamofire
 import SwiftyJSON
 
-class FacebookService: NSObject {
-  // Headers to use on HTTP requests to Lightning
-  var headers: [String: String]
+class FacebookService: NSObject, FileService {
+
+  // Auth keys
+  let user: String = "lightning"
+  let secret: String = "secret"
 
   // Endpoints to use
   let photosEndpoint = "http://lightning.sanctionco.com/facebook/photos"
   let videosEndpoint = "http://lightning.sanctionco.com/facebook/videos"
 
+  internal var preferences: Preferences
+
   /* Default init */
-  override init() {
-    let user = "lightning"
-    let password = "secret"
+  required init(preferences: Preferences) {
+    self.preferences = preferences
+  }
 
-    let credentialData = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
-    let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-
-    headers = ["Authorization": "Basic \(base64Credentials)"]
+  func getPreferences() -> Preferences {
+    return self.preferences
   }
 
   /// Sends a request to Lightning for all Facebook photo URLs the user has.
@@ -35,38 +37,47 @@ class FacebookService: NSObject {
   ///
   /// - parameters:
   ///    - username: The name of the user to retrieve photo URLs for.
+  ///    - password: The passowrd of the user to retieve photo URLs for.
   ///    - completion: The method to call upon completion. Will pass in the array of URLs to the method.
   ///    - failure: The method to call upon failure.
   ///
-  func getFacebookPhotoUrls(username: String,
-                            completion: [String] -> Void,
+  func getFacebookPhotos(username: String, password: String,
+                            completion: [FacebookPhoto] -> Void,
                             failure: Void -> Void) {
-    Alamofire.request(.GET, photosEndpoint, headers: headers, parameters: ["username": username])
+
+    // encode the authorization header
+    let base64Credentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
+
+    // build the authorization headers for the request
+    let headers = ["Authorization": "Basic \(base64Credentials)",
+                                     "password": "\(password)"]
+
+    // build the parameters for the request
+    let parameters = ["username": username]
+
+    Alamofire.request(.GET, photosEndpoint, headers: headers, parameters: parameters)
       .responseJSON { response in
+        switch response.result {
+          case .Success:
+            // Build out array of photos from the JSON response
+            var facebookPhotos = [FacebookPhoto]()
+            let json = JSON(data: response.data!)
 
-        // Call failure handler and get out if request failed.
-        if response.result.isFailure {
-          failure()
-          return
+            let photos = json.arrayValue
+            for photo in photos {
+              let facebookPhoto = FacebookPhoto(
+                id: photo["id"].stringValue,
+                url: photo["url"].stringValue,
+                width: photo["width"].stringValue,
+                height: photo["height"].stringValue)
+              facebookPhotos.append(facebookPhoto)
+            }
+
+            completion(facebookPhotos)
+
+          case .Failure:
+            failure()
         }
-
-        if response.data == nil {
-          failure()
-          return
-        }
-
-        // Build out array of URLs from the JSON response
-        var urls = [String]()
-        let json = JSON(data: response.data!)
-
-        let photos = json.arrayValue
-        for photo in photos {
-          if let url = photo["url"].string {
-            urls.append(url)
-          }
-        }
-
-        completion(urls)
       }
   }
 
@@ -76,38 +87,44 @@ class FacebookService: NSObject {
   ///
   /// - parameters:
   ///    - username: The name of the user to retrieve video URLs for.
+  ///    - password: The password of the user to retrieve video URLs for.
   ///    - completion: The method to call upon completion. Will pass in the array of URLs to the method.
   ///    - failure: The method to call upon failure.
   ///
-  func getFacebookVideoUrls(username: String,
+  func getFacebookVideoUrls(username: String, password: String,
                             completion: [String] -> Void,
                             failure: Void -> Void) {
-    Alamofire.request(.GET, videosEndpoint, headers: headers, parameters: ["username": username])
+
+    // encode the authorization header
+    let base64Credentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
+
+    // build the authorization headers for the request
+    let headers = ["Authorization": "Basic \(base64Credentials)",
+                   "password": "\(password)"]
+
+    // build the parameters for the request
+    let parameters = ["username": username]
+
+    Alamofire.request(.GET, videosEndpoint, headers: headers, parameters: parameters)
       .responseJSON { response in
+        switch response.result {
+        case .Success:
+          // If successful, build out array of URLs from the JSON response
+          var urls = [String]()
+          let json = JSON(data: response.data!)
 
-        // Get out if request failed.
-        if response.result.isFailure {
-          failure()
-          return
-        }
-
-        if response.data == nil {
-          failure()
-          return
-        }
-
-        // If successful, build out array of URLs from the JSON response
-        var urls = [String]()
-        let json = JSON(data: response.data!)
-
-        let videos = json.arrayValue
-        for video in videos {
-          if let url = video["url"].string {
-            urls.append(url)
+          let videos = json.arrayValue
+          for video in videos {
+            if let url = video["url"].string {
+              urls.append(url)
+            }
           }
-        }
 
-        completion(urls)
+          completion(urls)
+
+        case .Failure:
+          failure()
+        }
     }
   }
 

@@ -1,22 +1,28 @@
 PODS:
-  - Alamofire (3.4.0)
+  - Alamofire (3.4.1)
   - CryptoSwift (0.4.1)
-  - HTTPStatusCodes (2.0.2)
+  - FileKit (2.0.0)
+  - HTTPStatusCodes (2.0.3)
   - Nimble (4.0.1)
   - SwiftyJSON (2.3.2)
+  - Swinject (1.1.2)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4.0)
   - CryptoSwift (~> 0.4.0)
+  - FileKit (~> 2.0.0)
   - HTTPStatusCodes (~> 2.0.2)
   - Nimble (~> 4.0.1)
   - SwiftyJSON (~> 2.3.2)
+  - Swinject (~> 1.1.0)
 
 SPEC CHECKSUMS:
-  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   CryptoSwift: 25b5aff3f260967391f8fff2e9abe4254d2c6fd5
-  HTTPStatusCodes: 60713f0bc67cd1a03ebe2740c8a765788c720ef5
+  FileKit: fd360f82f62a1f70dd2ccdbe0950d3a6d1e25d1d
+  HTTPStatusCodes: d5d6d9a0aed88769af4fa59f3bddd39b33131494
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Swinject: 3debc5ac926dcd1be00947265a9db7a5f31b272a
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

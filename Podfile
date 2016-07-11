@@ -8,6 +8,8 @@ target 'Pilot' do
   pod 'HTTPStatusCodes', '~> 2.0.2'
   pod 'SwiftyJSON', '~> 2.3.2'
   pod 'CryptoSwift', '~> 0.4.0'
+  pod 'Swinject', '~> 1.1.0'
+  pod 'FileKit', '~> 2.0.0'
 end
 
 target 'PilotTests' do
@@ -17,4 +19,3 @@ end
 target 'PilotUITests' do
   pod 'Nimble', '~> 4.0.1'
 end
-
