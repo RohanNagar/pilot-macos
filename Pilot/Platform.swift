@@ -35,3 +35,9 @@ class Platform: NSObject {
     return "Platform{name=\(name), icon=\(icon)}"
   }
 }
+
+enum PlatformPath: String {
+  case Twitter = "twitter"
+  case Facebook = "facebook"
+  case Dropbox = "dropbox"
+}
