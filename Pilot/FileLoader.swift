@@ -13,7 +13,7 @@ class FileLoader: NSObject {
 
   static func getFilesFromPath(requestPath: String) -> [PilotFile] {
 
-    var contents: [PilotFile]!
+    var contents: [PilotFile] = []
 
     let directoryPath = Path(requestPath)
 
