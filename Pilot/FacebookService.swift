@@ -13,25 +13,24 @@ import SwiftyJSON
 class FacebookService: NSObject, FileService {
 
   // Auth keys
-  let user: String = "lightning"
-  let secret: String = "secret"
+  let user = "lightning"
+  let secret = "secret"
 
   // Endpoints to use
   let photosEndpoint = "http://lightning.sanctionco.com/facebook/photos"
   let videosEndpoint = "http://lightning.sanctionco.com/facebook/videos"
 
   internal var preferences: Preferences
+  internal var basicCredentials: String
 
   /* Default init */
   required init(preferences: Preferences) {
     self.preferences = preferences
+
+    basicCredentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
   }
 
-  func getPreferences() -> Preferences {
-    return self.preferences
-  }
-
-  /// Sends a request to Lightning for all Facebook photo URLs the user has.
+  /// Sends a request to Lightning for all Facebook photos the user has.
   ///
   /// - note: The network request is made asynchronously.
   ///
@@ -42,17 +41,14 @@ class FacebookService: NSObject, FileService {
   ///    - failure: The method to call upon failure.
   ///
   func getFacebookPhotos(username: String, password: String,
-                            completion: [FacebookPhoto] -> Void,
-                            failure: Void -> Void) {
+                         completion: [FacebookPhoto] -> Void,
+                         failure: Void -> Void) {
 
-    // encode the authorization header
-    let base64Credentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
+    // Build the authorization headers for the request
+    let headers = ["Authorization": "Basic \(basicCredentials)",
+                   "password": "\(password)"]
 
-    // build the authorization headers for the request
-    let headers = ["Authorization": "Basic \(base64Credentials)",
-                                     "password": "\(password)"]
-
-    // build the parameters for the request
+    // Build the parameters for the request
     let parameters = ["username": username]
 
     Alamofire.request(.GET, photosEndpoint, headers: headers, parameters: parameters)
@@ -70,6 +66,7 @@ class FacebookService: NSObject, FileService {
                 url: photo["url"].stringValue,
                 width: photo["width"].stringValue,
                 height: photo["height"].stringValue)
+
               facebookPhotos.append(facebookPhoto)
             }
 
@@ -78,7 +75,8 @@ class FacebookService: NSObject, FileService {
           case .Failure:
             failure()
         }
-      }
+    }
+
   }
 
   /// Sends a request to Lightning for all Facebook video URLs the user has.
@@ -95,11 +93,8 @@ class FacebookService: NSObject, FileService {
                             completion: [String] -> Void,
                             failure: Void -> Void) {
 
-    // encode the authorization header
-    let base64Credentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
-
     // build the authorization headers for the request
-    let headers = ["Authorization": "Basic \(base64Credentials)",
+    let headers = ["Authorization": "Basic \(basicCredentials)",
                    "password": "\(password)"]
 
     // build the parameters for the request

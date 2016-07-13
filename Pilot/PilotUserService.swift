@@ -14,15 +14,17 @@ import HTTPStatusCodes
 class PilotUserService: NSObject {
 
   // Auth keys
-  let user: String = "lightning"
-  let secret: String = "secret"
+  let user = "lightning"
+  let secret = "secret"
 
   // Endpoint to connect to Thunder
   let endpoint = "http://thunder.sanctionco.com/users"
 
+  private var basicCredentials: String
+
   /* Default init */
   override init() {
-
+    basicCredentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
   }
 
   /// Retreives a `PilotUser` from Thunder for the given username.
@@ -38,51 +40,48 @@ class PilotUserService: NSObject {
                     completion: PilotUser -> Void,
                     failure: HTTPStatusCode -> Void) {
 
-    // encode the authorization header
-    let base64Credentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
-
-    // build the authorization headers for the request
-    let headers: [String: String] = ["Authorization": "Basic \(base64Credentials)",
+    // Build the authorization headers for the request
+    let headers: [String: String] = ["Authorization": "Basic \(basicCredentials)",
                                      "password": "\(password)"]
 
-    // build the parameters for the request
+    // Build the parameters for the request
     let parameters: [String: String] = ["username": username]
 
     Alamofire.request(.GET, endpoint, headers: headers, parameters: parameters)
-          .validate(statusCode: 200..<300)
-          .responseJSON { response in
+      .validate(statusCode: 200..<300)
+      .responseJSON { response in
 
-          print(response.timeline)
+        print(response.timeline)
 
-          // Error handling
-          if response.result.isFailure {
-            if let status = response.response {
-              failure(HTTPStatusCode(HTTPResponse: status)!)
-            } else {
-              // If the response is nil, that means the server is down.
-              failure(HTTPStatusCode.InternalServerError)
-            }
-
-            return
-          }
-
-          // TODO: not sure if data can be nil if we make it to this point, this check may be unnecessary.
-          if response.data == nil {
+        // Error handling
+        if response.result.isFailure {
+          if let status = response.response {
+            failure(HTTPStatusCode(HTTPResponse: status)!)
+          } else {
+            // If the response is nil, that means the server is down.
             failure(HTTPStatusCode.InternalServerError)
-            return
           }
 
-          // Grab PilotUser from JSON response
-          let json = JSON(data: response.data!)
+          return
+        }
 
-          let user = PilotUser(
-            username: json["username"].stringValue,
-            password: json["password"].stringValue,
-            facebookAccessToken: json["facebookAccessToken"].stringValue,
-            twitterAccessToken: json["twitterAccessToken"].stringValue,
-            twitterAccessSecret: json["twitterAccessSecret"].stringValue)
+        // TODO: not sure if data can be nil if we make it to this point, this check may be unnecessary.
+        if response.data == nil {
+          failure(HTTPStatusCode.InternalServerError)
+          return
+        }
 
-          completion(user)
+        // Grab PilotUser from JSON response
+        let json = JSON(data: response.data!)
+
+        let user = PilotUser(
+          username: json["username"].stringValue,
+          password: json["password"].stringValue,
+          facebookAccessToken: json["facebookAccessToken"].stringValue,
+          twitterAccessToken: json["twitterAccessToken"].stringValue,
+          twitterAccessSecret: json["twitterAccessSecret"].stringValue)
+
+        completion(user)
     }
   }
 
