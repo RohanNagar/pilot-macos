@@ -22,6 +22,7 @@
 		14EA51AE1BB783640099C25E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51AC1BB783640099C25E /* MainViewController.swift */; };
 		14EA51AF1BB783640099C25E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51AD1BB783640099C25E /* MainViewController.xib */; };
 		14EA51B21BB797720099C25E /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51B11BB797720099C25E /* Platform.swift */; };
+		14EFF6C61D39EF6B004A357E /* PilotColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EFF6C51D39EF6B004A357E /* PilotColors.swift */; };
 		25AA732E1612C05649850CB2 /* Pods_PilotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D9101B1BE5A3FA9D01E1B0 /* Pods_PilotTests.framework */; };
 		7A968EDB11FA62989E696764 /* Pods_PilotUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340DEA7FEF8345B7861ADDA4 /* Pods_PilotUITests.framework */; };
 		9486F87A1D207046006CD1EB /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9486F8791D207046006CD1EB /* FileService.swift */; };
@@ -74,6 +75,7 @@
 		14EA51AC1BB783640099C25E /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		14EA51AD1BB783640099C25E /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		14EA51B11BB797720099C25E /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
+		14EFF6C51D39EF6B004A357E /* PilotColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotColors.swift; sourceTree = "<group>"; };
 		340DEA7FEF8345B7861ADDA4 /* Pods_PilotUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PilotUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		583165B17583982ABE3F453D /* Pods-PilotTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PilotTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PilotTests/Pods-PilotTests.debug.xcconfig"; sourceTree = "<group>"; };
 		86005A1B77620754A9A29125 /* Pods-Pilot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pilot.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pilot/Pods-Pilot.release.xcconfig"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		14EA51811BB777E20099C25E /* Pilot */ = {
 			isa = PBXGroup;
 			children = (
+				14EFF6C41D39EF55004A357E /* util */,
 				145EACD41BC0A49C00EE8790 /* services */,
 				14EA51B01BB797010099C25E /* models */,
 				14EA51AB1BB778260099C25E /* interface */,
@@ -206,6 +209,14 @@
 				9486F87D1D207D8C006CD1EB /* FacebookVideo.swift */,
 			);
 			name = models;
+			sourceTree = "<group>";
+		};
+		14EFF6C41D39EF55004A357E /* util */ = {
+			isa = PBXGroup;
+			children = (
+				14EFF6C51D39EF6B004A357E /* PilotColors.swift */,
+			);
+			name = util;
 			sourceTree = "<group>";
 		};
 		5DB0798408C11291695E1312 /* Frameworks */ = {
@@ -518,6 +529,7 @@
 				1418CD151BD4857900CD0540 /* PilotUserService.swift in Sources */,
 				1418CD191BD48AFA00CD0540 /* PasswordService.swift in Sources */,
 				1418CD121BD4825C00CD0540 /* LoginViewController.swift in Sources */,
+				14EFF6C61D39EF6B004A357E /* PilotColors.swift in Sources */,
 				145EACD61BC0A4F800EE8790 /* FacebookService.swift in Sources */,
 				94BBED951D234613001880D7 /* FileLoader.swift in Sources */,
 				14E1BD851C5321D20021FF9F /* PilotFile.swift in Sources */,
