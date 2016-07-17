@@ -28,7 +28,11 @@ class FileLoader: NSObject {
 
     for path in directoryPath {
       let file = File<NSDictionary>(path: path)
-      contents.append(PilotFile(name: file.name, directory: path.rawValue, writeTime: NSDate().description))
+
+      // Make a new PilotFile based on the file locaiton
+      let pilotFile = PilotFile(name: file.name, size: (file.size?.hashValue)!, thumbnail: NSImage(named: "DocumentIcon"), directory: file.path.description, writeTime: NSData().description, id: "4")
+
+      contents.append(pilotFile)
     }
 
     return contents

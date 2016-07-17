@@ -88,7 +88,7 @@ class LoginViewController: NSViewController {
         // Set up the main view controller
         self.mainViewController = MainViewController(nibName: "MainViewController", bundle: nil)
 
-        // Set the preferences or user that logged in
+        // Set the preferences for the user that logged in
         self.mainViewController.setUserPreferences(preferences!)
 
         // Determine the users platforms and add them to mainViewController

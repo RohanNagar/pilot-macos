@@ -10,6 +10,7 @@ target 'Pilot' do
   pod 'CryptoSwift', '~> 0.4.0'
   pod 'Swinject', '~> 1.1.0'
   pod 'FileKit', '~> 2.0.0'
+  pod 'RealmSwift'
 end
 
 target 'PilotTests' do
