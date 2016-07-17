@@ -23,14 +23,14 @@ class MainViewController: NSViewController {
   // This is the array of files to display to the user, this array will be indexed the same as it
   // will show to the user so you can re-order the array and reload the colleciton view to meet the
   // requirnments for the sort drop down
-  var pilotFiles = [PilotFile]()
+  var content: [AnyObject] = []
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     loadFacebookPhotos()
 
-    iconImageView.image = NSImage(named: "AppIcon")
+    iconImageView.image = NSImage(named: "LoginIcon")
 
     guard let nib = NSNib(nibNamed: "FileCollectionViewItem", bundle: nil) else {
       print("could not load collection view item") // Throw appropriate error later
@@ -75,7 +75,7 @@ class MainViewController: NSViewController {
   }
 
   func loadFacebookPhotos() {
-    pilotFiles = FileLoader.getFilesFromPath("/Users/nickeckert/pilot/Testy/facebook")
+    content = FileLoader.getFilesFromPath("/Users/nickeckert/pilot/Testy/facebook")
   }
 
 }
@@ -120,13 +120,12 @@ extension MainViewController: NSCollectionViewDelegateFlowLayout {}
 extension MainViewController: NSCollectionViewDataSource {
 
   func collectionView(collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-    let path: String = "\(preferences!.getRootPath())\(PlatformPath.Facebook.rawValue)"
-    return FileLoader.countFilesInPath(path)
+    return content.count
   }
 
   func collectionView(collectionView: NSCollectionView, itemForRepresentedObjectAtIndexPath indexPath: NSIndexPath) -> NSCollectionViewItem {
     let item = collectionView.makeItemWithIdentifier("fileItem", forIndexPath: indexPath)
-    item.representedObject = pilotFiles[indexPath.item]
+    item.representedObject = content[indexPath.item]
     return item
   }
 

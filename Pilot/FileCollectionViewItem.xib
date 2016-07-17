@@ -9,46 +9,37 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView identifier="fileItem" id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="90" height="120"/>
+            <rect key="frame" x="0.0" y="0.0" width="70" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4SM-TH-Hhv">
-                    <rect key="frame" x="0.0" y="26" width="90" height="94"/>
+                    <rect key="frame" x="0.0" y="20" width="70" height="70"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="UrL-5n-knO"/>
+                    <connections>
+                        <binding destination="U6k-U2-k1B" name="value" keyPath="representedObject.thumbnail" id="qYs-dq-9xa"/>
+                    </connections>
                 </imageView>
-                <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="web-Ts-Zdd">
-                    <rect key="frame" x="0.0" y="0.0" width="90" height="26"/>
-                    <clipView key="contentView" ambiguous="YES" id="7FV-2n-JT1">
-                        <rect key="frame" x="1" y="1" width="88" height="24"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView ambiguous="YES" editable="NO" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="BnH-s5-ZeC">
-                                <rect key="frame" x="0.0" y="0.0" width="88" height="24"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="88" height="24"/>
-                                <size key="maxSize" width="463" height="10000000"/>
-                                <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="88" height="24"/>
-                                <size key="maxSize" width="463" height="10000000"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="vi9-QR-aGR">
-                        <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6pd-72-Gzu">
-                        <rect key="frame" x="73" y="1" width="16" height="24"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                </scrollView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ozQ-Oa-lsq">
+                    <rect key="frame" x="-2" y="0.0" width="74" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="bmf-Zi-Unf">
+                        <font key="font" metaFont="system" size="11"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" red="0.47574064877157585" green="0.68093009522455805" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <outlet property="representedObject" destination="U6k-U2-k1B" id="EYr-Vt-Yiy"/>
+                        </connections>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="U6k-U2-k1B" name="value" keyPath="representedObject.name" id="9sY-ru-zZh"/>
+                    </connections>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="110" y="192"/>
         </customView>
         <collectionViewItem id="U6k-U2-k1B">
             <connections>
+                <outlet property="imageView" destination="4SM-TH-Hhv" id="uMT-sX-RPA"/>
+                <outlet property="textField" destination="ozQ-Oa-lsq" id="0Jq-GR-zOk"/>
                 <outlet property="view" destination="c22-O7-iKe" id="zny-fT-ZFx"/>
             </connections>
         </collectionViewItem>

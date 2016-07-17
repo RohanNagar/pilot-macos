@@ -4,6 +4,11 @@ PODS:
   - FileKit (2.0.0)
   - HTTPStatusCodes (2.0.3)
   - Nimble (4.0.1)
+  - Realm (1.0.2):
+    - Realm/Headers (= 1.0.2)
+  - Realm/Headers (1.0.2)
+  - RealmSwift (1.0.2):
+    - Realm (= 1.0.2)
   - SwiftyJSON (2.3.2)
   - Swinject (1.1.2)
 
@@ -13,6 +18,7 @@ DEPENDENCIES:
   - FileKit (~> 2.0.0)
   - HTTPStatusCodes (~> 2.0.2)
   - Nimble (~> 4.0.1)
+  - RealmSwift
   - SwiftyJSON (~> 2.3.2)
   - Swinject (~> 1.1.0)
 
@@ -22,6 +28,8 @@ SPEC CHECKSUMS:
   FileKit: fd360f82f62a1f70dd2ccdbe0950d3a6d1e25d1d
   HTTPStatusCodes: d5d6d9a0aed88769af4fa59f3bddd39b33131494
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
+  Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
+  RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   Swinject: 3debc5ac926dcd1be00947265a9db7a5f31b272a
 

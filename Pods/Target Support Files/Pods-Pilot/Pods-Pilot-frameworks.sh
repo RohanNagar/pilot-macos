@@ -88,6 +88,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Pilot/CryptoSwift.framework"
   install_framework "Pods-Pilot/FileKit.framework"
   install_framework "Pods-Pilot/HTTPStatusCodes.framework"
+  install_framework "Pods-Pilot/Realm.framework"
+  install_framework "Pods-Pilot/RealmSwift.framework"
   install_framework "Pods-Pilot/SwiftyJSON.framework"
   install_framework "Pods-Pilot/Swinject.framework"
 fi
@@ -96,6 +98,8 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Pilot/CryptoSwift.framework"
   install_framework "Pods-Pilot/FileKit.framework"
   install_framework "Pods-Pilot/HTTPStatusCodes.framework"
+  install_framework "Pods-Pilot/Realm.framework"
+  install_framework "Pods-Pilot/RealmSwift.framework"
   install_framework "Pods-Pilot/SwiftyJSON.framework"
   install_framework "Pods-Pilot/Swinject.framework"
 fi
