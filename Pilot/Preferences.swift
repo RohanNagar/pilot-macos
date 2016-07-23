@@ -14,14 +14,10 @@ class Preferences: NSObject {
   // The base url to use for file storage
   private var rootPath: String!
 
-  // The username of the user the preferences are for
-  private var username: String!
-
   let defaults = NSUserDefaults.standardUserDefaults()
 
   init(rootPath: String, username: String) {
     self.rootPath = rootPath
-    self.username = username
   }
 
   func setRootPath(rootPath: String) {
@@ -32,16 +28,8 @@ class Preferences: NSObject {
     return rootPath
   }
 
-  func setUsername(username: String) {
-    self.username = username
-  }
-
-  func getUsername() -> String {
-    return self.username
-  }
-
   func toJSON() -> JSON {
-    return JSON(["username": self.getUsername(), "rootPath": self.getRootPath()])
+    return JSON(["rootPath": self.getRootPath()])
   }
 
   static func fromJSON(json: JSON) -> Preferences {
@@ -50,9 +38,9 @@ class Preferences: NSObject {
     return Preferences(rootPath: path, username: username)
   }
 
-  static func updatePreferences(preferences: Preferences) {
+  static func updatePreferences(preferences: Preferences, username: String) {
     let rawPreferencesJSON = preferences.toJSON().rawString()!
-    NSUserDefaults.standardUserDefaults().setObject(rawPreferencesJSON, forKey: preferences.getUsername())
+    NSUserDefaults.standardUserDefaults().setObject(rawPreferencesJSON, forKey: username)
   }
 
 }

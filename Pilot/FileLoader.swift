@@ -11,9 +11,10 @@ import FileKit
 
 class FileLoader: NSObject {
 
-  static func getFilesFromPath(requestPath: String) -> [PilotFile] {
+  // Optimize this method for potionally many calls
+  static func getFilesFromPath(requestPath: String) -> [LocalFile] {
 
-    var contents: [PilotFile] = []
+    var contents: [LocalFile] = []
 
     let directoryPath = Path(requestPath)
 
@@ -29,19 +30,24 @@ class FileLoader: NSObject {
     for path in directoryPath {
       let file = File<NSDictionary>(path: path)
 
-      // Make a new PilotFile based on the file locaiton
-      let pilotFile = PilotFile(name: file.name, size: (file.size?.hashValue)!, thumbnail: NSImage(named: "DocumentIcon"), directory: file.path.description, writeTime: NSData().description, id: "4")
+      // Cast to NSString to delete path extension
+      let fileName = file.name as NSString
 
-      contents.append(pilotFile)
+      // Make a new LocalFile based on the file locaiton
+      // TODO: Eventually find a way to fill in size, fileType, height, and width
+      let localFile = LocalFile(name: fileName.stringByDeletingPathExtension, writeTime: NSData().description, size: nil, fileType: nil, thumbnail: NSImage(named: "DocumentIcon"), directory: file.path.description, width: nil, height: nil)
+
+      contents.append(localFile)
     }
 
     return contents
   }
 
+  // No longer needed for now
   static func countFilesInPath(requestPath: String) -> Int {
     let directoryPath = Path(requestPath)
 
-    // Make the directory if it's not already there
+    // Make the directory if it does not already exist
     if !directoryPath.exists {
       do {
         try directoryPath.createDirectory()

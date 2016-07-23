@@ -11,6 +11,7 @@ target 'Pilot' do
   pod 'Swinject', '~> 1.1.0'
   pod 'FileKit', '~> 2.0.0'
   pod 'RealmSwift'
+  pod 'Locksmith'
 end
 
 target 'PilotTests' do

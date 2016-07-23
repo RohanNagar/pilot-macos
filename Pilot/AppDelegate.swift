@@ -12,16 +12,15 @@ import FileKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-  @IBOutlet weak var window: NSWindow!
+  @IBOutlet weak var loginWindow: NSWindow!
+
   var loginViewController: LoginViewController!
 
   func applicationDidFinishLaunching(aNotification: NSNotification) {
     loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
 
     // Add the loginView Controller to the contentView
-    if let contentView = window.contentView {
-      contentView.addSubview(loginViewController.view)
-    }
+    loginWindow.contentViewController = loginViewController
   }
 
   func applicationWillTerminate(aNotification: NSNotification) {

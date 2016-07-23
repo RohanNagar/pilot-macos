@@ -12,25 +12,39 @@ class MainViewController: NSViewController {
 
   @IBOutlet weak var fileCollectionView: NSCollectionView!
 
+  @IBOutlet weak var tableView: NSTableView!
+
   @IBOutlet weak var iconImageView: NSImageView!
 
+  // The user currently logged in
+  var user: PilotUser?
+
+  // Users preferences loaded from the loginViewController
   var preferences: Preferences?
 
-  // let fileService = FileService()
+  // FacebookService class optionally loaded from the loginViewController
+  var facebookService: FacebookService?
 
+  // Array of platforms present in the platform table
   var platforms = [Platform]()
+
+  // Service classes used to sync platforms with cloud variant
+  var platformService: PlatformService?
 
   // This is the array of files to display to the user, this array will be indexed the same as it
   // will show to the user so you can re-order the array and reload the colleciton view to meet the
   // requirnments for the sort drop down
-  var content: [AnyObject] = []
+  // NOTE: The zeroth element is the bound content for the collectionView.
+  var content: [LocalFile] = []
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    loadFacebookPhotos()
-
+    // Set the pilot logo for the view
     iconImageView.image = NSImage(named: "LoginIcon")
+
+    // Set up the platform service
+    self.platformService = PlatformService(user: user!)
 
     guard let nib = NSNib(nibNamed: "FileCollectionViewItem", bundle: nil) else {
       print("could not load collection view item") // Throw appropriate error later
@@ -45,9 +59,18 @@ class MainViewController: NSViewController {
 
   }
 
-  // Sync the files for the current platform with it's online platform
+  // Sync the files for the current platform with its online platform
   @IBAction func sync(sender: AnyObject) {
-
+    let selection = platforms[tableView.selectedRow].type
+      switch selection {
+      case .Facebook:
+        platformService!.syncFacebook(facebookService!)
+      case .Twitter:
+        print("Twitter")
+      default:
+        // Let the defualt slection be the all platform
+        print("default selection")
+      }
   }
 
   // Upload files to the current platform
@@ -70,18 +93,37 @@ class MainViewController: NSViewController {
     self.platforms.append(platform)
   }
 
-  func setUserPreferences(preferences: Preferences) {
+  func loadUserPreferences(preferences: Preferences) {
     self.preferences = preferences
   }
 
-  func loadFacebookPhotos() {
-    content = FileLoader.getFilesFromPath("/Users/nickeckert/pilot/Testy/facebook")
+  func loadFacebookService(facebookService: FacebookService) {
+    self.facebookService = facebookService
+  }
+
+  func loadUser(user: PilotUser) {
+    self.user = user
   }
 
 }
 
 /// MARK: - NSTableViewDelegate
-extension MainViewController: NSTableViewDelegate {}
+extension MainViewController: NSTableViewDelegate {
+
+  func tableViewSelectionDidChange(notification: NSNotification) {
+    let selection = platforms[tableView.selectedRow].type
+    switch selection {
+    case .Facebook:
+      content = facebookService!.content
+      fileCollectionView.reloadData()
+    case .Twitter:
+      print("Twitter")
+    default:
+      print("Default")
+    }
+  }
+
+}
 
 /// MARK: - NSTableViewDataSource
 extension MainViewController: NSTableViewDataSource {

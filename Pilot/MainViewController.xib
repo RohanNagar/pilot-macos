@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="fileCollectionView" destination="BY9-e8-U0d" id="Ket-N4-nhH"/>
                 <outlet property="iconImageView" destination="6tJ-pL-6AH" id="ITz-PF-B3g"/>
+                <outlet property="tableView" destination="PkN-KV-Dmo" id="pjS-es-fAT"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="Sjd-EE-2bv"/>
             </connections>
         </customObject>
@@ -27,7 +28,7 @@
                 </imageView>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="38" horizontalPageScroll="10" verticalLineScroll="38" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSw-rg-gzY">
                     <rect key="frame" x="20" y="34" width="148" height="341"/>
-                    <clipView key="contentView" copiesOnScroll="NO" id="BCv-Yh-Ypx">
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="BCv-Yh-Ypx">
                         <rect key="frame" x="0.0" y="0.0" width="148" height="341"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -110,6 +111,7 @@
                                 <color key="primaryBackgroundColor" red="0.76078431372549016" green="0.76078431372549016" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="secondaryBackgroundColor" red="0.065324361910994777" green="0.064978730366492168" blue="0.0656699934554974" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
+                                    <binding destination="-2" name="content" keyPath="self.content" id="uVF-x3-9Sh"/>
                                     <outlet property="dataSource" destination="-2" id="VYa-sc-OiG"/>
                                     <outlet property="delegate" destination="-2" id="loX-g1-rZH"/>
                                 </connections>

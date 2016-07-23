@@ -6,30 +6,31 @@
 //  Copyright © 2016 Sanction. All rights reserved.
 //
 
+// This class should work with both photos, videos, as well as cloud files
+
 import Cocoa
 
-class PilotFile: NSObject {
-  var name: String
-  var size: Int
-  var thumbnail: NSImage?
-  var directory: String
-  var writeTime: String
-  var id: String
+protocol PilotFile: class {
+  var name: String { get }
+  var writeTime: String { get }
+  var size: Int? { get set }
+  var fileType: FileType? { get set }
+  var thumbnail: NSImage? { get set }
+  var directory: String? { get set }
 
-  convenience init(name: String, directory: String, writeTime: String) {
-    self.init(name: name, size: 0, thumbnail: Optional.None, directory: directory, writeTime: writeTime, id: "")
-  }
+  func setSize(size: Int)
 
-  init(name: String, size: Int, thumbnail: NSImage?, directory: String, writeTime: String, id: String) {
-    self.name = name
-    self.size = size
-    self.thumbnail = thumbnail
-    self.directory = directory
-    self.writeTime = writeTime
-    self.id = id
-  }
+  func setFileType(fileType: FileType)
 
-  override func isEqual(object: AnyObject?) -> Bool {
+  func setThumbNail(thumbnail: NSImage)
+
+  func setTargetDirectory(directory: String)
+
+}
+
+extension PilotFile {
+
+  func isEqual(object: AnyObject) -> Bool {
     if let obj = object as? PilotFile {
       return self.name == obj.name
     }
@@ -37,8 +38,14 @@ class PilotFile: NSObject {
     return false
   }
 
-  override var description: String {
-    return "File{name=\(name), size=\(size)}"
+  var description: String {
+    return "File{name=\(name), size=\(size), writeTime=\(writeTime), directory=\(directory)}"
   }
 
+}
+
+enum FileType {
+  case Photo
+  case Video
+  case Document
 }

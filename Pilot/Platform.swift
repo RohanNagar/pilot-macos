@@ -11,16 +11,13 @@ import Cocoa
 class Platform: NSObject {
   var name: String
   var icon: NSImage?
-
-  /* Default init */
-  override init() {
-    self.name = String()
-  }
+  var type: PlatformType
 
   /* Init with parameters */
-  init(title: String, icon: NSImage?) {
+  init(title: String, icon: NSImage?, type: PlatformType) {
     self.name = title
     self.icon = icon
+    self.type = type
   }
 
   override func isEqual(object: AnyObject?) -> Bool {
@@ -36,7 +33,7 @@ class Platform: NSObject {
   }
 }
 
-enum PlatformPath: String {
+enum PlatformType: String {
   case Twitter = "twitter"
   case Facebook = "facebook"
   case Dropbox = "dropbox"
