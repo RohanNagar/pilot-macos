@@ -13,6 +13,12 @@ import FileKit
 protocol FileService: NSObjectProtocol {
   init(preferences: Preferences)
 
+  // Local copy of CloudFile's for faster access when interfacting with collectionView
+  var content: [LocalFile] { get set }
+
+  // FolderMonitor class for updating collectionView given a folder change occures
+  var folderMonitor: FolderMonitor! { get set }
+
   var preferences: Preferences { get }
 
   var user: String { get }
@@ -21,28 +27,33 @@ protocol FileService: NSObjectProtocol {
 
 extension FileService {
 
-  func download(url: String, targetLocation: String, fileName: String) {
+  func download(url: String, platformType: PlatformType, fileName: String) {
+
+    let path = "\(self.preferences.getRootPath())\(platformType.rawValue)"
 
     // Check that the download location exists and if not, make one
-    checkForDirectory(targetLocation)
+    checkForDirectory(path)
 
     let destination: (NSURL, NSHTTPURLResponse) -> NSURL = {
       (temporaryURL, response) in
-      return NSURL(fileURLWithPath: "\(targetLocation), \(response.suggestedFilename!)")
+      let responseName: NSString = response.suggestedFilename!
+      let pathExtension = responseName.pathExtension
+
+      return NSURL(fileURLWithPath: path).URLByAppendingPathComponent("\(fileName).\(pathExtension)")
     }
 
     // Download that file!
     Alamofire.download(.GET, url, destination: destination)
       .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-        print(totalBytesRead)
+        print("\(totalBytesRead/totalBytesExpectedToRead*100)%")
 
         dispatch_async(dispatch_get_main_queue()) {
-          print("Total bytes read on main que: \(totalBytesRead)")
+          // print("Total bytes read on main que: \(totalBytesRead)")
         }
       }
       .response { _, _, _, error in
         if let _ = error {
-          print("Failed to download image")
+          print("Failed to download file")
         } else {
           print("Downloaded file successfully")
         }
@@ -81,6 +92,20 @@ extension FileService {
     }
 
     return true
+  }
+
+  func setContent(data: [LocalFile]) {
+    self.content = data
+  }
+
+  func reloadContent(platformType: PlatformType) {
+    let path = "\(preferences.getRootPath())\(platformType.rawValue)"
+    self.content = FileLoader.getFilesFromPath(path)
+    print()
+  }
+
+  func setFolderMonitor(folderMonitor: FolderMonitor) {
+    self.folderMonitor = folderMonitor
   }
 
 }

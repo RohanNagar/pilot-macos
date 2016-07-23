@@ -10,6 +10,7 @@ import Cocoa
 import HTTPStatusCodes
 import SwiftyJSON
 import FileKit
+import Locksmith
 
 class LoginViewController: NSViewController {
 
@@ -80,24 +81,58 @@ class LoginViewController: NSViewController {
     userService.getPilotUser(usernameTextField.stringValue, password: hashedPassword,
       completion: { user in
 
-        // Get the prefrences for the user
-        let preferences = self.fetchPreferences(user)
-
-        // User is correct so store the password in keychain
+        // User is correct so try to store the password in keychain
+        do {
+          try Locksmith.saveData(["password": user.password], forUserAccount: user.username)
+        } catch {
+          // Could not load account into keychain
+          print("Couldn't load the password to keychain")
+        }
 
         // Set up the main view controller
         self.mainViewController = MainViewController(nibName: "MainViewController", bundle: nil)
 
-        // Set the preferences for the user that logged in
-        self.mainViewController.setUserPreferences(preferences!)
+        // Set the current user in the mainViewController
+        self.mainViewController.loadUser(user)
+
+        // Load the prefrences for the user
+        let preferences = self.fetchPreferences(user)
+        self.mainViewController.loadUserPreferences(preferences)
 
         // Determine the users platforms and add them to mainViewController
         if user.facebookAccessToken != "" {
-          self.mainViewController.addPlatform(Platform(title: "Facebook", icon: NSImage(named: "FacebookIcon")))
+          self.mainViewController.addPlatform(Platform(title: "Facebook", icon: NSImage(named: "FacebookIcon"), type: PlatformType.Facebook))
+
+          // Set up and load the FacebookService class
+          let facebookService = FacebookService(preferences: preferences)
+
+          // Build the facebook directory path
+          let facebookURL = NSURL(fileURLWithPath: "\(preferences.getRootPath())\(PlatformType.Facebook.rawValue)//")
+
+          // Load the files from the facebook platform directory and set them in facebookService
+          let content = FileLoader.getFilesFromPath(facebookURL.path!)
+          facebookService.setContent(content)
+
+          // Create a FolderMonitoring class for the platform and set the directory path
+          let folderMonitor = FolderMonitor(url: facebookURL, handler: {
+            // Load files from directory into content array of service class
+            self.mainViewController.facebookService!.reloadContent(PlatformType.Facebook)
+            self.mainViewController.content = facebookService.content
+
+            self.mainViewController.fileCollectionView.reloadData()
+          })
+
+          // Set the folderMonitor in facebookService
+          facebookService.setFolderMonitor(folderMonitor)
+
+          // Load the facebookService class for current user
+          self.mainViewController.loadFacebookService(facebookService)
         }
 
         if user.twitterAccessToken != "" {
-          self.mainViewController.addPlatform(Platform(title: "Twitter", icon: NSImage(named: "TwitterIcon")))
+          self.mainViewController.addPlatform(Platform(title: "Twitter", icon: NSImage(named: "TwitterIcon"), type: PlatformType.Twitter))
+
+          // Eventually load twitterService here
         }
 
         // Present the MainViewController to the user
@@ -119,28 +154,23 @@ class LoginViewController: NSViewController {
       })
   }
 
-  func fetchPreferences(user: PilotUser) -> Preferences? {
-    // If there doesn't already exist preferences for this user
-    if self.defaults.objectForKey(user.username) == nil {
-      let preferences = self.registerDefaultPreferences(user)
-      return preferences
-    } else {
-      // Grab the raw JSON from userDefualts as a String
-      if let rawStringJSON = self.defaults.objectForKey(user.username) as? String {
+  func fetchPreferences(user: PilotUser) -> Preferences {
+    // Grab the raw JSON from userDefualts as a String
+    if let rawStringJSON = self.defaults.objectForKey(user.username) as? String {
 
-        // Creat a JSON object and convert it to an object of type Preferences
-        return Preferences.fromJSON(JSON.parse(rawStringJSON))
-      }
-
-      return Optional.None
+      // Creat a JSON object and convert it to an object of type Preferences
+      return Preferences.fromJSON(JSON.parse(rawStringJSON))
     }
+
+    // If that failes register default preferences
+    return self.registerDefaultPreferences(user)
   }
 
   func registerDefaultPreferences(user: PilotUser) -> Preferences {
     let updatePreferences = Preferences(rootPath: "\(Path.UserHome)/pilot/\(user.username)/", username: user.username)
 
     print("update preferences path: \(updatePreferences.getRootPath())")
-    Preferences.updatePreferences(updatePreferences)
+    Preferences.updatePreferences(updatePreferences, username: user.username)
 
     return updatePreferences
   }

@@ -12,6 +12,11 @@ import SwiftyJSON
 
 class FacebookService: NSObject, FileService {
 
+  // Content array
+  var content: [LocalFile] = []
+
+  var folderMonitor: FolderMonitor!
+
   // Auth keys
   let user = "lightning"
   let secret = "secret"
@@ -37,11 +42,11 @@ class FacebookService: NSObject, FileService {
   /// - parameters:
   ///    - username: The name of the user to retrieve photo URLs for.
   ///    - password: The passowrd of the user to retieve photo URLs for.
-  ///    - completion: The method to call upon completion. Will pass in the array of URLs to the method.
+  ///    - completion: The method to call upon completion. Will pass in the array of photos to the method.
   ///    - failure: The method to call upon failure.
   ///
   func getFacebookPhotos(username: String, password: String,
-                         completion: [FacebookPhoto] -> Void,
+                         completion: [CloudFile] -> Void,
                          failure: Void -> Void) {
 
     // Build the authorization headers for the request
@@ -56,16 +61,15 @@ class FacebookService: NSObject, FileService {
         switch response.result {
           case .Success:
             // Build out array of photos from the JSON response
-            var facebookPhotos = [FacebookPhoto]()
+            var facebookPhotos = [CloudFile]()
             let json = JSON(data: response.data!)
 
             let photos = json.arrayValue
             for photo in photos {
-              let facebookPhoto = FacebookPhoto(
-                id: photo["id"].stringValue,
-                url: photo["url"].stringValue,
-                width: photo["width"].stringValue,
-                height: photo["height"].stringValue)
+              let facebookPhoto = CloudFile(
+                name: photo["id"].stringValue,
+                writeTime: NSDate().description,
+                url: photo["url"].stringValue)
 
               facebookPhotos.append(facebookPhoto)
             }
@@ -79,18 +83,18 @@ class FacebookService: NSObject, FileService {
 
   }
 
-  /// Sends a request to Lightning for all Facebook video URLs the user has.
+  /// Sends a request to Lightning for all Facebook videos the user has.
   ///
   /// - note: The network request is made asynchronously.
   ///
   /// - parameters:
-  ///    - username: The name of the user to retrieve video URLs for.
-  ///    - password: The password of the user to retrieve video URLs for.
-  ///    - completion: The method to call upon completion. Will pass in the array of URLs to the method.
+  ///    - username: The name of the user to retrieve videos for.
+  ///    - password: The password of the user to retrieve videos for.
+  ///    - completion: The method to call upon completion. Will pass in the array of videos to the method.
   ///    - failure: The method to call upon failure.
   ///
-  func getFacebookVideoUrls(username: String, password: String,
-                            completion: [String] -> Void,
+  func getFacebookVideos(username: String, password: String,
+                            completion: [CloudFile] -> Void,
                             failure: Void -> Void) {
 
     // build the authorization headers for the request
@@ -104,18 +108,21 @@ class FacebookService: NSObject, FileService {
       .responseJSON { response in
         switch response.result {
         case .Success:
-          // If successful, build out array of URLs from the JSON response
-          var urls = [String]()
+          // Build out array of photos from the JSON response
+          var facebookVideos = [CloudFile]()
           let json = JSON(data: response.data!)
 
           let videos = json.arrayValue
           for video in videos {
-            if let url = video["url"].string {
-              urls.append(url)
-            }
+            let facebookVideo = CloudFile(
+              name: video["id"].stringValue,
+              writeTime: NSDate().description,
+              url: video["url"].stringValue)
+
+            facebookVideos.append(facebookVideo)
           }
 
-          completion(urls)
+          completion(facebookVideos)
 
         case .Failure:
           failure()
