@@ -32,7 +32,7 @@
 		94C870CF1D3D99720005EFCC /* PlatformService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C870CE1D3D99720005EFCC /* PlatformService.swift */; };
 		94E92A031D3E9A340045250F /* CloudFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A021D3E9A340045250F /* CloudFile.swift */; };
 		94E92A051D3E9A410045250F /* LocalFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A041D3E9A410045250F /* LocalFile.swift */; };
-		94E92A071D4204F10045250F /* FolderMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A061D4204F10045250F /* FolderMonitor.swift */; };
+		94E92A071D4204F10045250F /* FileWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A061D4204F10045250F /* FileWatch.swift */; };
 		9737708B351782F901B3B6D9 /* Pods_Pilot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9FC8FCC51A7B69F45757E77 /* Pods_Pilot.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,7 +89,7 @@
 		94C870CE1D3D99720005EFCC /* PlatformService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformService.swift; sourceTree = "<group>"; };
 		94E92A021D3E9A340045250F /* CloudFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudFile.swift; sourceTree = "<group>"; };
 		94E92A041D3E9A410045250F /* LocalFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFile.swift; sourceTree = "<group>"; };
-		94E92A061D4204F10045250F /* FolderMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderMonitor.swift; sourceTree = "<group>"; };
+		94E92A061D4204F10045250F /* FileWatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileWatch.swift; sourceTree = "<group>"; };
 		9F3BF144AAE455A012585A88 /* Pods-PilotUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PilotUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PilotUITests/Pods-PilotUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D809233D80700C65177502C2 /* Pods-PilotUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PilotUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PilotUITests/Pods-PilotUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E9FC8FCC51A7B69F45757E77 /* Pods_Pilot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pilot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,7 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				14EFF6C51D39EF6B004A357E /* PilotColors.swift */,
-				94E92A061D4204F10045250F /* FolderMonitor.swift */,
+				94E92A061D4204F10045250F /* FileWatch.swift */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -533,7 +533,7 @@
 				9486F87A1D207046006CD1EB /* FileService.swift in Sources */,
 				94E92A051D3E9A410045250F /* LocalFile.swift in Sources */,
 				94C870CF1D3D99720005EFCC /* PlatformService.swift in Sources */,
-				94E92A071D4204F10045250F /* FolderMonitor.swift in Sources */,
+				94E92A071D4204F10045250F /* FileWatch.swift in Sources */,
 				1418CD151BD4857900CD0540 /* PilotUserService.swift in Sources */,
 				1418CD191BD48AFA00CD0540 /* PasswordService.swift in Sources */,
 				1418CD121BD4825C00CD0540 /* LoginViewController.swift in Sources */,

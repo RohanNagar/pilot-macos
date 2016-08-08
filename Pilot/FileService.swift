@@ -16,8 +16,8 @@ protocol FileService: NSObjectProtocol {
   // Local copy of CloudFile's for faster access when interfacting with collectionView
   var content: [LocalFile] { get set }
 
-  // FolderMonitor class for updating collectionView given a folder change occures
-  var folderMonitor: FolderMonitor! { get set }
+  // FileWatch class for updating collectionView given a folder change occures
+  var fileWatch: FileWatch! { get set }
 
   var preferences: Preferences { get }
 
@@ -104,8 +104,8 @@ extension FileService {
     print()
   }
 
-  func setFolderMonitor(folderMonitor: FolderMonitor) {
-    self.folderMonitor = folderMonitor
+  func setFileWatch(fileWatch: FileWatch) {
+    self.fileWatch = fileWatch
   }
 
 }

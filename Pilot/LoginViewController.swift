@@ -110,11 +110,11 @@ class LoginViewController: NSViewController {
           let facebookURL = NSURL(fileURLWithPath: "\(preferences.getRootPath())\(PlatformType.Facebook.rawValue)//")
 
           // Load the files from the facebook platform directory and set them in facebookService
-          let content = FileLoader.getFilesFromPath(facebookURL.path!)
-          facebookService.setContent(content)
+          let initialContent = FileLoader.getFilesFromPath(facebookURL.path!)
+          facebookService.setContent(initialContent)
 
-          // Create a FolderMonitoring class for the platform and set the directory path
-          let folderMonitor = FolderMonitor(url: facebookURL, handler: {
+          // Create a FileWatch class for the platform and set the directory path
+          let fileWatch = FileWatch(pathsToWatch: [facebookURL.path!], handler: { eventId, eventPath, eventFlags in
             // Load files from directory into content array of service class
             self.mainViewController.facebookService!.reloadContent(PlatformType.Facebook)
             self.mainViewController.content = facebookService.content
@@ -122,8 +122,10 @@ class LoginViewController: NSViewController {
             self.mainViewController.fileCollectionView.reloadData()
           })
 
-          // Set the folderMonitor in facebookService
-          facebookService.setFolderMonitor(folderMonitor)
+          fileWatch.start()
+
+          // Set the folderWatch in facebookService
+          facebookService.setFileWatch(fileWatch)
 
           // Load the facebookService class for current user
           self.mainViewController.loadFacebookService(facebookService)

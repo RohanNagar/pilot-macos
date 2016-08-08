@@ -15,7 +15,7 @@ class FacebookService: NSObject, FileService {
   // Content array
   var content: [LocalFile] = []
 
-  var folderMonitor: FolderMonitor!
+  var fileWatch: FileWatch!
 
   // Auth keys
   let user = "lightning"
