@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,8 @@ import Foundation
 ///
 /// - Precondition: The data type must conform to DataType.
 ///
-public class File<Data : DataType> : Comparable {
+/// All method do not follow links.
+public class File<Data: DataType>: Comparable {
 
     // MARK: - Properties
 
@@ -53,9 +54,11 @@ public class File<Data : DataType> : Comparable {
         }
     }
 
-    /// True if the file exists.
+    /// True if the item exists and is a regular file.
+    ///
+    /// this method does not follow links.
     public var exists: Bool {
-        return path.exists
+        return path.isRegular
     }
 
     /// The size of `self` in bytes.
@@ -66,6 +69,8 @@ public class File<Data : DataType> : Comparable {
     // MARK: - Initialization
 
     /// Initializes a file from a path.
+    ///
+    /// - Parameter path: The path a file to initialize from.
     public init(path: Path) {
         self.path = path
     }
@@ -75,6 +80,7 @@ public class File<Data : DataType> : Comparable {
     /// Reads the file and returns its data.
     ///
     /// - Throws: `FileKitError.ReadFromFileFail`
+    /// - Returns: The data read from file.
     public func read() throws -> Data {
         return try Data.readFromPath(path)
     }
@@ -116,6 +122,11 @@ public class File<Data : DataType> : Comparable {
     }
 
     /// Deletes the file.
+    ///
+    /// Throws an error if the file could not be deleted.
+    ///
+    /// - Throws: `FileKitError.DeleteFileFail`
+    ///
     public func delete() throws {
         try path.deleteFile()
     }
@@ -126,10 +137,11 @@ public class File<Data : DataType> : Comparable {
     ///
     /// Throws an error if the file cannot be moved.
     ///
+    /// - Parameter path: The path to move the file to.
     /// - Throws: `FileKitError.MoveFileFail`
     ///
     public func moveToPath(path: Path) throws {
-        try path.moveFileToPath(path)
+        try self.path.moveFileToPath(path)
         self.path = path
     }
 
@@ -138,10 +150,12 @@ public class File<Data : DataType> : Comparable {
     /// Throws an error if the file could not be copied or if a file already
     /// exists at the destination path.
     ///
+    ///
+    /// - Parameter path: The path to copy the file to.
     /// - Throws: `FileKitError.FileDoesNotExist`, `FileKitError.CopyFileFail`
     ///
     public func copyToPath(path: Path) throws {
-        try path.copyFileToPath(path)
+        try self.path.copyFileToPath(path)
     }
 
     /// Symlinks the file to a path.
@@ -152,12 +166,32 @@ public class File<Data : DataType> : Comparable {
     /// If the path already exists and _is_ a directory, the link will be made
     /// to `self` in that directory.
     ///
+    ///
+    /// - Parameter path: The path to symlink the file to.
     /// - Throws:
     ///     `FileKitError.FileDoesNotExist`,
     ///     `FileKitError.CreateSymlinkFail`
     ///
     public func symlinkToPath(path: Path) throws {
         try self.path.symlinkFileToPath(path)
+    }
+
+    /// Hardlinks the file to a path.
+    ///
+    /// If the path already exists and _is not_ a directory, an error will be
+    /// thrown and a link will not be created.
+    ///
+    /// If the path already exists and _is_ a directory, the link will be made
+    /// to `self` in that directory.
+    ///
+    ///
+    /// - Parameter path: The path to hardlink the file to.
+    /// - Throws:
+    ///     `FileKitError.FileDoesNotExist`,
+    ///     `FileKitError.CreateHardlinkFail`
+    ///
+    public func hardlinkToPath(path: Path) throws {
+        try self.path.hardlinkFileToPath(path)
     }
 
     // MARK: - FileType
@@ -171,7 +205,7 @@ public class File<Data : DataType> : Comparable {
 
     /// The file permissions for `self`.
     public var permissions: FilePermissions {
-        return path.filePermissions
+        return FilePermissions(forFile: self)
     }
 
     // MARK: - NSFileHandle
@@ -215,7 +249,7 @@ public class File<Data : DataType> : Comparable {
 
 }
 
-extension File : CustomStringConvertible {
+extension File: CustomStringConvertible {
 
     // MARK: - CustomStringConvertible
 
@@ -226,7 +260,7 @@ extension File : CustomStringConvertible {
 
 }
 
-extension File : CustomDebugStringConvertible {
+extension File: CustomDebugStringConvertible {
 
     // MARK: - CustomDebugStringConvertible
 

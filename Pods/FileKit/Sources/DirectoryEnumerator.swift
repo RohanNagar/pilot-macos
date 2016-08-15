@@ -1,10 +1,10 @@
 //
-//  Image.swift
+//  DirectoryEnumerator.swift
 //  FileKit
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,43 +25,32 @@
 //  THE SOFTWARE.
 //
 
-#if os(OSX)
-import Cocoa
-#elseif os(iOS) || os(tvOS)
-import UIKit
-#else
-import WatchKit
-#endif
+import Foundation
 
-#if os(OSX)
-/// The image type for the current platform.
-public typealias Image = NSImage
-#else
-/// The image type for the current platform.
-public typealias Image = UIImage
-#endif
+/// An enumerator for the contents of a directory that returns the paths of all
+/// files and directories contained within that directory.
+public struct DirectoryEnumerator: GeneratorType {
 
-extension Image : DataType, WritableConvertible {
+    private let _path: Path, _enumerator: NSDirectoryEnumerator?
 
-    /// Returns an image from the given path.
+    /// Creates a directory enumerator for the given path.
     ///
-    /// - Throws: FileKitError.ReadFromFileFail
-    ///
-    public class func readFromPath(path: Path) throws -> Self {
-        guard let contents = self.init(contentsOfFile: path.rawValue) else {
-            throw FileKitError.ReadFromFileFail(path: path)
+    /// - Parameter path: The path a directory enumerator to be created for.
+    public init(path: Path) {
+        _path = path
+        _enumerator = NSFileManager().enumeratorAtPath(path._safeRawValue)
+    }
+
+    /// Returns the next path in the enumeration.
+    public func next() -> Path? {
+        guard let next = _enumerator?.nextObject() as? String else {
+            return nil
         }
-        return contents
+        return _path + next
     }
 
-    /// Returns `TIFFRepresentation` on OS X and `UIImagePNGRepresentation` on
-    /// iOS, watchOS, and tvOS.
-    public var writable: NSData {
-        #if os(OSX)
-        return self.TIFFRepresentation ?? NSData()
-        #else
-        return UIImagePNGRepresentation(self) ?? NSData()
-        #endif
+    /// Skip recursion into the most recently obtained subdirectory.
+    public func skipDescendants() {
+        _enumerator?.skipDescendants()
     }
-
 }

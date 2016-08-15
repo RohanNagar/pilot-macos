@@ -9,14 +9,20 @@
 import Cocoa
 import Alamofire
 import SwiftyJSON
+import FileKit
 
 class FacebookService: NSObject, FileService {
 
-  // Content array
-  var content: [LocalFile] = []
+  // User object
+  var pilotUser: PilotUser!
 
-  var fileWatch: FileWatch!
+  // Cached cloudFiles
+  var cachedCloudContent: [CloudFile] = []
 
+  // Cached localFiles
+  var cachedLocalContent: [LocalFile] = []
+
+  var fileSystemWatcher: FileSystemWatcher!
   // Auth keys
   let user = "lightning"
   let secret = "secret"
@@ -29,10 +35,95 @@ class FacebookService: NSObject, FileService {
   internal var basicCredentials: String
 
   /* Default init */
-  required init(preferences: Preferences) {
+  required init(preferences: Preferences, pilotUser: PilotUser) {
     self.preferences = preferences
+    self.pilotUser = pilotUser
 
     basicCredentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
+  }
+
+  // Note: This call is asynronous
+  func refreshCachedCloudContent(completion: ([CloudFile]) -> ()) {
+    // Fetch the photos and videos from facebook and combine them into one conglomerate
+    self.getFacebookPhotos(pilotUser.username, password: pilotUser.password,
+      completion: { returnPhotos in
+        self.getFacebookVideos(self.pilotUser.username, password: self.pilotUser.password,
+          completion: { returnVideos in
+            let returnFiles = returnPhotos + returnVideos
+            self.cachedCloudContent = returnFiles
+            completion(returnFiles)
+          },
+          failure: { _ in
+            ErrorController.sharedErrorController.displayError("Failed to retrieve video list from facebook")
+          })
+      },
+      failure: { _ in
+        ErrorController.sharedErrorController.displayError("Failed to retrieve photo list from facebook")
+      })
+  }
+
+  func refreshCachedLocalContent() {
+    if let directoryContents = DirectoryService.getFilesFromPath(.Facebook, caller: self) {
+      self.cachedLocalContent = directoryContents
+    } else {
+      ErrorController.sharedErrorController.displayError("Failed to load directory for facebook")
+    }
+
+  }
+
+  func setFileSystemWatcher(mainViewController: MainViewController) {
+    print("SetFileSystemWatcher was called")
+    // Close the existing stream if it exists
+    if self.fileSystemWatcher != nil {
+      self.fileSystemWatcher.close()
+    }
+
+    guard let pathToWatch = preferences.getRootPath(.Facebook) else {
+      ErrorController.sharedErrorController.displayError("Pilot was unable to access the current root directory")
+      return
+    }
+
+    self.fileSystemWatcher = FileSystemWatcher(paths: [Path(pathToWatch)], flags: [.UseCFTypes, .FileEvents, .WatchRoot], callback: { event in
+      let fileName = (event.path.rawValue as NSString).lastPathComponent
+
+      if event.flags.rawValue == (FileSystemEventFlags.ItemIsFile.rawValue | FileSystemEventFlags.ItemRenamed.rawValue) {
+        // Check to see if file was deleted or added
+        if NSFileManager.defaultManager().fileExistsAtPath(event.path.rawValue) {
+          // If the file was added or renamed then add it to the cachedLocalContent array
+          if let localFile = DirectoryService.checkFile(fileName, platformType: .Facebook, caller: self) {
+            self.cachedLocalContent.append(localFile)
+          }
+        } else {
+          // File was removed from path or deleted
+          let path = Path(event.path.rawValue)
+          let file = File<NSDictionary>(path: path)
+
+          // Cast to NSString to delete path extension
+          let fileName = file.name as NSString
+          let name = fileName.stringByDeletingPathExtension
+
+          // Delete the realm data associated with the file that was removed
+          DBController.sharedDBController.deleteFacebookFileByName(name)
+
+          // Remove the file from the cachedLocalContent
+          if let removeIndex: Int = self.cachedLocalContent.indexOf({$0.name == name}) {
+            self.cachedLocalContent.removeAtIndex(removeIndex)
+          }
+        }
+      } else if event.flags.rawValue == FileSystemEventFlags.RootChanged.rawValue {
+        // If there was a root change then attempt to create a new one based on existing preferences
+        if let newRoot = self.preferences.getRootPath(.Facebook) {
+          ErrorController.sharedErrorController.displayError("Root change detected. New root created at path: \(newRoot)")
+        }
+      }
+
+      // Refresh the collectionView
+      mainViewController.content = self.fetchCachedLocalContent()
+      mainViewController.fileCollectionView.reloadData()
+    })
+
+    // Start the stream
+    self.fileSystemWatcher.watch()
   }
 
   /// Sends a request to Lightning for all Facebook photos the user has.
@@ -47,7 +138,7 @@ class FacebookService: NSObject, FileService {
   ///
   func getFacebookPhotos(username: String, password: String,
                          completion: [CloudFile] -> Void,
-                         failure: Void -> Void) {
+                         failure: (String) -> Void) {
 
     // Build the authorization headers for the request
     let headers = ["Authorization": "Basic \(basicCredentials)",
@@ -68,7 +159,7 @@ class FacebookService: NSObject, FileService {
             for photo in photos {
               let facebookPhoto = CloudFile(
                 name: photo["id"].stringValue,
-                writeTime: NSDate().description,
+                fileType: FileType.Photo,
                 url: photo["url"].stringValue)
 
               facebookPhotos.append(facebookPhoto)
@@ -77,7 +168,7 @@ class FacebookService: NSObject, FileService {
             completion(facebookPhotos)
 
           case .Failure:
-            failure()
+            failure(response.description)
         }
     }
 
@@ -116,7 +207,7 @@ class FacebookService: NSObject, FileService {
           for video in videos {
             let facebookVideo = CloudFile(
               name: video["id"].stringValue,
-              writeTime: NSDate().description,
+              fileType: FileType.Video,
               url: video["url"].stringValue)
 
             facebookVideos.append(facebookVideo)

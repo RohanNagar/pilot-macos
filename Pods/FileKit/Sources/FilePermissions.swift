@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 import Foundation
 
 /// The permissions of a file.
-public struct FilePermissions : OptionSetType, CustomStringConvertible {
+public struct FilePermissions: OptionSetType, CustomStringConvertible {
 
     /// The file can be read from.
     public static let Read = FilePermissions(rawValue: 1)
@@ -61,18 +61,30 @@ public struct FilePermissions : OptionSetType, CustomStringConvertible {
     }
 
     /// Creates a set of file permissions.
+    ///
+    /// - Parameter rawValue: The raw value to initialize from.
+    ///
     public init(rawValue: Int) {
         self.rawValue = rawValue
     }
 
     /// Creates a set of permissions for the file at `path`.
+    ///
+    /// - Parameter path: The path to the file to create a set of persmissions for.
+    ///
     public init(forPath path: Path) {
-        self.rawValue = path.filePermissions.rawValue
+        var permissions = FilePermissions(rawValue: 0)
+        if path.isReadable { permissions.unionInPlace(.Read) }
+        if path.isWritable { permissions.unionInPlace(.Write) }
+        if path.isExecutable { permissions.unionInPlace(.Execute) }
+        self = permissions
     }
 
     /// Creates a set of permissions for `file`.
-    public init<Data : DataType>(forFile file: File<Data>) {
-        self.rawValue = file.permissions.rawValue
+    ///
+    /// - Parameter file: The file to create a set of persmissions for.
+    public init<Data: DataType>(forFile file: File<Data>) {
+        self.init(forPath: file.path)
     }
 
 }

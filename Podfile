@@ -9,7 +9,7 @@ target 'Pilot' do
   pod 'SwiftyJSON', '~> 2.3.2'
   pod 'CryptoSwift', '~> 0.4.0'
   pod 'Swinject', '~> 1.1.0'
-  pod 'FileKit', '~> 2.0.0'
+  pod 'FileKit', '~> 3.0.0’
   pod 'RealmSwift'
   pod 'Locksmith'
 end

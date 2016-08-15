@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 import Foundation
 
 /// The type attribute for a file at a path.
-public enum FileType : String {
+public enum FileType: String {
 
     /// The file is a directory.
     case Directory
@@ -52,6 +52,8 @@ public enum FileType : String {
     case Unknown
 
     /// Creates a FileType from an `NSFileType` attribute.
+    ///
+    /// - Parameter rawValue: The raw value to create from.
     public init?(rawValue: String) {
         switch rawValue {
         case NSFileTypeDirectory:

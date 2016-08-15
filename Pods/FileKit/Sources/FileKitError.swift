@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,8 @@ public enum FileKitError: ErrorType {
             return "Could not change the directory from \"\(fromPath)\" to \"\(toPath)\""
         case let CreateSymlinkFail(fromPath, toPath):
             return "Could not create symlink from \"\(fromPath)\" to \"\(toPath)\""
+        case let CreateHardlinkFail(fromPath, toPath):
+            return "Could not create a hard link from \"\(fromPath)\" to \"\(toPath)\""
         case let CreateFileFail(path):
             return "Could not create file at \"\(path)\""
         case let CreateDirectoryFail(path):
@@ -69,6 +71,9 @@ public enum FileKitError: ErrorType {
     /// A symbolic link could not be created.
     case CreateSymlinkFail(from: Path, to: Path)
 
+    /// A hard link could not be created.
+    case CreateHardlinkFail(from: Path, to: Path)
+
     /// A file could not be created.
     case CreateFileFail(path: Path)
 
@@ -94,7 +99,7 @@ public enum FileKitError: ErrorType {
     case AttributesChangeFail(path: Path)
 }
 
-extension FileKitError : CustomStringConvertible {
+extension FileKitError: CustomStringConvertible {
     // MARK: - CustomStringConvertible
     /// A textual representation of `self`.
     public var description: String {

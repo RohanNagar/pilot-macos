@@ -9,18 +9,16 @@
 // This class should work with both photos, videos, as well as cloud files
 
 import Cocoa
+import RealmSwift
 
 protocol PilotFile: class {
   var name: String { get }
-  var writeTime: String { get }
+  var fileType: FileType { get set }
   var size: Int? { get set }
-  var fileType: FileType? { get set }
   var thumbnail: NSImage? { get set }
   var directory: String? { get set }
 
   func setSize(size: Int)
-
-  func setFileType(fileType: FileType)
 
   func setThumbNail(thumbnail: NSImage)
 
@@ -39,13 +37,12 @@ extension PilotFile {
   }
 
   var description: String {
-    return "File{name=\(name), size=\(size), writeTime=\(writeTime), directory=\(directory)}"
+    return "File{name=\(name), size=\(size), directory=\(directory)}"
   }
 
 }
 
-enum FileType {
-  case Photo
-  case Video
-  case Document
+enum FileType: String {
+  case Photo = "photo"
+  case Video = "video"
 }

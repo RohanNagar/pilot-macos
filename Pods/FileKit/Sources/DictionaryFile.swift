@@ -1,10 +1,10 @@
 //
-//  NSBundle+FileKit.swift
+//  DictionaryFile.swift
 //  FileKit
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,11 +27,7 @@
 
 import Foundation
 
-extension NSBundle {
-
-    /// Returns an NSBundle for the given directory path.
-    public convenience init?(path: Path) {
-        self.init(path: path.rawValue)
-    }
-    
-}
+/// A representation of a filesystem dictionary file.
+///
+/// The data type is NSDictionary.
+public typealias DictionaryFile = File<NSDictionary>

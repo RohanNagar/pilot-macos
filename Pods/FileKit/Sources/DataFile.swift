@@ -1,10 +1,10 @@
 //
-//  DirectoryEnumerator.swift
+//  DataFile.swift
 //  FileKit
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,28 +27,37 @@
 
 import Foundation
 
-/// An enumerator for the contents of a directory that returns the paths of all
-/// files and directories contained within that directory.
-public struct DirectoryEnumerator : GeneratorType {
+/// A representation of a filesystem data file.
+///
+/// The data type is NSData.
+public typealias DataFile = File<NSData>
 
-    private let _path: Path, _enumerator: NSDirectoryEnumerator?
+extension File where Data: NSData {
 
-    /// Creates a directory enumerator for the given path.
-    public init(path: Path) {
-        _path = path
-        _enumerator = Path.fileManager.enumeratorAtPath(path.rawValue)
+    /// Reads the file and returns its data.
+    /// - Parameter options: A mask that specifies write options
+    ///                      described in `NSDataReadingOptions`.
+    ///
+    /// - Throws: `FileKitError.ReadFromFileFail`
+    /// - Returns: The data read from file.
+    public func read(options: NSDataReadingOptions) throws -> Data {
+        return try Data.readFromPath(path, options: options)
     }
 
-    /// Returns the next path in the enumeration.
-    public func next() -> Path? {
-        guard let next = _enumerator?.nextObject() as? String else {
-            return nil
+    /// Writes data to the file.
+    ///
+    /// - Parameter data: The data to be written to the file.
+    /// - Parameter options: A mask that specifies write options
+    ///                      described in `NSDataWritingOptions`.
+    ///
+    /// - Throws: `FileKitError.WriteToFileFail`
+    ///
+    public func write(data: Data, options: NSDataWritingOptions) throws {
+        do {
+            try data.writeToFile(self.path._safeRawValue, options: options)
+        } catch {
+            throw FileKitError.WriteToFileFail(path: path)
         }
-        return _path + next
     }
 
-    /// Skip recursion into the most recently obtained subdirectory.
-    public func skipDescendants() {
-        _enumerator?.skipDescendants()
-    }
 }

@@ -1,10 +1,10 @@
 //
-//  ImageFile.swift
+//  NSString+FileKit.swift
 //  FileKit
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,12 @@
 
 import Foundation
 
-/// A representation of a filesystem image file.
-///
-/// The data type is Image.
-public typealias ImageFile = File<Image>
+extension NSString {
+
+    /// Returns an NSString object initialized by copying the characters from
+    /// the raw value of a given path.
+    public convenience init(path: Path) {
+        self.init(string: path.rawValue)
+    }
+
+}

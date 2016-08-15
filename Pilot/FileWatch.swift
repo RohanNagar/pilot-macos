@@ -12,7 +12,7 @@ import Foundation
 
 public class FileWatch {
 
-  private let pathsToWatch: [String]
+  private var pathsToWatch: [String]
 
   private var context = FSEventStreamContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
 
@@ -89,6 +89,10 @@ public class FileWatch {
     eventStream = nil
 
     started = false
+  }
+
+  public func setPathsToWatch(paths: [String]) {
+    pathsToWatch = paths
   }
 
 }

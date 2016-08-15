@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import FileKit
 
 class PlatformService: NSObject {
 
@@ -17,50 +18,56 @@ class PlatformService: NSObject {
   }
 
   func syncFacebook(facebookService: FacebookService) {
+    facebookService.refreshCachedCloudContent({ cloudFiles in
 
-    // Fetch the photos and videos from facebook and combine them into one conglomerate
-    facebookService.getFacebookPhotos(user.username, password: user.password,
-      completion: { returnPhotos in
+      // Fetch the cachedLocalContent from facebookService
+      let localFiles = facebookService.fetchCachedLocalContent()
 
-        facebookService.getFacebookVideos(self.user.username, password: self.user.password,
-          completion: { returnVideos in
-            let cloudFiles = returnPhotos + returnVideos
-            let expectedDownloads = self.compare(cloudFiles, second: facebookService.content)
+      // TODO: Compare the arrays and check for a change before starting the comparison algorithm
+      // TODO: Optimise this comparison for larger arrays
 
-            for item in expectedDownloads {
-              facebookService.download(item.url, platformType: .Facebook, fileName: item.name)
+      // Check for cloudFiles not in the localFiles array. Downloaded them if this is the case
+      for item in cloudFiles {
+        if !localFiles.contains({$0.name == item.name}) {
+          // Create the DB entry and download the file upon completion! I'm so excited about this!
+          DBController.sharedDBController.createFacebookFile(item, completion: { _ in
+            facebookService.download(item, platformType: PlatformType.Facebook, failure: { failedFile in
+              // If the download fialed then obliterate the file >:)
+              DBController.sharedDBController.deleteFacebookFileByName(failedFile.name)
+            })
+          })
+        }
+      }
+
+      // Check for localFiles not in the cloudFiles array. Delete them if this is the case
+      for item in localFiles {
+        if !cloudFiles.contains({$0.name == item.name}) {
+          guard let itemStringPath = facebookService.preferences.getRootPath(.Facebook) else {
+            continue
+          }
+
+          // Remove the DB entry
+          DBController.sharedDBController.deleteFacebookFileByName(item.name)
+
+          // Remove the file from cachedLocalContent
+          if let removeIndex = facebookService.cachedLocalContent.indexOf({$0.name == item.name}) {
+            facebookService.cachedLocalContent.removeAtIndex(removeIndex)
+
+            let itemPath = Path(itemStringPath)
+            let fileToDelete = File<NSDictionary>(path: itemPath)
+
+            // Delete the file
+            do {
+              try fileToDelete.delete()
+            } catch FileKitError.DeleteFileFail(path: itemPath) {
+              ErrorController.sharedErrorController.displayError("Unable to delete file at path \(itemStringPath)")
+            } catch {
+              print("There was an error trying to delete file at path \(itemStringPath)")
             }
-          },
-          failure: {
-            // Videos were not able to load
-        })
-      },
-      failure: {
-        // Photos were not able to load
-      })
-  }
-
-  // Compare two arrays returning files from the first array without a match in the second array
-  func compare(first: [CloudFile], second: [LocalFile]) -> [CloudFile] {
-    var result: [CloudFile] = []
-
-    for one in first {
-      if !contains(second, item: one) {
-        result.append(one)
+          }
+        }
       }
-    }
-
-    return result
-  }
-
-  func contains(array: [LocalFile], item: CloudFile) -> Bool {
-    for one in array {
-      if one.isEqual(item) {
-        return true
-      }
-    }
-
-    return false
+    })
   }
 
 }
