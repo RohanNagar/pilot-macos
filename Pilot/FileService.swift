@@ -11,52 +11,63 @@ import Alamofire
 import FileKit
 
 protocol FileService: NSObjectProtocol {
-  init(preferences: Preferences)
+  init(preferences: Preferences, pilotUser: PilotUser)
 
-  // Local copy of CloudFile's for faster access when interfacting with collectionView
-  var content: [LocalFile] { get set }
+  // PilotUser object
+  var pilotUser: PilotUser! { get set }
+
+  // Local copy of CloudFile's
+  var cachedCloudContent: [CloudFile] { get set }
+
+  // Local copy of LocalFiles for faster access when interfacting with collectionView
+  var cachedLocalContent: [LocalFile] { get set }
 
   // FileWatch class for updating collectionView given a folder change occures
-  var fileWatch: FileWatch! { get set }
+  var fileSystemWatcher: FileSystemWatcher! { get set }
 
   var preferences: Preferences { get }
 
   var user: String { get }
   var secret: String { get }
+
+  func refreshCachedCloudContent(completion: ([CloudFile]) -> ()) -> Void
+
+  func refreshCachedLocalContent() -> Void
+
+  func setFileSystemWatcher(mainViewController: MainViewController) -> Void
 }
 
 extension FileService {
 
-  func download(url: String, platformType: PlatformType, fileName: String) {
+  func download(fileToDownload: CloudFile, platformType: PlatformType, failure: (CloudFile) -> ()) {
 
-    let path = "\(self.preferences.getRootPath())\(platformType.rawValue)"
+    if let path = preferences.getRootPath(platformType) {
 
-    // Check that the download location exists and if not, make one
-    checkForDirectory(path)
+      let destination: (NSURL, NSHTTPURLResponse) -> NSURL = {
+        (temporaryURL, response) in
+        let responseName: NSString = response.suggestedFilename!
+        let pathExtension = responseName.pathExtension
 
-    let destination: (NSURL, NSHTTPURLResponse) -> NSURL = {
-      (temporaryURL, response) in
-      let responseName: NSString = response.suggestedFilename!
-      let pathExtension = responseName.pathExtension
-
-      return NSURL(fileURLWithPath: path).URLByAppendingPathComponent("\(fileName).\(pathExtension)")
-    }
-
-    // Download that file!
-    Alamofire.download(.GET, url, destination: destination)
-      .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-        print("\(totalBytesRead/totalBytesExpectedToRead*100)%")
-
-        dispatch_async(dispatch_get_main_queue()) {
-          // print("Total bytes read on main que: \(totalBytesRead)")
-        }
+        return NSURL(fileURLWithPath: path).URLByAppendingPathComponent("\(fileToDownload.name).\(pathExtension)")
       }
-      .response { _, _, _, error in
-        if let _ = error {
-          print("Failed to download file")
-        } else {
-          print("Downloaded file successfully")
+
+      // Download that file!
+      Alamofire.download(.GET, fileToDownload.url, destination: destination)
+        .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+          // print("\(totalBytesRead/totalBytesExpectedToRead*100)%")
+
+          dispatch_async(dispatch_get_main_queue()) {
+            // print("Total bytes read on main que: \(totalBytesRead)")
+          }
         }
+        .response { _, _, _, error in
+          if let _ = error {
+            print("Download failed!")
+            failure(fileToDownload)
+          } else {
+            print("Downloaded succeeded!")
+          }
+      }
     }
   }
 
@@ -65,13 +76,12 @@ extension FileService {
     // Build the location of file to upload
     let fileURL = NSBundle.mainBundle().URLForResource("~/desktop/test", withExtension: "png")
 
-    // Check this bitch instead of force unwrapping!
     Alamofire.upload(.POST, url, file: fileURL!)
       .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
         print(totalBytesWritten)
 
         dispatch_async(dispatch_get_main_queue()) {
-          print("Total bytes written on main queue: \(totalBytesWritten)")
+          // print("Total bytes written on main queue: \(totalBytesWritten)")
         }
       }
       .responseJSON { response in
@@ -79,33 +89,20 @@ extension FileService {
     }
   }
 
-  private func checkForDirectory(directory: String) -> Bool {
-    let directoryPath = Path(directory)
-
-    if !directoryPath.exists {
-      do {
-        try directoryPath.createDirectory()
-      } catch {
-        print("Problem making directory")
-        return false
-      }
-    }
-
-    return true
+  func fetchCachedCloudContent() -> [CloudFile] {
+    return self.cachedCloudContent
   }
 
-  func setContent(data: [LocalFile]) {
-    self.content = data
+  func fetchCachedLocalContent() -> [LocalFile] {
+    return self.cachedLocalContent
   }
 
-  func reloadContent(platformType: PlatformType) {
-    let path = "\(preferences.getRootPath())\(platformType.rawValue)"
-    self.content = FileLoader.getFilesFromPath(path)
-    print()
+  func setFileSystemWatcher(fileSystemWatcher: FileSystemWatcher) {
+    self.fileSystemWatcher = fileSystemWatcher
   }
 
-  func setFileWatch(fileWatch: FileWatch) {
-    self.fileWatch = fileWatch
+  func fetchPreferences() -> Preferences {
+    return self.preferences
   }
 
 }

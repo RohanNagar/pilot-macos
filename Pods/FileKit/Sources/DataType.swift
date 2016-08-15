@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ extension Readable {
     ///
     /// - Parameter path: The path being read from.
     ///
-    public init(contentsOfPath path: Path) throws {
+    public init(contentsOfPath path: Path) throws { // swiftlint:disable:this valid_docs
         self = try Self.readFromPath(path)
     }
 
@@ -81,7 +81,7 @@ extension Writable {
     ///
     /// - Parameter path: The path being written to.
     ///
-    public func writeToPath(path: Path) throws {
+    public func writeToPath(path: Path) throws { // swiftlint:disable:this valid_docs
         try writeToPath(path, atomically: true)
     }
 
@@ -120,7 +120,7 @@ extension WritableToFile {
     /// - Throws: `FileKitError.WriteToFileFail`
     ///
     public func writeToPath(path: Path, atomically useAuxiliaryFile: Bool) throws {
-        guard writeToFile(path.rawValue, atomically: useAuxiliaryFile) else {
+        guard writeToFile(path._safeRawValue, atomically: useAuxiliaryFile) else {
             throw FileKitError.WriteToFileFail(path: path)
         }
     }
@@ -133,7 +133,7 @@ extension WritableToFile {
 public protocol WritableConvertible: Writable {
 
     /// The type that allows `Self` to be `Writable`.
-    typealias WritableType: Writable
+    associatedtype WritableType: Writable
 
     /// Allows `self` to be written to a path.
     var writable: WritableType { get }

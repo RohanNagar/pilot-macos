@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,19 +25,21 @@
 //  THE SOFTWARE.
 //
 
+// swiftlint:disable file_length
+
 import Foundation
 
 // MARK: - File
 
 /// Returns `true` if both files' paths are the same.
 @warn_unused_result
-public func ==<Data : DataType>(lhs: File<Data>, rhs: File<Data>) -> Bool {
+public func ==<Data: DataType>(lhs: File<Data>, rhs: File<Data>) -> Bool {
     return lhs.path == rhs.path
 }
 
 /// Returns `true` if `lhs` is smaller than `rhs` in size.
 @warn_unused_result
-public func < <Data : DataType>(lhs: File<Data>, rhs: File<Data>) -> Bool {
+public func < <Data: DataType>(lhs: File<Data>, rhs: File<Data>) -> Bool {
     return lhs.size < rhs.size
 }
 
@@ -47,7 +49,7 @@ infix operator |> {}
 ///
 /// - Throws: `FileKitError.WriteToFileFail`
 ///
-public func |> <Data : DataType>(data: Data, file: File<Data>) throws {
+public func |> <Data: DataType>(data: Data, file: File<Data>) throws {
     try file.write(data)
 }
 
@@ -57,7 +59,7 @@ public func |> <Data : DataType>(data: Data, file: File<Data>) throws {
 
 /// Returns `true` if both text files have the same path and encoding.
 @warn_unused_result
-public func ==(lhs: TextFile, rhs: TextFile) -> Bool {
+public func == (lhs: TextFile, rhs: TextFile) -> Bool {
     return lhs.path == rhs.path && lhs.encoding == rhs.encoding
 }
 
@@ -70,14 +72,33 @@ infix operator |>> {}
 ///
 /// - Throws: `FileKitError.WriteToFileFail`
 ///
-public func |>> (var data: String, file: TextFile) throws {
+public func |>> (data: String, file: TextFile) throws {
+    var data = data
     if let contents = try? file.read() {
         data = contents + "\n" + data
     }
     try data |> file
 }
 
+/// Return lines of file that match the motif.
+@warn_unused_result
+public func | (file: TextFile, motif: String) -> [String] {
+    return file.grep(motif)
+}
 
+infix operator |- {}
+/// Return lines of file that does'nt match the motif.
+@warn_unused_result
+public func |- (file: TextFile, motif: String) -> [String] {
+    return file.grep(motif, include: false)
+}
+
+infix operator |~ {}
+/// Return lines of file that match the regex motif.
+@warn_unused_result
+public func |~ (file: TextFile, motif: String) -> [String] {
+    return file.grep(motif, options: NSStringCompareOptions.RegularExpressionSearch)
+}
 
 // MARK: - Path
 
@@ -85,7 +106,17 @@ public func |>> (var data: String, file: TextFile) throws {
 /// path.
 @warn_unused_result
 public func == (lhs: Path, rhs: Path) -> Bool {
-    return lhs.standardized.rawValue == rhs.standardized.rawValue
+    if lhs.isAbsolute || rhs.isAbsolute {
+        return lhs.absolute.rawValue == rhs.absolute.rawValue
+    }
+    return lhs.standardRawValueWithTilde == rhs.standardRawValueWithTilde
+}
+
+/// Returns `true` if the standardized form of one path not equals that of another
+/// path.
+@warn_unused_result
+public func != (lhs: Path, rhs: Path) -> Bool {
+    return !(lhs == rhs)
 }
 
 /// Concatenates two `Path` instances and returns the result.
@@ -97,11 +128,12 @@ public func == (lhs: Path, rhs: Path) -> Bool {
 ///
 @warn_unused_result
 public func + (lhs: Path, rhs: Path) -> Path {
-    if lhs.rawValue.isEmpty { return rhs }
-    if rhs.rawValue.isEmpty { return lhs }
+    if lhs.rawValue.isEmpty || lhs.rawValue == "." { return rhs }
+    if rhs.rawValue.isEmpty || rhs.rawValue == "." { return lhs }
     switch (lhs.rawValue.hasSuffix(Path.separator), rhs.rawValue.hasPrefix(Path.separator)) {
     case (true, true):
-        return Path("\(lhs.rawValue)\(rhs.rawValue.substringFromIndex(rhs.rawValue.startIndex.successor()))")
+        let rhsRawValue = rhs.rawValue.substringFromIndex(rhs.rawValue.startIndex.successor())
+        return Path("\(lhs.rawValue)\(rhsRawValue)")
     case (false, false):
         return Path("\(lhs.rawValue)\(Path.separator)\(rhs.rawValue)")
     default:
@@ -118,7 +150,7 @@ public func + (lhs: String, rhs: Path) -> Path {
 /// Converts a `String` to a `Path` and returns the concatenated result.
 @warn_unused_result
 public func + (lhs: Path, rhs: String) -> Path {
-   return lhs + Path(rhs)
+    return lhs + Path(rhs)
 }
 
 /// Appends the right path to the left path.
@@ -131,13 +163,42 @@ public func += (inout lhs: Path, rhs: String) {
     lhs = lhs + rhs
 }
 
+
+/// Concatenates two `Path` instances and returns the result.
+@warn_unused_result
+public func / (lhs: Path, rhs: Path) -> Path {
+    return lhs + rhs
+}
+
+/// Converts a `String` to a `Path` and returns the concatenated result.
+@warn_unused_result
+public func / (lhs: Path, rhs: String) -> Path {
+    return lhs + rhs
+}
+
+/// Converts a `String` to a `Path` and returns the concatenated result.
+@warn_unused_result
+public func / (lhs: String, rhs: Path) -> Path {
+    return lhs + rhs
+}
+
+/// Appends the right path to the left path.
+public func /= (inout lhs: Path, rhs: Path) {
+    lhs += rhs
+}
+
+/// Appends the path value of the String to the left path.
+public func /= (inout lhs: Path, rhs: String) {
+    lhs += rhs
+}
+
 infix operator <^> {
-    associativity left
+associativity left
 }
 
 /// Returns the common ancestor between the two paths.
 @warn_unused_result
-public func <^>(lhs: Path, rhs: Path) -> Path {
+public func <^> (lhs: Path, rhs: Path) -> Path {
     return lhs.commonAncestor(rhs)
 }
 
@@ -168,7 +229,7 @@ public func ->> (lhs: Path, rhs: Path) throws {
 ///
 /// - Throws: `FileKitError.FileDoesNotExist`, `FileKitError.MoveFileFail`
 ///
-public func ->> <Data : DataType>(lhs: File<Data>, rhs: Path) throws {
+public func ->> <Data: DataType>(lhs: File<Data>, rhs: Path) throws {
     try lhs.moveToPath(rhs)
 }
 
@@ -184,7 +245,7 @@ infix operator ->! {}
 ///     `FileKitError.CreateSymlinkFail`
 ///
 public func ->! (lhs: Path, rhs: Path) throws {
-    if rhs.exists {
+    if rhs.isAny {
         try rhs.deleteFile()
     }
     try lhs ->> rhs
@@ -199,8 +260,8 @@ public func ->! (lhs: Path, rhs: Path) throws {
 ///     `FileKitError.FileDoesNotExist`,
 ///     `FileKitError.CreateSymlinkFail`
 ///
-public func ->! <Data : DataType>(lhs: File<Data>, rhs: Path) throws {
-    if rhs.exists {
+public func ->! <Data: DataType>(lhs: File<Data>, rhs: Path) throws {
+    if rhs.isAny {
         try rhs.deleteFile()
     }
     try lhs ->> rhs
@@ -227,7 +288,7 @@ public func +>> (lhs: Path, rhs: Path) throws {
 ///
 /// - Throws: `FileKitError.FileDoesNotExist`, `FileKitError.CopyFileFail`
 ///
-public func +>> <Data : DataType>(lhs: File<Data>, rhs: Path) throws {
+public func +>> <Data: DataType>(lhs: File<Data>, rhs: Path) throws {
     try lhs.copyToPath(rhs)
 }
 
@@ -243,7 +304,7 @@ infix operator +>! {}
 ///     `FileKitError.CreateSymlinkFail`
 ///
 public func +>! (lhs: Path, rhs: Path) throws {
-    if rhs.exists {
+    if rhs.isAny {
         try rhs.deleteFile()
     }
     try lhs +>> rhs
@@ -258,8 +319,8 @@ public func +>! (lhs: Path, rhs: Path) throws {
 ///     `FileKitError.FileDoesNotExist`,
 ///     `FileKitError.CreateSymlinkFail`
 ///
-public func +>! <Data : DataType>(lhs: File<Data>, rhs: Path) throws {
-    if rhs.exists {
+public func +>! <Data: DataType>(lhs: File<Data>, rhs: Path) throws {
+    if rhs.isAny {
         try rhs.deleteFile()
     }
     try lhs +>> rhs
@@ -293,7 +354,7 @@ public func =>> (lhs: Path, rhs: Path) throws {
 ///
 /// - Throws: `FileKitError.FileDoesNotExist`, `FileKitError.CreateSymlinkFail`
 ///
-public func =>> <Data : DataType>(lhs: File<Data>, rhs: Path) throws {
+public func =>> <Data: DataType>(lhs: File<Data>, rhs: Path) throws {
     try lhs.symlinkToPath(rhs)
 }
 
@@ -310,12 +371,12 @@ infix operator =>! {}
 ///     `FileKitError.CreateSymlinkFail`
 ///
 public func =>! (lhs: Path, rhs: Path) throws {
-    guard lhs.exists else {
-        throw FileKitError.FileDoesNotExist(path: lhs)
-    }
+    //    guard lhs.exists else {
+    //        throw FileKitError.FileDoesNotExist(path: lhs)
+    //    }
 
     let linkPath = rhs.isDirectory ? rhs + lhs.fileName : rhs
-    if linkPath.exists { try linkPath.deleteFile() }
+    if linkPath.isAny { try linkPath.deleteFile() }
 
     try lhs =>> rhs
 }
@@ -330,7 +391,7 @@ public func =>! (lhs: Path, rhs: Path) throws {
 ///     `FileKitError.FileDoesNotExist`,
 ///     `FileKitError.CreateSymlinkFail`
 ///
-public func =>! <Data : DataType>(lhs: File<Data>, rhs: Path) throws {
+public func =>! <Data: DataType>(lhs: File<Data>, rhs: Path) throws {
     try lhs.path =>! rhs
 }
 

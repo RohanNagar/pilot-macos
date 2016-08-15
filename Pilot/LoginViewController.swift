@@ -81,16 +81,12 @@ class LoginViewController: NSViewController {
     userService.getPilotUser(usernameTextField.stringValue, password: hashedPassword,
       completion: { user in
 
-        // User is correct so try to store the password in keychain
-        do {
-          try Locksmith.saveData(["password": user.password], forUserAccount: user.username)
-        } catch {
-          // Could not load account into keychain
-          print("Couldn't load the password to keychain")
-        }
-
         // Set up the main view controller
         self.mainViewController = MainViewController(nibName: "MainViewController", bundle: nil)
+
+        // Set up the ErrorController class
+        let errorController = ErrorController(viewController: self.mainViewController)
+        ErrorController.sharedErrorController = errorController
 
         // Set the current user in the mainViewController
         self.mainViewController.loadUser(user)
@@ -101,31 +97,16 @@ class LoginViewController: NSViewController {
 
         // Determine the users platforms and add them to mainViewController
         if user.facebookAccessToken != "" {
-          self.mainViewController.addPlatform(Platform(title: "Facebook", icon: NSImage(named: "FacebookIcon"), type: PlatformType.Facebook))
+          self.mainViewController.addPlatform(Platform(title: "Facebook", icon: NSImage(named: "FacebookIcon"), type: .Facebook))
 
           // Set up and load the FacebookService class
-          let facebookService = FacebookService(preferences: preferences)
+          let facebookService = FacebookService(preferences: preferences, pilotUser: user)
 
-          // Build the facebook directory path
-          let facebookURL = NSURL(fileURLWithPath: "\(preferences.getRootPath())\(PlatformType.Facebook.rawValue)//")
+          // Set the FileSystemWatcher class for facebook
+          facebookService.setFileSystemWatcher(self.mainViewController)
 
-          // Load the files from the facebook platform directory and set them in facebookService
-          let initialContent = FileLoader.getFilesFromPath(facebookURL.path!)
-          facebookService.setContent(initialContent)
-
-          // Create a FileWatch class for the platform and set the directory path
-          let fileWatch = FileWatch(pathsToWatch: [facebookURL.path!], handler: { eventId, eventPath, eventFlags in
-            // Load files from directory into content array of service class
-            self.mainViewController.facebookService!.reloadContent(PlatformType.Facebook)
-            self.mainViewController.content = facebookService.content
-
-            self.mainViewController.fileCollectionView.reloadData()
-          })
-
-          fileWatch.start()
-
-          // Set the folderWatch in facebookService
-          facebookService.setFileWatch(fileWatch)
+          // Attempt to grab facebook cloud files and call the DirectoryService
+          facebookService.refreshCachedLocalContent()
 
           // Load the facebookService class for current user
           self.mainViewController.loadFacebookService(facebookService)
@@ -171,7 +152,6 @@ class LoginViewController: NSViewController {
   func registerDefaultPreferences(user: PilotUser) -> Preferences {
     let updatePreferences = Preferences(rootPath: "\(Path.UserHome)/pilot/\(user.username)/", username: user.username)
 
-    print("update preferences path: \(updatePreferences.getRootPath())")
     Preferences.updatePreferences(updatePreferences, username: user.username)
 
     return updatePreferences

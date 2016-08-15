@@ -16,6 +16,8 @@ class MainViewController: NSViewController {
 
   @IBOutlet weak var iconImageView: NSImageView!
 
+  @IBOutlet weak var errorMessage: NSTextField!
+
   // The user currently logged in
   var user: PilotUser?
 
@@ -46,12 +48,11 @@ class MainViewController: NSViewController {
     // Set up the platform service
     self.platformService = PlatformService(user: user!)
 
-    guard let nib = NSNib(nibNamed: "FileCollectionViewItem", bundle: nil) else {
-      print("could not load collection view item") // Throw appropriate error later
-      return
+    if let nib = NSNib(nibNamed: "FileCollectionViewItem", bundle: nil) {
+      fileCollectionView.registerNib(nib, forItemWithIdentifier: "fileItem")
+    } else {
+      ErrorController.sharedErrorController.displayError("Failed to load Nib for collectionView")
     }
-
-    fileCollectionView.registerNib(nib, forItemWithIdentifier: "fileItem")
   }
 
   // Search the files in the collection view for the keywords sepcified
@@ -114,12 +115,12 @@ extension MainViewController: NSTableViewDelegate {
     let selection = platforms[tableView.selectedRow].type
     switch selection {
     case .Facebook:
-      content = facebookService!.content
+      content = facebookService!.fetchCachedLocalContent()
       fileCollectionView.reloadData()
     case .Twitter:
-      print("Twitter")
+      print("Twitter Pressed")
     default:
-      print("Default")
+      print("Default Switch")
     }
   }
 
@@ -168,6 +169,7 @@ extension MainViewController: NSCollectionViewDataSource {
   func collectionView(collectionView: NSCollectionView, itemForRepresentedObjectAtIndexPath indexPath: NSIndexPath) -> NSCollectionViewItem {
     let item = collectionView.makeItemWithIdentifier("fileItem", forIndexPath: indexPath)
     item.representedObject = content[indexPath.item]
+
     return item
   }
 

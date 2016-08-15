@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,14 +27,16 @@
 
 import Foundation
 
-extension NSArray : DataType, WritableToFile {
+extension NSArray: DataType, WritableToFile {
 
     /// Returns an array read from the given path.
+    ///
+    /// - Parameter path: The path an array to be read from.
     public class func readFromPath(path: Path) throws -> Self {
-        guard let contents = self.init(contentsOfFile: path.rawValue) else {
+        guard let contents = self.init(contentsOfFile: path._safeRawValue) else {
             throw FileKitError.ReadFromFileFail(path: path)
         }
         return contents
     }
-    
+
 }

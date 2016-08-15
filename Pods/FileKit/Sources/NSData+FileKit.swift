@@ -1,10 +1,10 @@
 //
-//  FileKit.swift
+//  NSData+FileKit.swift
 //  FileKit
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,33 +25,25 @@
 //  THE SOFTWARE.
 //
 
-/// Information regarding [FileKit](https://github.com/nvzqz/FileKit).
-///
-/// - Author: [Nikolai Vazquez](https://github.com/nvzqz)
-///
-/// - Copyright: [MIT License](https://opensource.org/licenses/MIT)
-///
-/// - Version: [v2.0.0](https://github.com/nvzqz/FileKit/releases/tag/v2.0.0)
-///
-/// - Requires: Xcode 7+, Swift 2.0+
-///
-public enum FileKit {
+import Foundation
 
-    /// The current version.
-    ///
-    /// FileKit follows [Semantic Versioning v2.0.0](http://semver.org/).
-    public static let version = "v2.0.0"
+extension NSData: DataType, WritableToFile {
 
-    /// The current release.
-    public static let release = 9
+    /// Returns data read from the given path.
+    public class func readFromPath(path: Path) throws -> Self {
+        guard let contents = self.init(contentsOfFile: path._safeRawValue) else {
+            throw FileKitError.ReadFromFileFail(path: path)
+        }
+        return contents
+    }
 
-    /// FileKit is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-    public static let license = "MIT"
-
-    /// A brief description of FileKit.
-    public static let description = "A Swift framework that allows for simple and expressive file management."
-
-    /// Where the project can be found.
-    public static let projectURL = "https://github.com/nvzqz/FileKit"
+    /// Returns data read from the given path using NSDataReadingOptions.
+    public class func readFromPath(path: Path, options: NSDataReadingOptions) throws -> Self {
+        do {
+            return try self.init(contentsOfFile: path._safeRawValue, options: options)
+        } catch {
+            throw FileKitError.ReadFromFileFail(path: path)
+        }
+    }
 
 }

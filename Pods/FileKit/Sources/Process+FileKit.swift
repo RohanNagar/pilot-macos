@@ -1,10 +1,10 @@
 //
-//  DataFile.swift
+//  Process+FileKit.swift
 //  FileKit
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Nikolai Vazquez
+//  Copyright (c) 2015-2016 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,9 +25,16 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
+extension Process {
 
-/// A representation of a filesystem data file.
-///
-/// The data type is NSData.
-public typealias DataFile = File<NSData>
+    /// The working directory for the current process.
+    public static var workingDirectory: Path {
+        get {
+            return Path.Current
+        }
+        set {
+            Path.Current = newValue
+        }
+    }
+
+}

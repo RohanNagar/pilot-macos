@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (3.4.1)
   - CryptoSwift (0.4.1)
-  - FileKit (2.0.0)
+  - FileKit (3.0.0)
   - HTTPStatusCodes (2.0.3)
   - Locksmith (2.0.8)
   - Nimble (4.0.1)
@@ -16,7 +16,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 3.4.0)
   - CryptoSwift (~> 0.4.0)
-  - FileKit (~> 2.0.0)
+  - FileKit (~> 3.0.0)
   - HTTPStatusCodes (~> 2.0.2)
   - Locksmith
   - Nimble (~> 4.0.1)
@@ -27,7 +27,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   CryptoSwift: 25b5aff3f260967391f8fff2e9abe4254d2c6fd5
-  FileKit: fd360f82f62a1f70dd2ccdbe0950d3a6d1e25d1d
+  FileKit: 4797c551ecc861fbb2b5c9c6f05296f9e9e66807
   HTTPStatusCodes: d5d6d9a0aed88769af4fa59f3bddd39b33131494
   Locksmith: a8ed41ac4c06506ea8cb199d8ec8a8d3d108eb2a
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
