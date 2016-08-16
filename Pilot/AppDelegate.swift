@@ -8,6 +8,7 @@
 
 import Cocoa
 import FileKit
+import Locksmith
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -18,6 +19,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationDidFinishLaunching(aNotification: NSNotification) {
     loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+
+    let defaults = NSUserDefaults.standardUserDefaults()
+
+    // If there is an existing user then try to grab the password for that user from KeyChain
+    if let username = defaults.stringForKey("existingUser") {
+      if let existingUserInfo = Locksmith.loadDataForUserAccount(username) {
+        let password = existingUserInfo["password"] as! String
+        loginViewController.signIn(loginWindow, username: username, password: password)
+        return
+      }
+    }
 
     // Add the loginView Controller to the contentView
     loginWindow.contentViewController = loginViewController

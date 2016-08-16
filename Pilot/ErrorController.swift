@@ -18,8 +18,9 @@ class ErrorController: NSObject {
     self.viewController = viewController
   }
 
-  func displayError(message: String) {
+  func displayError(message: String, color: NSColor = PilotColors.ErrorRed) {
     self.viewController.errorMessage.stringValue = message
+    self.viewController.errorMessage.textColor = color
   }
 
   func clearErrors() {

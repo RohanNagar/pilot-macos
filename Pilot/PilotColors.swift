@@ -12,6 +12,7 @@ class PilotColors {
   static let PilotBlue = NSColor.fromRGB(114.0, green: 192.0, blue: 228.0)
   static let PilotBrownBackground = NSColor.fromRGB(242.0, green: 242.0, blue: 242.0)
   static let PilotBrownText = NSColor.fromRGB(173.0, green: 173.0, blue: 173.0)
+  static let ErrorRed = NSColor.fromRGB(242, green: 71, blue: 15)
 }
 
 extension NSColor {
