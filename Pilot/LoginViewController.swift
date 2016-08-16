@@ -135,6 +135,9 @@ class LoginViewController: NSViewController {
           // Eventually load twitterService here
         }
 
+        // Enable window resize for mainViewController
+        window.styleMask |= NSResizableWindowMask
+
         // Present the MainViewController to the user
         window.contentViewController = mainViewController
       },
@@ -172,18 +175,6 @@ class LoginViewController: NSViewController {
     Preferences.updatePreferences(updatePreferences, username: user.username)
 
     return updatePreferences
-  }
-
-}
-
-extension NSImage {
-
-  static func swatchWithColor(color: NSColor, size: NSSize) -> NSImage {
-    let image = NSImage(size: size)
-    image.lockFocus()
-    color.drawSwatchInRect(NSMakeRect(0, 0, size.width, size.height))
-    image.unlockFocus()
-    return image
   }
 
 }

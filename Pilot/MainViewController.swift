@@ -10,13 +10,20 @@ import Cocoa
 
 class MainViewController: NSViewController {
 
-  @IBOutlet weak var fileCollectionView: NSCollectionView!
-
   @IBOutlet weak var tableView: NSTableView!
 
-  @IBOutlet weak var iconImageView: NSImageView!
-
   @IBOutlet weak var errorMessage: NSTextField!
+
+  @IBOutlet weak var uploadButton: NSButton!
+
+  @IBOutlet weak var headerTitle: NSTextField!
+  
+  // This view holds the various switchable views such as uploadView and collectionView
+  @IBOutlet weak var customView: NSView!
+
+  var collectionViewController: CollectionViewController!
+
+  var uploadViewController: UploadViewController!
 
   // The user currently logged in
   var user: PilotUser?
@@ -33,26 +40,27 @@ class MainViewController: NSViewController {
   // Service classes used to sync platforms with cloud variant
   var platformService: PlatformService?
 
-  // This is the array of files to display to the user, this array will be indexed the same as it
-  // will show to the user so you can re-order the array and reload the colleciton view to meet the
-  // requirnments for the sort drop down
-  // NOTE: The zeroth element is the bound content for the collectionView.
-  var content: [LocalFile] = []
-
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    // Set the pilot logo for the view
-    iconImageView.image = NSImage(named: "LoginIcon")
 
     // Set up the platform service
     self.platformService = PlatformService(user: user!)
 
-    if let nib = NSNib(nibNamed: "FileCollectionViewItem", bundle: nil) {
-      fileCollectionView.registerNib(nib, forItemWithIdentifier: "fileItem")
-    } else {
-      ErrorController.sharedErrorController.displayError("Failed to load Nib for collectionView")
-    }
+    // Create the uploadView to be used later on
+    uploadViewController = UploadViewController(nibName: "UploadViewController", bundle: nil)
+
+    uploadViewController.view.frame = customView.frame
+
+    // Create a collectionViewConrtoller to be used with the custom view
+    collectionViewController = CollectionViewController(nibName: "CollectionViewController", bundle: nil)
+
+    collectionViewController.view.frame = customView.frame
+
+    // Add the collectionView as the first view in the contentView
+    customView.addSubview(collectionViewController.view)
+
+    // collectionViewController.view.frame = contentView.bounds
+    collectionViewController.view.bindFrameToSuperviewBounds()
   }
 
   // Search the files in the collection view for the keywords sepcified
@@ -76,16 +84,14 @@ class MainViewController: NSViewController {
 
   // Upload files to the current platform
   @IBAction func upload(sender: AnyObject) {
+    collectionViewController.view.hidden = true
+    collectionViewController.view.addSubview(uploadViewController.view)
 
+    uploadViewController.view.bindFrameToSuperviewBounds()
   }
 
   // Add a new platform to the left side table
   @IBAction func add(sender: AnyObject) {
-
-  }
-
-  // Sort the files in the collection view by a specific enum (Not yet implemented)
-  @IBAction func sort(sender: AnyObject) {
 
   }
 
@@ -115,9 +121,11 @@ extension MainViewController: NSTableViewDelegate {
     let selection = platforms[tableView.selectedRow].type
     switch selection {
     case .Facebook:
-      content = facebookService!.fetchCachedLocalContent()
-      fileCollectionView.reloadData()
+      headerTitle.stringValue = "Facebook"
+      collectionViewController.content = facebookService!.fetchCachedLocalContent()
+      collectionViewController.collectionView.reloadData()
     case .Twitter:
+      headerTitle.stringValue = "Twitter"
       print("Twitter Pressed")
     default:
       print("Default Switch")
@@ -156,21 +164,14 @@ extension MainViewController: NSTableViewDataSource {
 
 }
 
-/// MARK: - NSCollectionViewDelegateFlowLayout
-extension MainViewController: NSCollectionViewDelegateFlowLayout {}
+extension NSImage {
 
-/// MARK: - NSCollectionViewDataSource
-extension MainViewController: NSCollectionViewDataSource {
-
-  func collectionView(collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-    return content.count
-  }
-
-  func collectionView(collectionView: NSCollectionView, itemForRepresentedObjectAtIndexPath indexPath: NSIndexPath) -> NSCollectionViewItem {
-    let item = collectionView.makeItemWithIdentifier("fileItem", forIndexPath: indexPath)
-    item.representedObject = content[indexPath.item]
-
-    return item
+  static func swatchWithColor(color: NSColor, size: NSSize) -> NSImage {
+    let image = NSImage(size: size)
+    image.lockFocus()
+    color.drawSwatchInRect(NSMakeRect(0, 0, size.width, size.height))
+    image.unlockFocus()
+    return image
   }
 
 }

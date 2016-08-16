@@ -118,8 +118,8 @@ class FacebookService: NSObject, FileService {
       }
 
       // Refresh the collectionView
-      mainViewController.content = self.fetchCachedLocalContent()
-      mainViewController.fileCollectionView.reloadData()
+      mainViewController.collectionViewController.content = self.fetchCachedLocalContent()
+      mainViewController.collectionViewController.collectionView.reloadData()
     })
 
     // Start the stream
