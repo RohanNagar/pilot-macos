@@ -20,7 +20,6 @@ class LoginViewController: NSViewController {
   @IBOutlet weak var passwordTextField: NSSecureTextField!
   @IBOutlet weak var message: NSTextField!
 
-  var mainViewController: MainViewController!
   var userService = PilotUserService()
 
   let defaults = NSUserDefaults.standardUserDefaults()
@@ -74,52 +73,70 @@ class LoginViewController: NSViewController {
       return
     }
 
+    signIn(self.view.window!, username: usernameTextField.stringValue, password: passwordTextField.stringValue)
+  }
+
+  func signIn(window: NSWindow, username: String, password: String) {
+
     // hash the password
-    let hashedPassword = PasswordService.hashPassword(passwordTextField.stringValue)
+    let hashedPassword = PasswordService.hashPassword(password)
 
     // Get the requested pilot user
-    userService.getPilotUser(usernameTextField.stringValue, password: hashedPassword,
+    userService.getPilotUser(username, password: hashedPassword,
       completion: { user in
+        // Store the username in NSUserDefaults as the existingUser
+        self.defaults.setObject(user.username, forKey: "existingUser")
+
+        // Attempt to store the password for that user in KeyChain
+        do {
+          try Locksmith.saveData(["password": password], forUserAccount: user.username)
+        } catch LocksmithError.Duplicate {
+          print("Duplicate with LockSmith")
+        } catch {
+          print("There was an error with LockSmith")
+        }
 
         // Set up the main view controller
-        self.mainViewController = MainViewController(nibName: "MainViewController", bundle: nil)
+        guard let mainViewController = MainViewController(nibName: "MainViewController", bundle: nil) else {
+          return
+        }
 
         // Set up the ErrorController class
-        let errorController = ErrorController(viewController: self.mainViewController)
+        let errorController = ErrorController(viewController: mainViewController)
         ErrorController.sharedErrorController = errorController
 
         // Set the current user in the mainViewController
-        self.mainViewController.loadUser(user)
+        mainViewController.loadUser(user)
 
         // Load the prefrences for the user
         let preferences = self.fetchPreferences(user)
-        self.mainViewController.loadUserPreferences(preferences)
+        mainViewController.loadUserPreferences(preferences)
 
         // Determine the users platforms and add them to mainViewController
         if user.facebookAccessToken != "" {
-          self.mainViewController.addPlatform(Platform(title: "Facebook", icon: NSImage(named: "FacebookIcon"), type: .Facebook))
+          mainViewController.addPlatform(Platform(title: "Facebook", icon: NSImage(named: "FacebookIcon"), type: .Facebook))
 
           // Set up and load the FacebookService class
           let facebookService = FacebookService(preferences: preferences, pilotUser: user)
 
           // Set the FileSystemWatcher class for facebook
-          facebookService.setFileSystemWatcher(self.mainViewController)
+          facebookService.setFileSystemWatcher(mainViewController)
 
           // Attempt to grab facebook cloud files and call the DirectoryService
           facebookService.refreshCachedLocalContent()
 
           // Load the facebookService class for current user
-          self.mainViewController.loadFacebookService(facebookService)
+          mainViewController.loadFacebookService(facebookService)
         }
 
         if user.twitterAccessToken != "" {
-          self.mainViewController.addPlatform(Platform(title: "Twitter", icon: NSImage(named: "TwitterIcon"), type: PlatformType.Twitter))
+          mainViewController.addPlatform(Platform(title: "Twitter", icon: NSImage(named: "TwitterIcon"), type: PlatformType.Twitter))
 
           // Eventually load twitterService here
         }
 
         // Present the MainViewController to the user
-        self.view.window?.contentViewController = self.mainViewController
+        window.contentViewController = mainViewController
       },
       failure: { statusCode in
         switch statusCode {

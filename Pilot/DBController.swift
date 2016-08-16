@@ -20,7 +20,7 @@ class DBController: NSObject {
     do {
       realm = try Realm()
     } catch {
-      ErrorController.sharedErrorController.displayError("Unable to make connection with Real DB")
+      ErrorController.sharedErrorController.displayError("Unable to make connection with Realm DB")
     }
   }
 
