@@ -30,7 +30,7 @@
                                     <size key="itemSize" width="90" height="120"/>
                                     <edgeInsets key="sectionInset" left="20" right="20" top="10" bottom="20"/>
                                 </collectionViewFlowLayout>
-                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                 <connections>
                                     <binding destination="-2" name="content" keyPath="self.content" id="kF3-XP-F7V"/>
                                     <outlet property="dataSource" destination="-2" id="IgQ-UA-ukD"/>
@@ -59,6 +59,7 @@
                 <constraint firstItem="2XF-h0-EBH" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="l34-v5-eoT"/>
                 <constraint firstItem="2XF-h0-EBH" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="uyT-FS-D9i"/>
             </constraints>
+            <point key="canvasLocation" x="923" y="611"/>
         </customView>
     </objects>
 </document>

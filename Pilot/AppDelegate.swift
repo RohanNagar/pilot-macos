@@ -21,9 +21,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
 
-    // Set the window color
-    window.backgroundColor = NSColor.fromRGB(255.0, green: 255.0, blue: 255.0)
-
+    // Set the default window color
+    //window.backgroundColor = NSColor.fromRGB(255.0, green: 255.0, blue: 255.0)
+    window.backgroundColor = PilotColors.PilotBlue
+    
+    //window.standardWindowButton(NSWindowButton.closeButton).hidden = true
+    
     let defaults = NSUserDefaults.standardUserDefaults()
 
     // If there is an existing user then try to grab the password for that user from KeyChain
@@ -62,3 +65,12 @@ extension NSView {
   }
 
 }
+
+//enum NSWindowButton {
+//    case closeButton
+//    case minaturizeButton
+//    case zoomButton
+//    case toolbarButton
+//    case documentIconButton
+//    case codumentVersionsButton
+//}
