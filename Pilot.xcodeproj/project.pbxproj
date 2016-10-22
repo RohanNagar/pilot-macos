@@ -284,7 +284,6 @@
 				14EA517D1BB777E20099C25E /* Resources */,
 				32822065C8C0500B0F58C049 /* Embed Pods Frameworks */,
 				B3CABE15175BF2A8373397F2 /* Copy Pods Resources */,
-				698FF7D4AD5DAEB972014A89 /* Tailor */,
 			);
 			buildRules = (
 			);
@@ -454,20 +453,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
-		};
-		698FF7D4AD5DAEB972014A89 /* Tailor */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Tailor;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/tailor --max-severity=error";
 		};
 		799CE12E2E72693182E9AE6F /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

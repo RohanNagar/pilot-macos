@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
@@ -50,9 +50,13 @@
                 </scrollView>
             </subviews>
             <constraints>
+                <constraint firstItem="2XF-h0-EBH" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="51b-CU-kCz"/>
+                <constraint firstAttribute="trailing" secondItem="2XF-h0-EBH" secondAttribute="trailing" id="62Z-gG-U1x"/>
                 <constraint firstAttribute="bottom" secondItem="2XF-h0-EBH" secondAttribute="bottom" id="EnV-g7-oTa"/>
+                <constraint firstAttribute="bottom" secondItem="2XF-h0-EBH" secondAttribute="bottom" id="K0a-JJ-5Vh"/>
                 <constraint firstItem="2XF-h0-EBH" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="cff-Nv-hmC"/>
                 <constraint firstAttribute="trailing" secondItem="2XF-h0-EBH" secondAttribute="trailing" id="iga-JC-auc"/>
+                <constraint firstItem="2XF-h0-EBH" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="l34-v5-eoT"/>
                 <constraint firstItem="2XF-h0-EBH" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="uyT-FS-D9i"/>
             </constraints>
         </customView>

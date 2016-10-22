@@ -170,7 +170,7 @@ class LoginViewController: NSViewController {
   }
 
   func registerDefaultPreferences(user: PilotUser) -> Preferences {
-    let updatePreferences = Preferences(rootPath: "\(Path.UserHome)/pilot/\(user.username)/", username: user.username)
+    let updatePreferences = Preferences(rootPath: "\(Path.UserHome)/pilot/\(user.username)/")
 
     Preferences.updatePreferences(updatePreferences, username: user.username)
 

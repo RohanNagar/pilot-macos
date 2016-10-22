@@ -18,7 +18,7 @@ class Preferences: NSObject {
   // The base url to use for file storage
   private var rootPath: String!
 
-  init(rootPath: String, username: String) {
+  init(rootPath: String) {
     self.rootPath = rootPath
   }
 
@@ -54,8 +54,7 @@ class Preferences: NSObject {
 
   static func fromJSON(json: JSON) -> Preferences {
     let path = json["rootPath"].string!
-    let username = json["username"].string!
-    return Preferences(rootPath: path, username: username)
+    return Preferences(rootPath: path)
   }
 
   static func updatePreferences(preferences: Preferences, username: String) {
