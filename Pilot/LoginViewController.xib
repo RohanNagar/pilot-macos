@@ -130,7 +130,7 @@
                 <constraint firstAttribute="trailing" secondItem="v8n-r5-77u" secondAttribute="trailing" constant="141" id="yTO-tj-wGF"/>
                 <constraint firstAttribute="trailing" secondItem="Wrc-rx-cJW" secondAttribute="trailing" constant="135" id="yUn-ew-Xvd"/>
             </constraints>
-            <point key="canvasLocation" x="605.5" y="358"/>
+            <point key="canvasLocation" x="631.5" y="353"/>
         </customView>
     </objects>
     <resources>

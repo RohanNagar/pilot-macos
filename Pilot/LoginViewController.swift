@@ -26,6 +26,11 @@ class LoginViewController: NSViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.view.wantsLayer = true
+    
+    // Disable window resize for the login window
+    self.view.window!.styleMask &= ~NSResizableWindowMask
 
     // Set the app icon image
     iconView.image = NSImage(named: "LoginIcon")
@@ -33,6 +38,21 @@ class LoginViewController: NSViewController {
     // Change the textfield text color to custom pilot brown color
     usernameTextField.textColor = PilotColors.PilotBrownText
     passwordTextField.textColor = PilotColors.PilotBrownText
+  }
+  
+  override func awakeFromNib() {
+    if self.view.layer != nil {
+      let color: CGColorRef = PilotColors.White.CGColor
+      self.view.layer?.backgroundColor = color
+    }
+  }
+  
+  override func viewDidAppear() {
+    self.view.window!.backgroundColor = PilotColors.PilotBlue
+    
+    self.view.window!.titleVisibility = NSWindowTitleVisibility.Hidden
+    self.view.window!.titlebarAppearsTransparent = true
+    self.view.window!.movableByWindowBackground = true
   }
 
   /// Called when `usernameTextField` sends an action.

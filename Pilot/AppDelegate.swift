@@ -14,18 +14,20 @@ import Locksmith
 class AppDelegate: NSObject, NSApplicationDelegate {
 
   @IBOutlet weak var window: NSWindow!
-
   var loginViewController: LoginViewController!
-
+  var toolbar: NSToolbar!
+  
   func applicationDidFinishLaunching(aNotification: NSNotification) {
 
     loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-
+    
+    // Set up a new toolbar
+    toolbar = NSToolbar(identifier: "MainViewControllerToolbar")
+    toolbar.delegate = self
+    window.toolbar = toolbar
+    
     // Set the default window color
     //window.backgroundColor = NSColor.fromRGB(255.0, green: 255.0, blue: 255.0)
-    window.backgroundColor = PilotColors.PilotBlue
-    
-    //window.standardWindowButton(NSWindowButton.closeButton).hidden = true
     
     let defaults = NSUserDefaults.standardUserDefaults()
 
@@ -37,9 +39,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return
       }
     }
-
-    // Disable window resize for the login window
-    window.styleMask &= ~NSResizableWindowMask
 
     // Add the loginView Controller to the contentView
     window.contentViewController = loginViewController
@@ -66,11 +65,4 @@ extension NSView {
 
 }
 
-//enum NSWindowButton {
-//    case closeButton
-//    case minaturizeButton
-//    case zoomButton
-//    case toolbarButton
-//    case documentIconButton
-//    case codumentVersionsButton
-//}
+extension AppDelegate: NSToolbarDelegate {}

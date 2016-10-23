@@ -42,7 +42,9 @@ class MainViewController: NSViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
+    self.view.wantsLayer = true
+    
     // Set up the platform service
     self.platformService = PlatformService(user: user!)
 
@@ -62,10 +64,25 @@ class MainViewController: NSViewController {
     // collectionViewController.view.frame = contentView.bounds
     collectionViewController.view.bindFrameToSuperviewBounds()
   }
+  
+  override func awakeFromNib() {
+    if self.view.layer != nil {
+      let color: CGColorRef = PilotColors.White.CGColor
+      self.view.layer?.backgroundColor = color
+    }
+  }
+  
+  override func viewDidAppear() {
+    self.view.window!.backgroundColor = PilotColors.PilotBlue
 
+    self.view.window!.titleVisibility = NSWindowTitleVisibility.Hidden
+    self.view.window!.titlebarAppearsTransparent = true
+    self.view.window!.movableByWindowBackground = true
+  }
+  
   // Search the files in the collection view for the keywords sepcified
   @IBAction func search(sender: AnyObject) {
-
+    
   }
 
   // Sync the files for the current platform with its online platform

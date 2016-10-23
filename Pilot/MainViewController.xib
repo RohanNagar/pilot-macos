@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="PkN-KV-Dmo">
-                                <rect key="frame" x="1" y="0.0" width="110" height="380"/>
+                                <rect key="frame" x="1" y="0.0" width="110" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" red="0.65224358974358976" green="0.65224358974358976" blue="0.65224358974358976" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <color key="gridColor" white="0.80000000000000004" alpha="1" colorSpace="deviceWhite"/>
@@ -162,7 +162,7 @@
                 <constraint firstItem="Kql-q1-z8r" firstAttribute="leading" secondItem="jic-LV-3bc" secondAttribute="trailing" constant="13" id="sfH-UE-D69"/>
                 <constraint firstItem="SSw-rg-gzY" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="55" id="wGM-7n-uSf"/>
             </constraints>
-            <point key="canvasLocation" x="707.5" y="444.5"/>
+            <point key="canvasLocation" x="516.5" y="337.5"/>
         </customView>
     </objects>
     <resources>
