@@ -30,7 +30,7 @@ class LoginViewController: NSViewController {
     self.view.wantsLayer = true
     
     // Disable window resize for the login window
-    self.view.window!.styleMask &= ~NSResizableWindowMask
+    self.preferredContentSize = NSMakeSize(self.view.frame.size.width, self.view.frame.size.height);
 
     // Set the app icon image
     iconView.image = NSImage(named: "LoginIcon")
