@@ -48,7 +48,7 @@ class LoginViewController: NSViewController {
   }
   
   override func viewDidAppear() {
-    self.view.window!.backgroundColor = PilotColors.PilotBlue
+    self.view.window!.backgroundColor = PilotColors.White
     
     self.view.window!.titleVisibility = NSWindowTitleVisibility.Hidden
     self.view.window!.titlebarAppearsTransparent = true

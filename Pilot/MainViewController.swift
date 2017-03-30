@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class MainViewController: NSViewController {
+class MainViewController: NSViewController, UploadViewControllerDelegate {
 
   @IBOutlet weak var tableView: NSTableView!
 
@@ -52,6 +52,7 @@ class MainViewController: NSViewController {
     uploadViewController = UploadViewController(nibName: "UploadViewController", bundle: nil)
 
     uploadViewController.view.frame = customView.frame
+    uploadViewController.delegate = self
 
     // Create a collectionViewConrtoller to be used with the custom view
     collectionViewController = CollectionViewController(nibName: "CollectionViewController", bundle: nil)
@@ -102,10 +103,14 @@ class MainViewController: NSViewController {
   // Upload files to the current platform
   @IBAction func upload(sender: AnyObject) {
     collectionViewController.view.hidden = true
-    collectionViewController.view.addSubview(uploadViewController.view)
+    customView.addSubview(uploadViewController.view)
 
     uploadViewController.view.bindFrameToSuperviewBounds()
   }
+    
+    func returnFromUpload() {
+        collectionViewController.view.hidden = false
+    }
 
   // Add a new platform to the left side table
   @IBAction func add(sender: AnyObject) {
