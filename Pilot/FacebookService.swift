@@ -24,12 +24,12 @@ class FacebookService: NSObject, FileService {
 
   var fileSystemWatcher: FileSystemWatcher!
   // Auth keys
-  let user = "lightning"
+  let user = "application"
   let secret = "secret"
 
   // Endpoints to use
-  let photosEndpoint = "http://lightning.sanctionco.com/facebook/photos"
-  let videosEndpoint = "http://lightning.sanctionco.com/facebook/videos"
+  let photosEndpoint = "http://lightning.nickeckert.com/facebook/photos"
+  let videosEndpoint = "http://lightning.nickeckert.com/facebook/videos"
 
   internal var preferences: Preferences
   internal var basicCredentials: String
@@ -145,7 +145,7 @@ class FacebookService: NSObject, FileService {
                    "password": "\(password)"]
 
     // Build the parameters for the request
-    let parameters = ["username": username]
+    let parameters = ["email": username]
 
     Alamofire.request(.GET, photosEndpoint, headers: headers, parameters: parameters)
       .responseJSON { response in
@@ -193,7 +193,7 @@ class FacebookService: NSObject, FileService {
                    "password": "\(password)"]
 
     // build the parameters for the request
-    let parameters = ["username": username]
+    let parameters = ["email": username]
 
     Alamofire.request(.GET, videosEndpoint, headers: headers, parameters: parameters)
       .responseJSON { response in

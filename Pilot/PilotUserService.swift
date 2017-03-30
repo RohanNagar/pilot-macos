@@ -18,7 +18,7 @@ class PilotUserService: NSObject {
   let secret = "secret"
 
   // Endpoint to connect to Thunder
-  let endpoint = "http://thunder.sanctionco.com/users"
+  let endpoint = "http://thunder.nickeckert.com/users"
 
   private var basicCredentials: String
 
@@ -45,7 +45,7 @@ class PilotUserService: NSObject {
                                      "password": "\(password)"]
 
     // Build the parameters for the request
-    let parameters: [String: String] = ["username": username]
+    let parameters: [String: String] = ["email": username]
 
     Alamofire.request(.GET, endpoint, headers: headers, parameters: parameters)
       .validate(statusCode: 200..<300)
@@ -75,7 +75,7 @@ class PilotUserService: NSObject {
         let json = JSON(data: response.data!)
 
         let user = PilotUser(
-          username: json["username"].stringValue,
+          username: json["email"].stringValue,
           password: json["password"].stringValue,
           facebookAccessToken: json["facebookAccessToken"].stringValue,
           twitterAccessToken: json["twitterAccessToken"].stringValue,
