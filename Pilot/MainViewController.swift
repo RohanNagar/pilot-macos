@@ -135,6 +135,11 @@ class MainViewController: NSViewController {
 extension MainViewController: NSTableViewDelegate {
 
   func tableViewSelectionDidChange(notification: NSNotification) {
+    // Do nothing if selected a non-existant cell
+    if tableView.selectedRow == -1 {
+        return
+    }
+
     let selection = platforms[tableView.selectedRow].type
     switch selection {
     case .Facebook:
