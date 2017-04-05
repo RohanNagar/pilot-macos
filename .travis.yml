@@ -2,10 +2,10 @@ language: objective-c
 osx_image: xcode8.3
 xcode_workspace: Pilot.xcworkspace
 xcode_scheme: Pilot
-xcode_sdk: macosx10.11
+xcode_sdk: macosx10.12
 
 before_install:
   - brew update
   - brew install tailor
 
-script: set -o pipefail && xcodebuild test -workspace Pilot.xcworkspace -scheme Pilot -sdk macosx10.11
+script: set -o pipefail && xcodebuild test -workspace Pilot.xcworkspace -scheme Pilot -sdk macosx10.12
