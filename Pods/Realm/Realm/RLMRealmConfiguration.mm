@@ -25,6 +25,7 @@
 
 #import "schema.hpp"
 #import "shared_realm.hpp"
+#import "sync/sync_config.hpp"
 
 static NSString *const c_RLMRealmConfigurationProperties[] = {
     @"fileURL",
@@ -41,47 +42,13 @@ static NSString *const c_RLMRealmConfigurationProperties[] = {
 static NSString *const c_defaultRealmFileName = @"default.realm";
 RLMRealmConfiguration *s_defaultConfiguration;
 
-static NSString *defaultDirectoryForBundleIdentifier(NSString *bundleIdentifier) {
-#if TARGET_OS_TV
-    (void)bundleIdentifier;
-    // tvOS prohibits writing to the Documents directory, so we use the Library/Caches directory instead.
-    return NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
-#elif TARGET_OS_IPHONE
-    (void)bundleIdentifier;
-    // On iOS the Documents directory isn't user-visible, so put files there
-    return NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-#else
-    // On OS X it is, so put files in Application Support. If we aren't running
-    // in a sandbox, put it in a subdirectory based on the bundle identifier
-    // to avoid accidentally sharing files between applications
-    NSString *path = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES)[0];
-    if (![[NSProcessInfo processInfo] environment][@"APP_SANDBOX_CONTAINER_ID"]) {
-        if (!bundleIdentifier) {
-            bundleIdentifier = [NSBundle mainBundle].bundleIdentifier;
-        }
-        if (!bundleIdentifier) {
-            bundleIdentifier = [NSBundle mainBundle].executablePath.lastPathComponent;
-        }
-
-        path = [path stringByAppendingPathComponent:bundleIdentifier];
-
-        // create directory
-        [[NSFileManager defaultManager] createDirectoryAtPath:path
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil
-                                                        error:nil];
-    }
-    return path;
-#endif
-}
-
 NSString *RLMRealmPathForFileAndBundleIdentifier(NSString *fileName, NSString *bundleIdentifier) {
-    return [defaultDirectoryForBundleIdentifier(bundleIdentifier)
+    return [RLMDefaultDirectoryForBundleIdentifier(bundleIdentifier)
             stringByAppendingPathComponent:fileName];
 }
 
 NSString *RLMRealmPathForFile(NSString *fileName) {
-    static NSString *directory = defaultDirectoryForBundleIdentifier(nil);
+    static NSString *directory = RLMDefaultDirectoryForBundleIdentifier(nil);
     return [directory stringByAppendingPathComponent:fileName];
 }
 
@@ -168,7 +135,10 @@ static void RLMNSStringToStdString(std::string &out, NSString *in) {
 }
 
 - (NSURL *)fileURL {
-    return _config.in_memory ? nil : [NSURL fileURLWithPath:@(_config.path.c_str())];
+    if (_config.in_memory || _config.sync_config) {
+        return nil;
+    }
+    return [NSURL fileURLWithPath:@(_config.path.c_str())];
 }
 
 - (void)setFileURL:(NSURL *)fileURL {
@@ -176,6 +146,7 @@ static void RLMNSStringToStdString(std::string &out, NSString *in) {
     if (path.length == 0) {
         @throw RLMException(@"Realm path must not be empty");
     }
+    _config.sync_config = nullptr;
 
     RLMNSStringToStdString(_config.path, path);
     _config.in_memory = false;
@@ -192,6 +163,7 @@ static void RLMNSStringToStdString(std::string &out, NSString *in) {
     if (inMemoryIdentifier.length == 0) {
         @throw RLMException(@"In-memory identifier must not be empty");
     }
+    _config.sync_config = nullptr;
 
     RLMNSStringToStdString(_config.path, [NSTemporaryDirectory() stringByAppendingPathComponent:inMemoryIdentifier]);
     _config.in_memory = true;
@@ -205,18 +177,33 @@ static void RLMNSStringToStdString(std::string &out, NSString *in) {
     if (NSData *key = RLMRealmValidatedEncryptionKey(encryptionKey)) {
         auto bytes = static_cast<const char *>(key.bytes);
         _config.encryption_key.assign(bytes, bytes + key.length);
+        if (_config.sync_config) {
+            auto& sync_encryption_key = self.config.sync_config->realm_encryption_key;
+            sync_encryption_key = std::array<char, 64>();
+            std::copy_n(_config.encryption_key.begin(), 64, sync_encryption_key->begin());
+        }
     }
     else {
         _config.encryption_key.clear();
+        if (_config.sync_config)
+            _config.sync_config->realm_encryption_key = realm::util::none;
     }
 }
 
 - (BOOL)readOnly {
-    return _config.read_only;
+    return _config.read_only();
 }
 
 - (void)setReadOnly:(BOOL)readOnly {
-    _config.read_only = readOnly;
+    if (readOnly) {
+        if (self.deleteRealmIfMigrationNeeded) {
+            @throw RLMException(@"Cannot set `readOnly` when `deleteRealmIfMigrationNeeded` is set.");
+        }
+        _config.schema_mode = realm::SchemaMode::ReadOnly;
+    }
+    else if (self.readOnly) {
+        _config.schema_mode = realm::SchemaMode::Automatic;
+    }
 }
 
 - (uint64_t)schemaVersion {
@@ -231,11 +218,19 @@ static void RLMNSStringToStdString(std::string &out, NSString *in) {
 }
 
 - (BOOL)deleteRealmIfMigrationNeeded {
-    return _config.delete_realm_if_migration_needed;
+    return _config.schema_mode == realm::SchemaMode::ResetFile;
 }
 
 - (void)setDeleteRealmIfMigrationNeeded:(BOOL)deleteRealmIfMigrationNeeded {
-    _config.delete_realm_if_migration_needed = deleteRealmIfMigrationNeeded;
+    if (deleteRealmIfMigrationNeeded) {
+        if (self.readOnly) {
+            @throw RLMException(@"Cannot set `deleteRealmIfMigrationNeeded` when `readOnly` is set.");
+        }
+        _config.schema_mode = realm::SchemaMode::ResetFile;
+    }
+    else if (self.deleteRealmIfMigrationNeeded) {
+        _config.schema_mode = realm::SchemaMode::Automatic;
+    }
 }
 
 - (NSArray *)objectClasses {
@@ -259,20 +254,24 @@ static void RLMNSStringToStdString(std::string &out, NSString *in) {
     _config.cache = cache;
 }
 
-- (void)setCustomSchema:(RLMSchema *)customSchema {
-    _customSchema = customSchema;
-    _config.schema = [_customSchema objectStoreCopy];
-}
-
-- (void)setDisableFormatUpgrade:(bool)disableFormatUpgrade
-{
-    _config.disable_format_upgrade = disableFormatUpgrade;
-}
-
-- (bool)disableFormatUpgrade
-{
+- (bool)disableFormatUpgrade {
     return _config.disable_format_upgrade;
 }
 
-@end
+- (void)setDisableFormatUpgrade:(bool)disableFormatUpgrade {
+    _config.disable_format_upgrade = disableFormatUpgrade;
+}
 
+- (realm::SchemaMode)schemaMode {
+    return _config.schema_mode;
+}
+
+- (void)setSchemaMode:(realm::SchemaMode)mode {
+    _config.schema_mode = mode;
+}
+
+- (NSString *)pathOnDisk {
+    return @(_config.path.c_str());
+}
+
+@end

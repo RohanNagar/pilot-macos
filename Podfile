@@ -4,20 +4,19 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'Pilot' do
-  pod 'Alamofire', '~> 3.4.0'
-  pod 'HTTPStatusCodes', '~> 2.0.2'
-  pod 'SwiftyJSON', '~> 2.3.2'
-  pod 'CryptoSwift', '~> 0.4.0'
-  pod 'Swinject', '~> 1.1.0'
-  pod 'FileKit', '~> 3.0.0’
-  pod 'RealmSwift'
-  pod 'Locksmith'
+  pod 'Alamofire', '~> 4.4.0'
+  pod 'HTTPStatusCodes', '~> 3.1.1'
+  pod 'SwiftyJSON', '~> 3.1.4'
+  pod 'CryptoSwift', '~> 0.6.8'
+  pod 'FileKit', '~> 4.0.0'
+  pod 'RealmSwift', '~> 2.5.0'
+  pod 'Locksmith', '~> 3.0.0'
 end
 
 target 'PilotTests' do
-  pod 'Nimble', '~> 4.0.1'
+  pod 'Nimble', '~> 6.1.0'
 end
 
 target 'PilotUITests' do
-  pod 'Nimble', '~> 4.0.1'
+  pod 'Nimble', '~> 6.1.0'
 end
