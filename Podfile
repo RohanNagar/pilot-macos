@@ -10,7 +10,6 @@ target 'Pilot' do
   pod 'CryptoSwift', '~> 0.6.8'
   pod 'FileKit', '~> 4.0.1'
   pod 'RealmSwift', '~> 2.5.0'
-  pod 'Locksmith', '~> 3.0.0'
 end
 
 target 'PilotTests' do

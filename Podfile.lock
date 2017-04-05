@@ -3,7 +3,6 @@ PODS:
   - CryptoSwift (0.6.8)
   - FileKit (4.0.1)
   - HTTPStatusCodes (3.1.1)
-  - Locksmith (3.0.0)
   - Nimble (6.1.0)
   - Realm (2.5.0):
     - Realm/Headers (= 2.5.0)
@@ -17,7 +16,6 @@ DEPENDENCIES:
   - CryptoSwift (~> 0.6.8)
   - FileKit (~> 4.0.1)
   - HTTPStatusCodes (~> 3.1.1)
-  - Locksmith (~> 3.0.0)
   - Nimble (~> 6.1.0)
   - RealmSwift (~> 2.5.0)
   - SwiftyJSON (~> 3.1.4)
@@ -27,12 +25,11 @@ SPEC CHECKSUMS:
   CryptoSwift: f21ea03ed3a94e79d241648ce26652cd4810508a
   FileKit: 1ea916f594bc0bb9a3951f80edf92b52bb7f883c
   HTTPStatusCodes: a9a24d028b1efc6585561df7eb4d334adf133273
-  Locksmith: 310b4cc5031af5728bf4db5d4de547a5100c6a3b
   Nimble: c53e6903fee94041b90ded74f135820437d8bf59
   Realm: 62abce501668580092d2be9b6ba7324a3d5f906a
   RealmSwift: 9f1a8f624f2f153410115c2cb7d486be9976565d
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 3533bc4621da8ff1aba5e2cee83a2168313b8aee
+PODFILE CHECKSUM: 44d7df2c924dde0b7610413441eb0671b5d0aab8
 
 COCOAPODS: 1.2.0
