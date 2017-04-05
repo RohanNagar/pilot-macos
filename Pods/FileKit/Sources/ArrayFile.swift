@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015-2016 Nikolai Vazquez
+//  Copyright (c) 2015-2017 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -35,4 +35,4 @@ public typealias NSArrayFile = File<NSArray>
 /// A representation of a filesystem array file.
 ///
 /// The data type is Array.
-public typealias ArrayFile<T> = File<Array<T>>
+public typealias ArrayFile<T> = File<[T]>

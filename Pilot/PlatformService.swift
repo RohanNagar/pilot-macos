@@ -11,13 +11,13 @@ import FileKit
 
 class PlatformService: NSObject {
 
-  private let user: PilotUser!
+  fileprivate let user: PilotUser!
 
   init(user: PilotUser) {
     self.user = user
   }
 
-  func syncFacebook(facebookService: FacebookService) {
+  func syncFacebook(_ facebookService: FacebookService) {
     facebookService.refreshCachedCloudContent({ cloudFiles in
 
       // Fetch the cachedLocalContent from facebookService
@@ -28,7 +28,7 @@ class PlatformService: NSObject {
 
       // Check for cloudFiles not in the localFiles array. Downloaded them if this is the case
       for item in cloudFiles {
-        if !localFiles.contains({$0.name == item.name}) {
+        if !localFiles.contains(where: {$0.name == item.name}) {
           // Create the DB entry and download the file upon completion! I'm so excited about this!
           DBController.sharedDBController.createFacebookFile(item, completion: { _ in
             facebookService.download(item, platformType: PlatformType.Facebook, failure: { failedFile in
@@ -41,7 +41,7 @@ class PlatformService: NSObject {
 
       // Check for localFiles not in the cloudFiles array. Delete them if this is the case
       for item in localFiles {
-        if !cloudFiles.contains({$0.name == item.name}) {
+        if !cloudFiles.contains(where: {$0.name == item.name}) {
           guard let itemStringPath = facebookService.preferences.getRootPath(.Facebook) else {
             continue
           }
@@ -50,8 +50,8 @@ class PlatformService: NSObject {
           DBController.sharedDBController.deleteFacebookFileByName(item.name)
 
           // Remove the file from cachedLocalContent
-          if let removeIndex = facebookService.cachedLocalContent.indexOf({$0.name == item.name}) {
-            facebookService.cachedLocalContent.removeAtIndex(removeIndex)
+          if let removeIndex = facebookService.cachedLocalContent.index(where: {$0.name == item.name}) {
+            facebookService.cachedLocalContent.remove(at: removeIndex)
 
             let itemPath = Path(itemStringPath)
             let fileToDelete = File<NSDictionary>(path: itemPath)
@@ -59,7 +59,7 @@ class PlatformService: NSObject {
             // Delete the file
             do {
               try fileToDelete.delete()
-            } catch FileKitError.DeleteFileFail(path: itemPath) {
+            } catch FileKitError.deleteFileFail(path: itemPath) {
               ErrorController.sharedErrorController.displayError("Unable to delete file at path \(itemStringPath)")
             } catch {
               print("There was an error trying to delete file at path \(itemStringPath)")

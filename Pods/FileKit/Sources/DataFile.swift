@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015-2016 Nikolai Vazquez
+//  Copyright (c) 2015-2017 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,6 @@
 //
 
 import Foundation
-
 
 /// A representation of a filesystem data file.
 ///
@@ -64,7 +63,7 @@ open class DataFile: File<Data> {
 open class DataFileWithOptions: DataFile {
 
     open var readingOptions: Data.ReadingOptions = []
-    open var writingOptions: Data.WritingOptions? = nil
+    open var writingOptions: Data.WritingOptions?
 
     /// Initializes a file from a path with options.
     ///

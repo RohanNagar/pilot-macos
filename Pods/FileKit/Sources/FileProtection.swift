@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015-2016 Nikolai Vazquez
+//  Copyright (c) 2015-2017 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -121,7 +121,7 @@ extension Path {
     ///
     public func createFile(_ fileProtection: FileProtection) throws {
         let manager = FileManager()
-        let attributes = [FileAttributeKey.protectionKey.rawValue : fileProtection.rawValue]
+        let attributes = [FileAttributeKey.protectionKey.rawValue: fileProtection.rawValue]
         if !manager.createFile(atPath: _safeRawValue, contents: nil, attributes: attributes) {
             throw FileKitError.createFileFail(path: self)
         }

@@ -11,7 +11,6 @@
 		1418CD151BD4857900CD0540 /* PilotUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD141BD4857900CD0540 /* PilotUserService.swift */; };
 		1418CD171BD488AA00CD0540 /* PilotUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD161BD488AA00CD0540 /* PilotUser.swift */; };
 		1418CD191BD48AFA00CD0540 /* PasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD181BD48AFA00CD0540 /* PasswordService.swift */; };
-		1418CD1B1BD491B800CD0540 /* PasswordServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */; };
 		146693111BE94F1F006655A2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 146693101BE94F1F006655A2 /* LoginViewController.xib */; };
 		14E1BD851C5321D20021FF9F /* PilotFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BD841C5321D20021FF9F /* PilotFile.swift */; };
 		14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51821BB777E20099C25E /* AppDelegate.swift */; };
@@ -38,17 +37,9 @@
 		94C870CF1D3D99720005EFCC /* PlatformService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C870CE1D3D99720005EFCC /* PlatformService.swift */; };
 		94E92A031D3E9A340045250F /* CloudFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A021D3E9A340045250F /* CloudFile.swift */; };
 		94E92A051D3E9A410045250F /* LocalFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E92A041D3E9A410045250F /* LocalFile.swift */; };
-		F7864EBDD1EBF951333AAF9E /* Pods_PilotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61E40CFEC54A00CFD9AFAB3 /* Pods_PilotTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		14EA518F1BB777E30099C25E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 14EA51771BB777E20099C25E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 14EA517E1BB777E20099C25E;
-			remoteInfo = Pilot;
-		};
 		14EA519A1BB777E30099C25E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 14EA51771BB777E20099C25E /* Project object */;
@@ -65,16 +56,15 @@
 		1418CD141BD4857900CD0540 /* PilotUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotUserService.swift; sourceTree = "<group>"; };
 		1418CD161BD488AA00CD0540 /* PilotUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotUser.swift; sourceTree = "<group>"; };
 		1418CD181BD48AFA00CD0540 /* PasswordService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordService.swift; sourceTree = "<group>"; };
-		1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordServiceTest.swift; sourceTree = "<group>"; };
 		145EACD51BC0A4F800EE8790 /* FacebookService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookService.swift; sourceTree = "<group>"; };
 		146693101BE94F1F006655A2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		14C24E361E9487EC008B284A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14C24E3C1E9488B1008B284A /* PasswordServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordServiceTest.swift; sourceTree = "<group>"; };
 		14E1BD841C5321D20021FF9F /* PilotFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotFile.swift; sourceTree = "<group>"; };
 		14EA517F1BB777E20099C25E /* Pilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14EA51821BB777E20099C25E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14EA51841BB777E20099C25E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14EA51891BB777E20099C25E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		14EA518E1BB777E30099C25E /* PilotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PilotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		14EA51941BB777E30099C25E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14EA51991BB777E30099C25E /* PilotUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PilotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14EA519D1BB777E30099C25E /* PilotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilotUITests.swift; sourceTree = "<group>"; };
 		14EA519F1BB777E30099C25E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,14 +101,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AE21CF4E7CA1FA1C435F65D /* Pods_Pilot.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		14EA518B1BB777E30099C25E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F7864EBDD1EBF951333AAF9E /* Pods_PilotTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,12 +143,21 @@
 			name = services;
 			sourceTree = "<group>";
 		};
+		14C24E331E9487EC008B284A /* PilotTests */ = {
+			isa = PBXGroup;
+			children = (
+				14C24E361E9487EC008B284A /* Info.plist */,
+				14C24E3C1E9488B1008B284A /* PasswordServiceTest.swift */,
+			);
+			path = PilotTests;
+			sourceTree = "<group>";
+		};
 		14EA51761BB777E20099C25E = {
 			isa = PBXGroup;
 			children = (
 				14EA51811BB777E20099C25E /* Pilot */,
-				14EA51911BB777E30099C25E /* PilotTests */,
 				14EA519C1BB777E30099C25E /* PilotUITests */,
+				14C24E331E9487EC008B284A /* PilotTests */,
 				14EA51801BB777E20099C25E /* Products */,
 				0BB856601CAB388C0C9FAF00 /* Pods */,
 				4C3D3BACC3B452506C9CE4B3 /* Frameworks */,
@@ -177,7 +168,6 @@
 			isa = PBXGroup;
 			children = (
 				14EA517F1BB777E20099C25E /* Pilot.app */,
-				14EA518E1BB777E30099C25E /* PilotTests.xctest */,
 				14EA51991BB777E30099C25E /* PilotUITests.xctest */,
 			);
 			name = Products;
@@ -195,15 +185,6 @@
 				14EA51891BB777E20099C25E /* Info.plist */,
 			);
 			path = Pilot;
-			sourceTree = "<group>";
-		};
-		14EA51911BB777E30099C25E /* PilotTests */ = {
-			isa = PBXGroup;
-			children = (
-				14EA51941BB777E30099C25E /* Info.plist */,
-				1418CD1A1BD491B800CD0540 /* PasswordServiceTest.swift */,
-			);
-			path = PilotTests;
 			sourceTree = "<group>";
 		};
 		14EA519C1BB777E30099C25E /* PilotUITests */ = {
@@ -294,27 +275,6 @@
 			productReference = 14EA517F1BB777E20099C25E /* Pilot.app */;
 			productType = "com.apple.product-type.application";
 		};
-		14EA518D1BB777E30099C25E /* PilotTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 14EA51A51BB777E30099C25E /* Build configuration list for PBXNativeTarget "PilotTests" */;
-			buildPhases = (
-				341E7140641C30CCC42FD5BF /* [CP] Check Pods Manifest.lock */,
-				14EA518A1BB777E30099C25E /* Sources */,
-				14EA518B1BB777E30099C25E /* Frameworks */,
-				14EA518C1BB777E30099C25E /* Resources */,
-				FDFA953F0E75B53E23F39A3B /* [CP] Embed Pods Frameworks */,
-				382EB9D006B3A5157B79E3F3 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				14EA51901BB777E30099C25E /* PBXTargetDependency */,
-			);
-			name = PilotTests;
-			productName = PilotTests;
-			productReference = 14EA518E1BB777E30099C25E /* PilotTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		14EA51981BB777E30099C25E /* PilotUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14EA51A81BB777E30099C25E /* Build configuration list for PBXNativeTarget "PilotUITests" */;
@@ -342,18 +302,17 @@
 		14EA51771BB777E20099C25E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Sanction;
 				TargetAttributes = {
 					14EA517E1BB777E20099C25E = {
 						CreatedOnToolsVersion = 7.0;
-					};
-					14EA518D1BB777E30099C25E = {
-						CreatedOnToolsVersion = 7.0;
-						TestTargetID = 14EA517E1BB777E20099C25E;
+						LastSwiftMigration = 0830;
 					};
 					14EA51981BB777E30099C25E = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0830;
 						TestTargetID = 14EA517E1BB777E20099C25E;
 					};
 				};
@@ -372,7 +331,6 @@
 			projectRoot = "";
 			targets = (
 				14EA517E1BB777E20099C25E /* Pilot */,
-				14EA518D1BB777E30099C25E /* PilotTests */,
 				14EA51981BB777E30099C25E /* PilotUITests */,
 			);
 		};
@@ -393,13 +351,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14EA518C1BB777E30099C25E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		14EA51971BB777E30099C25E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -410,36 +361,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		341E7140641C30CCC42FD5BF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		382EB9D006B3A5157B79E3F3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PilotTests/Pods-PilotTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		410D40CDCFF5D76C4DA09C4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -515,21 +436,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		FDFA953F0E75B53E23F39A3B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PilotTests/Pods-PilotTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FE036F0B1E69F9E1719A941C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -575,14 +481,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14EA518A1BB777E30099C25E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1418CD1B1BD491B800CD0540 /* PasswordServiceTest.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		14EA51951BB777E30099C25E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -594,11 +492,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		14EA51901BB777E30099C25E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 14EA517E1BB777E20099C25E /* Pilot */;
-			targetProxy = 14EA518F1BB777E30099C25E /* PBXContainerItemProxy */;
-		};
 		14EA519B1BB777E30099C25E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 14EA517E1BB777E20099C25E /* Pilot */;
@@ -620,8 +513,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -664,8 +559,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -684,6 +581,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -691,13 +589,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C41720A5880C55828DF900C8 /* Pods-Pilot.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = Pilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanction.Pilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -705,41 +606,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 57420D71C7ED7E597D521B87 /* Pods-Pilot.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = Pilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanction.Pilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		14EA51A61BB777E30099C25E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 140D1170AD1739B0C47869FB /* Pods-PilotTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = PilotTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sanction.PilotTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pilot.app/Contents/MacOS/Pilot";
-			};
-			name = Debug;
-		};
-		14EA51A71BB777E30099C25E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55838F35841B46908B82725C /* Pods-PilotTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = PilotTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sanction.PilotTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pilot.app/Contents/MacOS/Pilot";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -747,11 +623,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 03EF02FDA5B627B737E2A1D7 /* Pods-PilotUITests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PilotUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanction.PilotUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Pilot;
 				USES_XCTRUNNER = YES;
 			};
@@ -761,11 +639,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5D98F484C02889241ADABBBF /* Pods-PilotUITests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PilotUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanction.PilotUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Pilot;
 				USES_XCTRUNNER = YES;
 			};
@@ -788,15 +668,6 @@
 			buildConfigurations = (
 				14EA51A31BB777E30099C25E /* Debug */,
 				14EA51A41BB777E30099C25E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		14EA51A51BB777E30099C25E /* Build configuration list for PBXNativeTarget "PilotTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				14EA51A61BB777E30099C25E /* Debug */,
-				14EA51A71BB777E30099C25E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

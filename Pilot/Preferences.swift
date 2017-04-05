@@ -16,17 +16,17 @@ class Preferences: NSObject {
   // old one was deleted
 
   // The base url to use for file storage
-  private var rootPath: String!
+  fileprivate var rootPath: String!
 
   init(rootPath: String) {
     self.rootPath = rootPath
   }
 
-  func setRootPath(rootPath: String) {
+  func setRootPath(_ rootPath: String) {
     self.rootPath = rootPath
   }
 
-  func getRootPath(forService: PlatformType) -> String? {
+  func getRootPath(_ forService: PlatformType) -> String? {
     let rootServicePath = Path(rootPath + forService.rawValue)
 
     // If the path doesn't exist then attempt to make a new one
@@ -35,8 +35,8 @@ class Preferences: NSObject {
         try rootServicePath.createDirectory()
 
         return rootServicePath.rawValue
-      } catch FileKitError.CreateDirectoryFail(path: rootServicePath) {
-        ErrorController.sharedErrorController.displayError(String(FileKitError.CreateDirectoryFail(path: rootServicePath)))
+      } catch FileKitError.createDirectoryFail(path: rootServicePath) {
+        ErrorController.sharedErrorController.displayError(String(describing: FileKitError.createDirectoryFail(path: rootServicePath)))
         return nil
       } catch {
         ErrorController.sharedErrorController.displayError("Unknown Error: Pilot cannot access the current root directory. Consider changing this in preferences and try again.")
@@ -52,14 +52,14 @@ class Preferences: NSObject {
     return JSON(["rootPath": self.rootPath])
   }
 
-  static func fromJSON(json: JSON) -> Preferences {
+  static func fromJSON(_ json: JSON) -> Preferences {
     let path = json["rootPath"].string!
     return Preferences(rootPath: path)
   }
 
-  static func updatePreferences(preferences: Preferences, username: String) {
+  static func updatePreferences(_ preferences: Preferences, username: String) {
     let rawPreferencesJSON = preferences.toJSON().rawString()!
-    NSUserDefaults.standardUserDefaults().setObject(rawPreferencesJSON, forKey: username)
+    UserDefaults.standard.set(rawPreferencesJSON, forKey: username)
   }
 
 }

@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015-2016 Nikolai Vazquez
+//  Copyright (c) 2015-2017 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -84,7 +84,7 @@ extension TextFile {
     /// - Returns: the `TextFileStreamReader`
 
     public func streamReader(_ delimiter: String = "\n",
-        chunkSize: Int = 4096) -> TextFileStreamReader? {
+                             chunkSize: Int = 4096) -> TextFileStreamReader? {
             return TextFileStreamReader(
                 path: self.path,
                 delimiter: delimiter,
@@ -101,7 +101,7 @@ extension TextFile {
     ///
     /// - Returns: the lines
     public func grep(_ motif: String, include: Bool = true,
-        options: NSString.CompareOptions = []) -> [String] {
+                     options: NSString.CompareOptions = []) -> [String] {
             guard let reader = streamReader() else {
                 return []
             }
@@ -113,11 +113,54 @@ extension TextFile {
 
 }
 
-/// A class to read `TextFile` line by line.
-open class TextFileStreamReader {
+/// A class to read or write `TextFile`.
+open class TextFileStream {
 
     /// The text encoding.
     open let encoding: String.Encoding
+
+    let delimData: Data!
+    var fileHandle: FileHandle?
+
+    // MARK: - Initialization
+    public init?(
+        fileHandle: FileHandle,
+        delimiter: String,
+        encoding: String.Encoding = .utf8
+        ) {
+        self.encoding = encoding
+        self.fileHandle = fileHandle
+        guard let delimData = delimiter.data(using: encoding) else {
+              return nil
+        }
+        self.delimData = delimData
+    }
+
+    // MARK: - Deinitialization
+
+    deinit {
+        self.close()
+    }
+
+    // MARK: - public methods
+
+    open var offset: UInt64 {
+        return fileHandle?.offsetInFile ?? 0
+    }
+
+    open func seek(toFileOffset offset: UInt64) {
+        fileHandle?.seek(toFileOffset: offset)
+    }
+
+    /// Close the underlying file. No reading must be done after calling this method.
+    open func close() {
+        fileHandle?.closeFile()
+        fileHandle = nil
+    }
+}
+
+/// A class to read `TextFile` line by line.
+open class TextFileStreamReader: TextFileStream {
 
     /// The chunk size when reading.
     open let chunkSize: Int
@@ -125,42 +168,28 @@ open class TextFileStreamReader {
     /// Tells if the position is at the end of file.
     open var atEOF: Bool = false
 
-    let fileHandle: FileHandle!
     let buffer: NSMutableData!
-    let delimData: Data!
 
     // MARK: - Initialization
 
     /// - Parameter path:      the file path
     /// - Parameter delimiter: the line delimiter (default: \n)
-    /// - Parameter encoding: file encoding (default: NSUTF8StringEncoding)
+    /// - Parameter encoding: file encoding (default: .utf8)
     /// - Parameter chunkSize: size of buffer (default: 4096)
     public init?(
         path: Path,
         delimiter: String = "\n",
-        encoding: String.Encoding = String.Encoding.utf8,
+        encoding: String.Encoding = .utf8,
         chunkSize: Int = 4096
     ) {
         self.chunkSize = chunkSize
-        self.encoding = encoding
-
         guard let fileHandle = path.fileHandleForReading,
-            let delimData = delimiter.data(using: encoding),
             let buffer = NSMutableData(capacity: chunkSize) else {
-                self.fileHandle = nil
-                self.delimData = nil
                 self.buffer = nil
                 return nil
         }
-        self.fileHandle = fileHandle
-        self.delimData = delimData
         self.buffer = buffer
-    }
-
-    // MARK: - Deinitialization
-
-    deinit {
-        self.close()
+        super.init(fileHandle: fileHandle, delimiter: delimiter, encoding: encoding)
     }
 
     // MARK: - public methods
@@ -174,8 +203,8 @@ open class TextFileStreamReader {
         // Read data chunks from file until a line delimiter is found.
         var range = buffer.range(of: delimData, options: [], in: NSRange(location: 0, length: buffer.length))
         while range.location == NSNotFound {
-            let tmpData = fileHandle.readData(ofLength: chunkSize)
-            if tmpData.isEmpty {
+            let tmpData = fileHandle?.readData(ofLength: chunkSize)
+            if tmpData == nil || tmpData!.isEmpty {
                 // EOF or read error.
                 atEOF = true
                 if buffer.length > 0 {
@@ -188,7 +217,7 @@ open class TextFileStreamReader {
                 // No more lines.
                 return nil
             }
-            buffer.append(tmpData)
+            buffer.append(tmpData!)
             range = buffer.range(of: delimData, options: [], in: NSRange(location: 0, length: buffer.length))
         }
 
@@ -203,15 +232,10 @@ open class TextFileStreamReader {
     }
 
     /// Start reading from the beginning of file.
-    open func rewind() -> Void {
+    open func rewind() {
         fileHandle?.seek(toFileOffset: 0)
         buffer.length = 0
         atEOF = false
-    }
-
-    /// Close the underlying file. No reading must be done after calling this method.
-    open func close() -> Void {
-        fileHandle?.closeFile()
     }
 
 }
@@ -224,4 +248,77 @@ extension TextFileStreamReader : Sequence {
             return self.nextLine()
         }
     }
+}
+
+// MARK: Line Writer
+/// A class to write a `TextFile` line by line.
+open class TextFileStreamWriter: TextFileStream {
+
+    // MARK: - Initialization
+
+    /// - Parameter path:      the file path
+    /// - Parameter delimiter: the line delimiter (default: \n)
+    /// - Parameter encoding: file encoding (default: .utf8)
+    /// - Parameter append: if true append at file end (default: false)
+    /// - Parameter createIfNotExist: if true create file if not exixt (default: true)
+    public init?(
+        path: Path,
+        delimiter: String = "\n",
+        encoding: String.Encoding = .utf8,
+        append: Bool = false,
+        createIfNotExist: Bool = true
+        ) {
+        if createIfNotExist && !path.exists {
+            try? path.createFile()
+        }
+        guard let fileHandle = path.fileHandleForWriting else {
+            return nil
+        }
+        if append {
+            fileHandle.seekToEndOfFile()
+        }
+        super.init(fileHandle: fileHandle, delimiter: delimiter, encoding: encoding)
+    }
+
+    /// Write a new line in file
+    /// - Parameter line:      the line
+    /// - Parameter delim:     append the delimiter (default: true)
+    ///
+    /// - Returns: true if successfully.
+    @discardableResult
+    open func write(line: String, delim: Bool = true) -> Bool {
+        if let handle = fileHandle, let data = line.data(using: self.encoding) {
+            handle.write(data)
+            if delim {
+                handle.write(delimData)
+            }
+            return true
+        }
+        return false
+    }
+
+    /// Causes all in-memory data and attributes of the file represented by the receiver to be written to permanent storage.
+    open func synchronize() {
+        fileHandle?.synchronizeFile()
+    }
+}
+
+extension TextFile {
+
+    /// Provide a writer to write line by line.
+    ///
+    /// - Parameter delimiter: the line delimiter (default: \n)
+    /// - Parameter append: if true append at file end (default: false)
+    ///
+    /// - Returns: the `TextFileStreamWriter`
+
+    public func streamWriter(_ delimiter: String = "\n", append: Bool = false) -> TextFileStreamWriter? {
+        return TextFileStreamWriter(
+            path: self.path,
+            delimiter: delimiter,
+            encoding: encoding,
+            append: append
+        )
+    }
+
 }

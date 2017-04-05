@@ -24,7 +24,7 @@ class CollectionViewController: NSViewController {
       return
     }
 
-    collectionView.registerNib(nib, forItemWithIdentifier: "fileItem")
+    collectionView.register(nib, forItemWithIdentifier: "fileItem")
   }
 
 }
@@ -35,12 +35,12 @@ extension CollectionViewController: NSCollectionViewDelegateFlowLayout {}
 /// MARK: - NSCollectionViewDataSource
 extension CollectionViewController: NSCollectionViewDataSource {
 
-  func collectionView(collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
     return content.count
   }
 
-  func collectionView(collectionView: NSCollectionView, itemForRepresentedObjectAtIndexPath indexPath: NSIndexPath) -> NSCollectionViewItem {
-    let item = collectionView.makeItemWithIdentifier("fileItem", forIndexPath: indexPath)
+  func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+    let item = collectionView.makeItem(withIdentifier: "fileItem", for: indexPath)
     item.representedObject = content[indexPath.item]
 
     return item

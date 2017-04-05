@@ -68,7 +68,7 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
   
   override func awakeFromNib() {
     if self.view.layer != nil {
-      let color: CGColorRef = PilotColors.White.CGColor
+      let color: CGColor = PilotColors.White.cgColor
       self.view.layer?.backgroundColor = color
     }
   }
@@ -76,18 +76,18 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
   override func viewDidAppear() {
     self.view.window!.backgroundColor = PilotColors.PilotBlue
 
-    self.view.window!.titleVisibility = NSWindowTitleVisibility.Hidden
+    self.view.window!.titleVisibility = NSWindowTitleVisibility.hidden
     self.view.window!.titlebarAppearsTransparent = true
-    self.view.window!.movableByWindowBackground = true
+    self.view.window!.isMovableByWindowBackground = true
   }
   
   // Search the files in the collection view for the keywords sepcified
-  @IBAction func search(sender: AnyObject) {
+  @IBAction func search(_ sender: AnyObject) {
     
   }
 
   // Sync the files for the current platform with its online platform
-  @IBAction func sync(sender: AnyObject) {
+  @IBAction func sync(_ sender: AnyObject) {
     let selection = platforms[tableView.selectedRow].type
       switch selection {
       case .Facebook:
@@ -101,36 +101,36 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
   }
 
   // Upload files to the current platform
-  @IBAction func upload(sender: AnyObject) {
-    collectionViewController.view.hidden = true
+  @IBAction func upload(_ sender: AnyObject) {
+    collectionViewController.view.isHidden = true
     customView.addSubview(uploadViewController.view)
 
     uploadViewController.view.bindFrameToSuperviewBounds()
   }
     
     func returnFromUpload() {
-        collectionViewController.view.hidden = false
+        collectionViewController.view.isHidden = false
     }
 
   // Add a new platform to the left side table
-  @IBAction func add(sender: AnyObject) {
+  @IBAction func add(_ sender: AnyObject) {
 
   }
 
   // Add a platform to the left side table
-  func addPlatform(platform: Platform) {
+  func addPlatform(_ platform: Platform) {
     self.platforms.append(platform)
   }
 
-  func loadUserPreferences(preferences: Preferences) {
+  func loadUserPreferences(_ preferences: Preferences) {
     self.preferences = preferences
   }
 
-  func loadFacebookService(facebookService: FacebookService) {
+  func loadFacebookService(_ facebookService: FacebookService) {
     self.facebookService = facebookService
   }
 
-  func loadUser(user: PilotUser) {
+  func loadUser(_ user: PilotUser) {
     self.user = user
   }
 
@@ -139,7 +139,7 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
 /// MARK: - NSTableViewDelegate
 extension MainViewController: NSTableViewDelegate {
 
-  func tableViewSelectionDidChange(notification: NSNotification) {
+  func tableViewSelectionDidChange(_ notification: Notification) {
     // Do nothing if selected a non-existant cell
     if tableView.selectedRow == -1 {
         return
@@ -165,15 +165,15 @@ extension MainViewController: NSTableViewDelegate {
 extension MainViewController: NSTableViewDataSource {
 
   /// Returns the number of rows that should be present in the TableView.
-  func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+  func numberOfRows(in tableView: NSTableView) -> Int {
     return self.platforms.count
   }
 
   // Returns the cell view for the requested column and row.
-  func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+  func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
     // Make a cell view
-    if let cellView = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: self) as? NSTableCellView {
+    if let cellView = tableView.make(withIdentifier: tableColumn!.identifier, owner: self) as? NSTableCellView {
 
       // If we're looking at the right column, set up the cell view
       if tableColumn!.identifier == "PlatformColumn" {
@@ -193,10 +193,10 @@ extension MainViewController: NSTableViewDataSource {
 
 extension NSImage {
 
-  static func swatchWithColor(color: NSColor, size: NSSize) -> NSImage {
+  static func swatchWithColor(_ color: NSColor, size: NSSize) -> NSImage {
     let image = NSImage(size: size)
     image.lockFocus()
-    color.drawSwatchInRect(NSMakeRect(0, 0, size.width, size.height))
+    color.drawSwatch(in: NSMakeRect(0, 0, size.width, size.height))
     image.unlockFocus()
     return image
   }

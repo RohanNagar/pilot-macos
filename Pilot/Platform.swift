@@ -20,7 +20,7 @@ class Platform: NSObject {
     self.type = type
   }
 
-  override func isEqual(object: AnyObject?) -> Bool {
+  override func isEqual(_ object: Any?) -> Bool {
     if let obj = object as? Platform {
       return self.name == obj.name
     }
@@ -29,7 +29,7 @@ class Platform: NSObject {
   }
 
   override var description: String {
-    return "Platform{name=\(name), icon=\(icon)}"
+    return "Platform{name=\(name), icon=\(String(describing: icon))}"
   }
 }
 

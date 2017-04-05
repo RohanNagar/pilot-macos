@@ -39,11 +39,11 @@ class FacebookService: NSObject, FileService {
     self.preferences = preferences
     self.pilotUser = pilotUser
 
-    basicCredentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
+    basicCredentials = "\(user):\(secret)".data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
   }
 
   // Note: This call is asynronous
-  func refreshCachedCloudContent(completion: ([CloudFile]) -> ()) {
+  func refreshCachedCloudContent(_ completion: @escaping ([CloudFile]) -> ()) {
     // Fetch the photos and videos from facebook and combine them into one conglomerate
     self.getFacebookPhotos(pilotUser.username, password: pilotUser.password,
       completion: { returnPhotos in
@@ -71,7 +71,7 @@ class FacebookService: NSObject, FileService {
 
   }
 
-  func setFileSystemWatcher(mainViewController: MainViewController) {
+  func setFileSystemWatcher(_ mainViewController: MainViewController) {
     print("SetFileSystemWatcher was called")
     // Close the existing stream if it exists
     if self.fileSystemWatcher != nil {
@@ -88,7 +88,7 @@ class FacebookService: NSObject, FileService {
 
       if event.flags.rawValue == (FileSystemEventFlags.ItemIsFile.rawValue | FileSystemEventFlags.ItemRenamed.rawValue) {
         // Check to see if file was deleted or added
-        if NSFileManager.defaultManager().fileExistsAtPath(event.path.rawValue) {
+        if FileManager.default.fileExists(atPath: event.path.rawValue) {
           // If the file was added or renamed then add it to the cachedLocalContent array
           if let localFile = DirectoryService.checkFile(fileName, platformType: .Facebook, caller: self) {
             self.cachedLocalContent.append(localFile)
@@ -100,14 +100,14 @@ class FacebookService: NSObject, FileService {
 
           // Cast to NSString to delete path extension
           let fileName = file.name as NSString
-          let name = fileName.stringByDeletingPathExtension
+          let name = fileName.deletingPathExtension
 
           // Delete the realm data associated with the file that was removed
           DBController.sharedDBController.deleteFacebookFileByName(name)
 
           // Remove the file from the cachedLocalContent
-          if let removeIndex: Int = self.cachedLocalContent.indexOf({$0.name == name}) {
-            self.cachedLocalContent.removeAtIndex(removeIndex)
+          if let removeIndex: Int = self.cachedLocalContent.index(where: {$0.name == name}) {
+            self.cachedLocalContent.remove(at: removeIndex)
           }
         }
       } else if event.flags.rawValue == FileSystemEventFlags.RootChanged.rawValue {
@@ -136,9 +136,9 @@ class FacebookService: NSObject, FileService {
   ///    - completion: The method to call upon completion. Will pass in the array of photos to the method.
   ///    - failure: The method to call upon failure.
   ///
-  func getFacebookPhotos(username: String, password: String,
-                         completion: [CloudFile] -> Void,
-                         failure: (String) -> Void) {
+  func getFacebookPhotos(_ username: String, password: String,
+                         completion: @escaping ([CloudFile]) -> Void,
+                         failure: @escaping (String) -> Void) {
 
     // Build the authorization headers for the request
     let headers = ["Authorization": "Basic \(basicCredentials)",
@@ -147,10 +147,10 @@ class FacebookService: NSObject, FileService {
     // Build the parameters for the request
     let parameters = ["email": username]
 
-    Alamofire.request(.GET, photosEndpoint, headers: headers, parameters: parameters)
+    Alamofire.request(photosEndpoint, parameters: parameters, headers: headers)
       .responseJSON { response in
         switch response.result {
-          case .Success:
+          case .success:
             // Build out array of photos from the JSON response
             var facebookPhotos = [CloudFile]()
             let json = JSON(data: response.data!)
@@ -167,7 +167,7 @@ class FacebookService: NSObject, FileService {
 
             completion(facebookPhotos)
 
-          case .Failure:
+          case .failure:
             failure(response.description)
         }
     }
@@ -184,9 +184,9 @@ class FacebookService: NSObject, FileService {
   ///    - completion: The method to call upon completion. Will pass in the array of videos to the method.
   ///    - failure: The method to call upon failure.
   ///
-  func getFacebookVideos(username: String, password: String,
-                            completion: [CloudFile] -> Void,
-                            failure: Void -> Void) {
+  func getFacebookVideos(_ username: String, password: String,
+                         completion: @escaping ([CloudFile]) -> Void,
+                         failure: @escaping (Void) -> Void) {
 
     // build the authorization headers for the request
     let headers = ["Authorization": "Basic \(basicCredentials)",
@@ -195,10 +195,10 @@ class FacebookService: NSObject, FileService {
     // build the parameters for the request
     let parameters = ["email": username]
 
-    Alamofire.request(.GET, videosEndpoint, headers: headers, parameters: parameters)
+    Alamofire.request(videosEndpoint, parameters: parameters, headers: headers)
       .responseJSON { response in
         switch response.result {
-        case .Success:
+        case .success:
           // Build out array of photos from the JSON response
           var facebookVideos = [CloudFile]()
           let json = JSON(data: response.data!)
@@ -215,7 +215,7 @@ class FacebookService: NSObject, FileService {
 
           completion(facebookVideos)
 
-        case .Failure:
+        case .failure:
           failure()
         }
     }

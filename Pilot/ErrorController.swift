@@ -12,13 +12,13 @@ class ErrorController: NSObject {
 
   static var sharedErrorController: ErrorController!
 
-  private let viewController: MainViewController!
+  fileprivate let viewController: MainViewController!
 
   init(viewController: MainViewController) {
     self.viewController = viewController
   }
 
-  func displayError(message: String, color: NSColor = PilotColors.ErrorRed) {
+  func displayError(_ message: String, color: NSColor = PilotColors.ErrorRed) {
     self.viewController.errorMessage.stringValue = message
     self.viewController.errorMessage.textColor = color
   }

@@ -9,17 +9,19 @@
 import Cocoa
 
 class UploadViewController: NSViewController {
-    var delegate: UploadViewControllerDelegate?
+  var delegate: UploadViewControllerDelegate?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-}
+  @IBOutlet weak var backButton: NSButtonCell!
 
-  @IBAction func dismiss(sender: AnyObject) {
+  override func viewDidLoad() {
+    super.viewDidLoad()
+  }
+
+  @IBAction func dismiss(_ sender: AnyObject) {
     self.view.removeFromSuperview()
-    
+
     if let del = delegate {
-        del.returnFromUpload()
+      del.returnFromUpload()
     }
   }
 

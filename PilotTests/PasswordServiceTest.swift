@@ -6,6 +6,7 @@
 //  Copyright © 2015 Sanction. All rights reserved.
 //
 
+import Foundation
 import XCTest
 import Nimble
 @testable import Pilot
@@ -36,5 +37,5 @@ class PasswordServiceTest: XCTestCase {
 
     expect(firstHash).toNot(equal(secondHash))
   }
-
+  
 }

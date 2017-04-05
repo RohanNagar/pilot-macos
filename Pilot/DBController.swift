@@ -25,7 +25,7 @@ class DBController: NSObject {
   }
 
   // Create a facebookFile to store in realmDB
-  func createFacebookFile(file: CloudFile, completion: (LocalFile) -> ()) {
+  func createFacebookFile(_ file: CloudFile, completion: (LocalFile) -> ()) {
     do {
       try realm.write {
         let fbPhoto = FacebookFile()
@@ -46,12 +46,12 @@ class DBController: NSObject {
   }
 
   // Update a file stored in realmDB by providing a name
-  func updateFacebookFile(file: CloudFile) {
+  func updateFacebookFile(_ file: CloudFile) {
 
   }
 
   // Delete a file stored in realmDB by providing a name
-  func deleteFacebookFileByName(name: String) {
+  func deleteFacebookFileByName(_ name: String) {
     if let fileToDelete = getFacebookFileByName(name) {
       do {
         try realm.write {
@@ -65,7 +65,7 @@ class DBController: NSObject {
   }
 
   // Query a file stored in realmDB by providing a name
-  func getFacebookFileByName(name: String) -> FacebookFile? {
+  func getFacebookFileByName(_ name: String) -> FacebookFile? {
     // Create the appropriate predicate for filtering a fesult by name
     let predicate = NSPredicate(format: "name = %@", name)
 

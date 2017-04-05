@@ -30,38 +30,38 @@ protocol FileService: NSObjectProtocol {
   var user: String { get }
   var secret: String { get }
 
-  func refreshCachedCloudContent(completion: ([CloudFile]) -> ()) -> Void
+  func refreshCachedCloudContent(_ completion: @escaping ([CloudFile]) -> ()) -> Void
 
   func refreshCachedLocalContent() -> Void
 
-  func setFileSystemWatcher(mainViewController: MainViewController) -> Void
+  func setFileSystemWatcher(_ mainViewController: MainViewController) -> Void
 }
 
 extension FileService {
 
-  func download(fileToDownload: CloudFile, platformType: PlatformType, failure: (CloudFile) -> ()) {
+  func download(_ fileToDownload: CloudFile, platformType: PlatformType, failure: @escaping (CloudFile) -> ()) {
 
     if let path = preferences.getRootPath(platformType) {
 
-      let destination: (NSURL, NSHTTPURLResponse) -> NSURL = {
+      let destination: DownloadRequest.DownloadFileDestination =  {
         (temporaryURL, response) in
-        let responseName: NSString = response.suggestedFilename!
+        let responseName: NSString = response.suggestedFilename! as NSString
         let pathExtension = responseName.pathExtension
 
-        return NSURL(fileURLWithPath: path).URLByAppendingPathComponent("\(fileToDownload.name).\(pathExtension)")
+        return (URL(fileURLWithPath: path).appendingPathComponent("\(fileToDownload.name).\(pathExtension)"), [])
       }
 
       // Download that file!
-      Alamofire.download(.GET, fileToDownload.url, destination: destination)
-        .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+      Alamofire.download(fileToDownload.url, to: destination)
+        .downloadProgress { progress in
           // print("\(totalBytesRead/totalBytesExpectedToRead*100)%")
 
-          dispatch_async(dispatch_get_main_queue()) {
+          DispatchQueue.main.async {
             // print("Total bytes read on main que: \(totalBytesRead)")
           }
         }
-        .response { _, _, _, error in
-          if let _ = error {
+        .responseData { response in
+          if let _ = response.error {
             print("Download failed!")
             failure(fileToDownload)
           } else {
@@ -71,16 +71,16 @@ extension FileService {
     }
   }
 
-  func upload(url: String, file: String) {
+  func upload(_ url: String, file: String) {
 
     // Build the location of file to upload
-    let fileURL = NSBundle.mainBundle().URLForResource("~/desktop/test", withExtension: "png")
+    let fileURL = Bundle.main.url(forResource: "~/desktop/test", withExtension: "png")
 
-    Alamofire.upload(.POST, url, file: fileURL!)
-      .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
-        print(totalBytesWritten)
+    Alamofire.upload(fileURL!, to: url)
+      .uploadProgress { progress in
+        print(progress.fractionCompleted)
 
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
           // print("Total bytes written on main queue: \(totalBytesWritten)")
         }
       }
@@ -97,7 +97,7 @@ extension FileService {
     return self.cachedLocalContent
   }
 
-  func setFileSystemWatcher(fileSystemWatcher: FileSystemWatcher) {
+  func setFileSystemWatcher(_ fileSystemWatcher: FileSystemWatcher) {
     self.fileSystemWatcher = fileSystemWatcher
   }
 

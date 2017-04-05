@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015-2016 Nikolai Vazquez
+//  Copyright (c) 2015-2017 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,7 @@ public struct FilePermissions: OptionSet, CustomStringConvertible {
     /// A textual representation of `self`.
     public var description: String {
         var description = ""
-        for permission in FilePermissions.all  {
+        for permission in FilePermissions.all {
             if self.contains(permission) {
                 description += !description.isEmpty ? ", " : ""
                 if permission == .read {

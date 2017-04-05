@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015-2016 Nikolai Vazquez
+//  Copyright (c) 2015-2017 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -35,4 +35,4 @@ public typealias NSDictionaryFile = File<NSDictionary>
 /// A representation of a filesystem dictionary file.
 ///
 /// The data type is DictionaryFile.
-public typealias DictionaryFile<K: Hashable, V> = File<Dictionary<K, V>>
+public typealias DictionaryFile<K: Hashable, V> = File<[K: V]>

@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015-2016 Nikolai Vazquez
+//  Copyright (c) 2015-2017 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -30,8 +30,6 @@ import Foundation
 /// A type that can be used to read from and write to File instances.
 public typealias ReadableWritable = Readable & Writable
 
-
-
 /// A type that can be used to read from File instances.
 public protocol Readable {
 
@@ -55,8 +53,6 @@ extension Readable {
 
 }
 
-
-
 /// A type that can be used to write to File instances.
 public protocol Writable {
 
@@ -72,7 +68,6 @@ public protocol Writable {
     ///                               the file directly.
     ///
     func write(to path: Path, atomically useAuxiliaryFile: Bool) throws
-
 
 }
 

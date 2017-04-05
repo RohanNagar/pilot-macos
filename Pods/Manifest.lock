@@ -15,12 +15,21 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.4.0)
   - CryptoSwift (~> 0.6.8)
-  - FileKit (~> 4.0.0)
+  - FileKit (from `https://github.com/nvzqz/FileKit.git`)
   - HTTPStatusCodes (~> 3.1.1)
   - Locksmith (~> 3.0.0)
   - Nimble (~> 6.1.0)
   - RealmSwift (~> 2.5.0)
   - SwiftyJSON (~> 3.1.4)
+
+EXTERNAL SOURCES:
+  FileKit:
+    :git: https://github.com/nvzqz/FileKit.git
+
+CHECKOUT OPTIONS:
+  FileKit:
+    :commit: 61a85b13c2ae0eeb7241665568a29e33dcd9a551
+    :git: https://github.com/nvzqz/FileKit.git
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -33,6 +42,6 @@ SPEC CHECKSUMS:
   RealmSwift: 9f1a8f624f2f153410115c2cb7d486be9976565d
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 86c12ab4d7040576506751fac02f8b9e0e464c73
+PODFILE CHECKSUM: 23761659046e5264abdd98af22ed3e057c1b2575
 
 COCOAPODS: 1.2.0

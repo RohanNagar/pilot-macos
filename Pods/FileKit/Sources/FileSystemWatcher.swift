@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015-2016 Nikolai Vazquez
+//  Copyright (c) 2015-2017 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -43,15 +43,16 @@ public class FileSystemWatcher {
         eventFlags: UnsafePointer<FSEventStreamEventFlags>?,
         eventIds: UnsafePointer<FSEventStreamEventId>?) in
 
+        FileSystemWatcher.log("Callback Fired")
+
+        let watcher: FileSystemWatcher = unsafeBitCast(contextInfo, to: FileSystemWatcher.self)
+
         defer {
             if let lastEventId = eventIds?[numEvents - 1] {
                 watcher.lastEventId = lastEventId
             }
         }
 
-        FileSystemWatcher.log("Callback Fired")
-
-        let watcher: FileSystemWatcher = unsafeBitCast(contextInfo, to: FileSystemWatcher.self)
         guard let paths = unsafeBitCast(eventPaths, to: NSArray.self) as? [String], let eventFlags = eventFlags, let eventIds = eventIds else {
             return
         }

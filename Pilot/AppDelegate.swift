@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var loginViewController: LoginViewController!
   var toolbar: NSToolbar!
   
-  func applicationDidFinishLaunching(aNotification: NSNotification) {
+  func applicationDidFinishLaunching(_ aNotification: Notification) {
 
     loginViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
     
@@ -25,15 +25,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     toolbar = NSToolbar(identifier: "MainViewControllerToolbar")
     toolbar.delegate = self
     window.toolbar = toolbar
-    
+
     // Set the default window color
     //window.backgroundColor = NSColor.fromRGB(255.0, green: 255.0, blue: 255.0)
     
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
 
     // If there is an existing user then try to grab the password for that user from KeyChain
-    if let username = defaults.stringForKey("existingUser") {
-      if let existingUserInfo = Locksmith.loadDataForUserAccount(username) {
+    if let username = defaults.string(forKey: "existingUser") {
+      if let existingUserInfo = Locksmith.loadDataForUserAccount(userAccount: username) {
         let password = existingUserInfo["password"] as! String
         loginViewController.signIn(self.window, username: username, password: password)
         return
@@ -44,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     window.contentViewController = loginViewController
   }
 
-  func applicationWillTerminate(aNotification: NSNotification) {
+  func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
 
   }
@@ -59,10 +59,24 @@ extension NSView {
     }
 
     self.translatesAutoresizingMaskIntoConstraints = false
-    superview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[subview]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["subview": self]))
-    superview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[subview]-0-|", options: .DirectionLeadingToTrailing, metrics: nil, views: ["subview": self]))
+    superview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[subview]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["subview": self]))
+    superview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[subview]-0-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["subview": self]))
   }
 
 }
 
-extension AppDelegate: NSToolbarDelegate {}
+extension AppDelegate: NSToolbarDelegate {
+  func toolbar(_ toolbar: NSToolbar,
+               itemForItemIdentifier itemIdentifier: String,
+               willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+    return nil
+  }
+
+  func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
+    return []
+  }
+
+  func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
+    return []
+  }
+}

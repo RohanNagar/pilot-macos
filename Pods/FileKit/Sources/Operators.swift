@@ -4,7 +4,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015-2016 Nikolai Vazquez
+//  Copyright (c) 2015-2017 Nikolai Vazquez
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 
 import Foundation
 
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
     case let (l?, r?):
         return l < r
@@ -64,8 +64,6 @@ public func |> <DataType: ReadableWritable>(data: DataType, file: File<DataType>
     try file.write(data)
 }
 
-
-
 // MARK: - TextFile
 
 /// Returns `true` if both text files have the same path and encoding.
@@ -84,6 +82,7 @@ infix operator |>>
 /// - Throws: `FileKitError.WriteToFileFail`
 ///
 public func |>> (data: String, file: TextFile) throws {
+    // TODO use TextFileStreamWritter
     var data = data
     if let contents = try? file.read() {
         data = contents + "\n" + data
@@ -174,7 +173,6 @@ public func += (lhs: inout Path, rhs: String) {
     lhs = lhs + rhs
 }
 
-
 /// Concatenates two `Path` instances and returns the result.
 
 public func / (lhs: Path, rhs: Path) -> Path {
@@ -218,7 +216,7 @@ public func <^> (lhs: Path, rhs: Path) -> Path {
 infix operator </>
 
 /// Runs `closure` with the path as its current working directory.
-public func </> (path: Path, closure: () throws -> ()) rethrows {
+public func </> (path: Path, closure: () throws -> Void) rethrows {
     try path.changeDirectory(closure)
 }
 
@@ -279,7 +277,6 @@ public func ->! <DataType: ReadableWritable>(lhs: File<DataType>, rhs: Path) thr
     }
     try lhs ->> rhs
 }
-
 
 infix operator +>>
 
@@ -423,7 +420,6 @@ postfix operator *
 public postfix func * (path: Path) -> Path {
     return path.resolved
 }
-
 
 postfix operator ^
 

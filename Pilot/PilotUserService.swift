@@ -20,11 +20,11 @@ class PilotUserService: NSObject {
   // Endpoint to connect to Thunder
   let endpoint = "http://thunder.nickeckert.com/users"
 
-  private var basicCredentials: String
+  fileprivate var basicCredentials: String
 
   /* Default init */
   override init() {
-    basicCredentials = "\(user):\(secret)".dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedStringWithOptions([])
+    basicCredentials = "\(user):\(secret)".data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
   }
 
   /// Retreives a `PilotUser` from Thunder for the given username.
@@ -36,9 +36,9 @@ class PilotUserService: NSObject {
   ///    - completion: The method to call upon success.
   ///    - failure: The method to call upon failure. The `HTTPStatusCode` that resulted from the network request will be passed into this method.
   ///
-  func getPilotUser(username: String, password: String,
-                    completion: PilotUser -> Void,
-                    failure: HTTPStatusCode -> Void) {
+  func getPilotUser(_ username: String, password: String,
+                    completion: @escaping (PilotUser) -> Void,
+                    failure: @escaping (HTTPStatusCode) -> Void) {
 
     // Build the authorization headers for the request
     let headers: [String: String] = ["Authorization": "Basic \(basicCredentials)",
@@ -47,7 +47,7 @@ class PilotUserService: NSObject {
     // Build the parameters for the request
     let parameters: [String: String] = ["email": username]
 
-    Alamofire.request(.GET, endpoint, headers: headers, parameters: parameters)
+    Alamofire.request(endpoint, parameters: parameters, headers: headers)
       .validate(statusCode: 200..<300)
       .responseJSON { response in
 
@@ -59,7 +59,7 @@ class PilotUserService: NSObject {
             failure(HTTPStatusCode(HTTPResponse: status)!)
           } else {
             // If the response is nil, that means the server is down.
-            failure(HTTPStatusCode.InternalServerError)
+            failure(HTTPStatusCode.internalServerError)
           }
 
           return
@@ -67,7 +67,7 @@ class PilotUserService: NSObject {
 
         // TODO: not sure if data can be nil if we make it to this point, this check may be unnecessary.
         if response.data == nil {
-          failure(HTTPStatusCode.InternalServerError)
+          failure(HTTPStatusCode.internalServerError)
           return
         }
 

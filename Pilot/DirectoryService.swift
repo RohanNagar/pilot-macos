@@ -11,7 +11,7 @@ import FileKit
 
 class DirectoryService: NSObject {
 
-  static func getFilesFromPath(platformType: PlatformType, caller: FileService) -> [LocalFile]? {
+  static func getFilesFromPath(_ platformType: PlatformType, caller: FileService) -> [LocalFile]? {
 
     if let filePath = caller.fetchPreferences().getRootPath(platformType) {
       let platformPath = Path(filePath)
@@ -23,7 +23,7 @@ class DirectoryService: NSObject {
 
         // Cast to NSString to delete path extension
         let fileName = file.name as NSString
-        let name = fileName.stringByDeletingPathExtension
+        let name = fileName.deletingPathExtension
 
         // Access the correcponsing file data stored in the DB if it exists
         if let metaData = DBController.sharedDBController.getFacebookFileByName(name) {
@@ -39,7 +39,7 @@ class DirectoryService: NSObject {
     return nil
   }
 
-  static func checkFile(name: String, platformType: PlatformType, caller: FileService) -> LocalFile? {
+  static func checkFile(_ name: String, platformType: PlatformType, caller: FileService) -> LocalFile? {
 
     if let filePath = caller.fetchPreferences().getRootPath(platformType) {
 
@@ -48,7 +48,7 @@ class DirectoryService: NSObject {
 
       // Cast to NSString to delete path extension
       let fileName = file.name as NSString
-      let name = fileName.stringByDeletingPathExtension
+      let name = fileName.deletingPathExtension
 
       // Access the correcponsing file data stored in the DB if it exists
       if let metaData = DBController.sharedDBController.getFacebookFileByName(name) {

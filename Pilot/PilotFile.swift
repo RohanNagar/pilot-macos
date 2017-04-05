@@ -18,17 +18,17 @@ protocol PilotFile: class {
   var thumbnail: NSImage? { get set }
   var directory: String? { get set }
 
-  func setSize(size: Int)
+  func setSize(_ size: Int)
 
-  func setThumbNail(thumbnail: NSImage)
+  func setThumbNail(_ thumbnail: NSImage)
 
-  func setTargetDirectory(directory: String)
+  func setTargetDirectory(_ directory: String)
 
 }
 
 extension PilotFile {
 
-  func isEqual(object: AnyObject) -> Bool {
+  func isEqual(_ object: AnyObject) -> Bool {
     if let obj = object as? PilotFile {
       return self.name == obj.name
     }
@@ -37,7 +37,7 @@ extension PilotFile {
   }
 
   var description: String {
-    return "File{name=\(name), size=\(size), directory=\(directory)}"
+    return "File{name=\(name), size=\(String(describing: size)), directory=\(String(describing: directory))}"
   }
 
 }

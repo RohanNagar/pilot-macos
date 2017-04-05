@@ -22,7 +22,7 @@ class LoginViewController: NSViewController {
 
   var userService = PilotUserService()
 
-  let defaults = NSUserDefaults.standardUserDefaults()
+  let defaults = UserDefaults.standard
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,7 +42,7 @@ class LoginViewController: NSViewController {
   
   override func awakeFromNib() {
     if self.view.layer != nil {
-      let color: CGColorRef = PilotColors.White.CGColor
+      let color: CGColor = PilotColors.White.cgColor
       self.view.layer?.backgroundColor = color
     }
   }
@@ -50,9 +50,9 @@ class LoginViewController: NSViewController {
   override func viewDidAppear() {
     self.view.window!.backgroundColor = PilotColors.White
     
-    self.view.window!.titleVisibility = NSWindowTitleVisibility.Hidden
+    self.view.window!.titleVisibility = NSWindowTitleVisibility.hidden
     self.view.window!.titlebarAppearsTransparent = true
-    self.view.window!.movableByWindowBackground = true
+    self.view.window!.isMovableByWindowBackground = true
   }
 
   /// Called when `usernameTextField` sends an action.
@@ -60,7 +60,7 @@ class LoginViewController: NSViewController {
   /// - parameters
   ///   - sender: The `NSTextField` object that sent the action.
   ///
-  @IBAction func didEndUsernameEditing(sender: NSTextField) {
+  @IBAction func didEndUsernameEditing(_ sender: NSTextField) {
     if sender != usernameTextField {
       return
     }
@@ -73,7 +73,7 @@ class LoginViewController: NSViewController {
   /// - parameters:
   ///    - sender: The `NSSecureTextField` object that sent the action.
   ///
-  @IBAction func didEndPasswordEditing(sender: NSSecureTextField) {
+  @IBAction func didEndPasswordEditing(_ sender: NSSecureTextField) {
     if sender != passwordTextField {
       return
     }
@@ -87,7 +87,7 @@ class LoginViewController: NSViewController {
   /// - parameters:
   ///    - sender: The object that send the action.
   ///
-  @IBAction func signInButton(sender: AnyObject) {
+  @IBAction func signInButton(_ sender: AnyObject) {
     if usernameTextField.stringValue == "" || passwordTextField.stringValue == "" {
       message.stringValue = "Cannot have an empty username or password field"
       return
@@ -96,7 +96,7 @@ class LoginViewController: NSViewController {
     signIn(self.view.window!, username: usernameTextField.stringValue, password: passwordTextField.stringValue)
   }
 
-  func signIn(window: NSWindow, username: String, password: String) {
+  func signIn(_ window: NSWindow, username: String, password: String) {
 
     // hash the password
     let hashedPassword = PasswordService.hashPassword(password)
@@ -105,12 +105,12 @@ class LoginViewController: NSViewController {
     userService.getPilotUser(username, password: hashedPassword,
       completion: { user in
         // Store the username in NSUserDefaults as the existingUser
-        self.defaults.setObject(user.username, forKey: "existingUser")
+        self.defaults.set(user.username, forKey: "existingUser")
 
         // Attempt to store the password for that user in KeyChain
         do {
-          try Locksmith.saveData(["password": password], forUserAccount: user.username)
-        } catch LocksmithError.Duplicate {
+          try Locksmith.saveData(data: ["password": password], forUserAccount: user.username)
+        } catch LocksmithError.duplicate {
           print("Duplicate with LockSmith")
         } catch {
           print("There was an error with LockSmith")
@@ -156,20 +156,20 @@ class LoginViewController: NSViewController {
         }
 
         // Enable window resize for mainViewController
-        window.styleMask |= NSResizableWindowMask
+        // window.styleMask |= NSResizableWindowMask
 
         // Present the MainViewController to the user
         window.contentViewController = mainViewController
       },
       failure: { statusCode in
         switch statusCode {
-        case HTTPStatusCode.Unauthorized:
+        case HTTPStatusCode.unauthorized:
           self.message.stringValue = "Invalid authentication credentials."
-        case HTTPStatusCode.BadRequest:
+        case HTTPStatusCode.badRequest:
           self.message.stringValue = "Bad input, please fix and try again."
-        case HTTPStatusCode.NotFound:
+        case HTTPStatusCode.notFound:
           self.message.stringValue = "Unable to find username in database. Please try again or sign up."
-        case HTTPStatusCode.InternalServerError:
+        case HTTPStatusCode.internalServerError:
           self.message.stringValue = "Unable to connect to database. Please file a report and try again later."
         default:
           self.message.stringValue = "WTF"
@@ -177,9 +177,9 @@ class LoginViewController: NSViewController {
       })
   }
 
-  func fetchPreferences(user: PilotUser) -> Preferences {
+  func fetchPreferences(_ user: PilotUser) -> Preferences {
     // Grab the raw JSON from userDefualts as a String
-    if let rawStringJSON = self.defaults.objectForKey(user.username) as? String {
+    if let rawStringJSON = self.defaults.object(forKey: user.username) as? String {
 
       // Creat a JSON object and convert it to an object of type Preferences
       return Preferences.fromJSON(JSON.parse(rawStringJSON))
@@ -189,8 +189,8 @@ class LoginViewController: NSViewController {
     return self.registerDefaultPreferences(user)
   }
 
-  func registerDefaultPreferences(user: PilotUser) -> Preferences {
-    let updatePreferences = Preferences(rootPath: "\(Path.UserHome)/pilot/\(user.username)/")
+  func registerDefaultPreferences(_ user: PilotUser) -> Preferences {
+    let updatePreferences = Preferences(rootPath: "\(Path.userHome)/pilot/\(user.username)/")
 
     Preferences.updatePreferences(updatePreferences, username: user.username)
 

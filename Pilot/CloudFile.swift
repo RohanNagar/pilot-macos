@@ -33,15 +33,15 @@ class CloudFile: NSObject, PilotFile {
     self.height = height
   }
 
-  func setSize(size: Int) {
+  func setSize(_ size: Int) {
     self.size = size
   }
 
-  func setThumbNail(thumbnail: NSImage) {
+  func setThumbNail(_ thumbnail: NSImage) {
     self.thumbnail = thumbnail
   }
 
-  func setTargetDirectory(directory: String) {
+  func setTargetDirectory(_ directory: String) {
     self.directory = directory
   }
 

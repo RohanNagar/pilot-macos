@@ -16,7 +16,7 @@ class PasswordService: NSObject {
   /// - parameters:
   ///    - password: The String to hash.
   ///
-  static func hashPassword(password: String) -> String {
+  static func hashPassword(_ password: String) -> String {
     return password.md5()
   }
 
