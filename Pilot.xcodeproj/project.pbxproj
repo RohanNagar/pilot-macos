@@ -22,6 +22,7 @@
 		14EA51B21BB797720099C25E /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51B11BB797720099C25E /* Platform.swift */; };
 		14EFF6C61D39EF6B004A357E /* PilotColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EFF6C51D39EF6B004A357E /* PilotColors.swift */; };
 		5AE21CF4E7CA1FA1C435F65D /* Pods_Pilot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3558379224EF4876BD6B8B00 /* Pods_Pilot.framework */; };
+		63957078EB6DB75E6ABFA456 /* Pods_PilotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61E40CFEC54A00CFD9AFAB3 /* Pods_PilotTests.framework */; };
 		942BF5AE1D63F25E004C98A1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 942BF5AD1D63F25E004C98A1 /* MainMenu.xib */; };
 		946378D11D5D9FCE005CD845 /* ErrorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946378D01D5D9FCE005CD845 /* ErrorController.swift */; };
 		946378D21D6035F1005CD845 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD101BD4825C00CD0540 /* LoginViewController.swift */; };
@@ -109,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63957078EB6DB75E6ABFA456 /* Pods_PilotTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,9 +278,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14C24E571E94A7A1008B284A /* Build configuration list for PBXNativeTarget "PilotTests" */;
 			buildPhases = (
+				32902A3D8987D82A9C6C30BB /* [CP] Check Pods Manifest.lock */,
 				14C24E4C1E94A7A1008B284A /* Sources */,
 				14C24E4D1E94A7A1008B284A /* Frameworks */,
 				14C24E4E1E94A7A1008B284A /* Resources */,
+				F1C8E88957D52433CF13B9D4 /* [CP] Embed Pods Frameworks */,
+				EBAA4ADE32CF718A05969E35 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -409,6 +414,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		32902A3D8987D82A9C6C30BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		410D40CDCFF5D76C4DA09C4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -482,6 +502,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EBAA4ADE32CF718A05969E35 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PilotTests/Pods-PilotTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1C8E88957D52433CF13B9D4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PilotTests/Pods-PilotTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FE036F0B1E69F9E1719A941C /* [CP] Copy Pods Resources */ = {
@@ -563,6 +613,7 @@
 /* Begin XCBuildConfiguration section */
 		14C24E581E94A7A1008B284A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 140D1170AD1739B0C47869FB /* Pods-PilotTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -582,6 +633,7 @@
 		};
 		14C24E591E94A7A1008B284A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55838F35841B46908B82725C /* Pods-PilotTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

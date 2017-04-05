@@ -8,7 +8,7 @@ target 'Pilot' do
   pod 'HTTPStatusCodes', '~> 3.1.1'
   pod 'SwiftyJSON', '~> 3.1.4'
   pod 'CryptoSwift', '~> 0.6.8'
-  pod 'FileKit', :git => 'https://github.com/nvzqz/FileKit.git' #'~> 4.0.0'
+  pod 'FileKit', '~> 4.0.1'
   pod 'RealmSwift', '~> 2.5.0'
   pod 'Locksmith', '~> 3.0.0'
 end
