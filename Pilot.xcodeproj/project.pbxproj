@@ -12,6 +12,8 @@
 		1418CD171BD488AA00CD0540 /* PilotUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD161BD488AA00CD0540 /* PilotUser.swift */; };
 		1418CD191BD48AFA00CD0540 /* PasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1418CD181BD48AFA00CD0540 /* PasswordService.swift */; };
 		146693111BE94F1F006655A2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 146693101BE94F1F006655A2 /* LoginViewController.xib */; };
+		14B991571E96F9D700AF6FFF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B991551E96F9D600AF6FFF /* SignUpViewController.swift */; };
+		14B991581E96F9D700AF6FFF /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B991561E96F9D600AF6FFF /* SignUpViewController.xib */; };
 		14C24E531E94A7A1008B284A /* PilotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C24E521E94A7A1008B284A /* PilotTests.swift */; };
 		14E1BD851C5321D20021FF9F /* PilotFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BD841C5321D20021FF9F /* PilotFile.swift */; };
 		14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51821BB777E20099C25E /* AppDelegate.swift */; };
@@ -67,6 +69,8 @@
 		1418CD181BD48AFA00CD0540 /* PasswordService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordService.swift; sourceTree = "<group>"; };
 		145EACD51BC0A4F800EE8790 /* FacebookService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookService.swift; sourceTree = "<group>"; };
 		146693101BE94F1F006655A2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		14B991551E96F9D600AF6FFF /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		14B991561E96F9D600AF6FFF /* SignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
 		14C24E501E94A7A1008B284A /* PilotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PilotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14C24E521E94A7A1008B284A /* PilotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilotTests.swift; sourceTree = "<group>"; };
 		14C24E541E94A7A1008B284A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 				94BBED921D22183D001880D7 /* FileCollectionViewItem.xib */,
 				94ABC6B01D6433A70039CE70 /* UploadViewController.swift */,
 				94ABC6B11D6433A70039CE70 /* UploadViewController.xib */,
+				14B991551E96F9D600AF6FFF /* SignUpViewController.swift */,
+				14B991561E96F9D600AF6FFF /* SignUpViewController.xib */,
 			);
 			name = interface;
 			sourceTree = "<group>";
@@ -400,6 +406,7 @@
 				14EA51851BB777E20099C25E /* Assets.xcassets in Resources */,
 				94BBED931D22183D001880D7 /* FileCollectionViewItem.xib in Resources */,
 				14EA51AF1BB783640099C25E /* MainViewController.xib in Resources */,
+				14B991581E96F9D700AF6FFF /* SignUpViewController.xib in Resources */,
 				942BF5AE1D63F25E004C98A1 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -579,6 +586,7 @@
 				1418CD191BD48AFA00CD0540 /* PasswordService.swift in Sources */,
 				946378D61D63AEB0005CD845 /* CollectionViewController.swift in Sources */,
 				948668201D4EF82B00841272 /* DBController.swift in Sources */,
+				14B991571E96F9D700AF6FFF /* SignUpViewController.swift in Sources */,
 				14EFF6C61D39EF6B004A357E /* PilotColors.swift in Sources */,
 				94BBED951D234613001880D7 /* DirectoryService.swift in Sources */,
 				14E1BD851C5321D20021FF9F /* PilotFile.swift in Sources */,
@@ -811,6 +819,7 @@
 				14C24E591E94A7A1008B284A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		14EA517A1BB777E20099C25E /* Build configuration list for PBXProject "Pilot" */ = {
 			isa = XCConfigurationList;

@@ -12,7 +12,7 @@ import SwiftyJSON
 import FileKit
 import Locksmith
 
-class LoginViewController: NSViewController {
+class LoginViewController: NSViewController, SignInDelegate {
 
   @IBOutlet weak var signInButton: NSButton!
   @IBOutlet weak var iconView: NSImageView!
@@ -52,7 +52,7 @@ class LoginViewController: NSViewController {
     
     self.view.window!.titleVisibility = NSWindowTitleVisibility.hidden
     self.view.window!.titlebarAppearsTransparent = true
-    self.view.window!.isMovableByWindowBackground = true
+    self.view.window!.isMovableByWindowBackground = false
   }
 
   /// Called when `usernameTextField` sends an action.
@@ -94,6 +94,13 @@ class LoginViewController: NSViewController {
     }
 
     signIn(self.view.window!, username: usernameTextField.stringValue, password: passwordTextField.stringValue)
+  }
+
+  @IBAction func signUp(_ sender: Any) {
+    let signUpViewController = SignUpViewController()
+    signUpViewController.signInDelegate = self
+
+    self.view.window!.contentViewController = signUpViewController
   }
 
   func signIn(_ window: NSWindow, username: String, password: String) {
@@ -175,6 +182,10 @@ class LoginViewController: NSViewController {
           self.message.stringValue = "WTF"
         }
       })
+  }
+
+  func cancel(window: NSWindow) {
+    window.contentViewController = self
   }
 
   func fetchPreferences(_ user: PilotUser) -> Preferences {

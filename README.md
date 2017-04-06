@@ -5,13 +5,13 @@
 ![Version](https://img.shields.io/badge/version-dev-7f8c8d.svg)
 [![Twitter](https://img.shields.io/badge/twitter-%40RohanNagar22-00aced.svg)](http://twitter.com/RohanNagar22)
 
-Pilot is a cloud-management application. Combine your files from Dropbox, Google Drive, Facebook, and more all in one location!
+Pilot is a cloud-management application for macOS. Combine your files from Dropbox, Google Drive, Facebook, and more all in one location!
 
 * [Building Locally](#building-locally)
 
 ## Building Locally
 - Requirements
-  - Xcode 7.3 (Swift 2.2)
+  - Xcode 8.3 (Swift 3.1)
 
 First, fork this repo on GitHub. Then, clone your forked repo onto your machine.
 
@@ -20,3 +20,6 @@ $ git clone YOUR-FORK-URL
 ```
 
 Open up the project in Xcode. Open the `Pilot.xcworkspace` file, *not* the `Pilot.xcproject` file. Press the play button at the top left of the Xcode window to build and then launch the application.
+
+> Note: CocoaPods is not required to be installed, as the `Pods/` directory is included in the repo. If you wish to update or add new dependencies, you must [install CocoaPods](https://guides.cocoapods.org/using/getting-started.html).
+

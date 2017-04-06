@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1217" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="LoginViewController" customModule="Pilot" customModuleProvider="target">
@@ -21,13 +22,10 @@
             <rect key="frame" x="0.0" y="0.0" width="525" height="350"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box horizontalHuggingPriority="249" verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="v8n-r5-77u" userLabel="UsernameLine">
+                <box horizontalHuggingPriority="249" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="v8n-r5-77u" userLabel="UsernameLine">
                     <rect key="frame" x="159" y="121" width="225" height="5"/>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <font key="titleFont" metaFont="system"/>
                 </box>
-                <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YCo-5d-JpX" userLabel="PasswordTextField">
+                <secureTextField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCo-5d-JpX" userLabel="PasswordTextField">
                     <rect key="frame" x="163" y="87" width="223" height="17"/>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" placeholderString="password" usesSingleLineMode="YES" id="bLi-6W-QHy">
                         <font key="font" metaFont="system"/>
@@ -41,11 +39,8 @@
                         <action selector="didEndPasswordEditing:" target="-2" id="iiY-Wx-3Hk"/>
                     </connections>
                 </secureTextField>
-                <box horizontalHuggingPriority="245" verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="jMy-aA-GYP" userLabel="PasswordLine">
+                <box horizontalHuggingPriority="245" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="jMy-aA-GYP" userLabel="PasswordLine">
                     <rect key="frame" x="159" y="77" width="225" height="5"/>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <font key="titleFont" metaFont="system"/>
                 </box>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EE7-gw-gaY" userLabel="UsernameIcon">
                     <rect key="frame" x="123" y="127" width="26" height="26"/>
@@ -55,7 +50,7 @@
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PersonIcon" id="ahR-jN-Cx6"/>
                 </imageView>
-                <textField horizontalHuggingPriority="264" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YsY-8f-tPI" userLabel="ResponseView">
+                <textField horizontalHuggingPriority="264" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YsY-8f-tPI" userLabel="ResponseView">
                     <rect key="frame" x="11" y="11" width="502" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" alignment="center" id="cyz-9K-Mqf">
                         <font key="font" metaFont="system"/>
@@ -70,7 +65,7 @@
                     <rect key="frame" x="125" y="85" width="22" height="22"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="LockIcon" id="MyK-K5-K04"/>
                 </imageView>
-                <textField horizontalHuggingPriority="247" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wrc-rx-cJW" userLabel="UsernameTextField">
+                <textField horizontalHuggingPriority="247" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrc-rx-cJW" userLabel="UsernameTextField">
                     <rect key="frame" x="163" y="132" width="229" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" alignment="left" placeholderString="username" usesSingleLineMode="YES" id="4h8-F3-UC6">
                         <font key="font" metaFont="system"/>
@@ -83,7 +78,7 @@
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aJr-dC-tFw" userLabel="SignInButton">
-                    <rect key="frame" x="221" y="40" width="83" height="19"/>
+                    <rect key="frame" x="177" y="40" width="83" height="19"/>
                     <buttonCell key="cell" type="roundRect" title="SIGN IN" bezelStyle="roundedRect" imagePosition="left" alignment="center" borderStyle="border" inset="2" id="tBU-Sb-PAX">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="systemBold" size="12"/>
@@ -93,21 +88,32 @@
                     </connections>
                 </button>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DNb-Nq-D8e">
-                    <rect key="frame" x="195" y="196" width="134" height="134"/>
+                    <rect key="frame" x="196" y="196" width="134" height="134"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="134" id="EWi-ns-IXD"/>
                         <constraint firstAttribute="height" constant="134" id="VVf-Cg-hlz"/>
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="LoginIcon" id="iYb-ey-6he"/>
                 </imageView>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RQA-Qu-HcJ" userLabel="SignUpButton">
+                    <rect key="frame" x="282" y="40" width="83" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="SIGN UP" bezelStyle="roundedRect" imagePosition="left" alignment="center" borderStyle="border" inset="2" id="J24-Hg-dVl">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="systemBold" size="12"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="signUp:" target="-2" id="imn-Na-59p"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="EE7-gw-gaY" firstAttribute="centerY" secondItem="Wrc-rx-cJW" secondAttribute="centerY" id="02O-rT-DeP"/>
-                <constraint firstAttribute="trailing" secondItem="aJr-dC-tFw" secondAttribute="trailing" constant="221" id="3uW-Dz-vBC"/>
+                <constraint firstAttribute="trailing" secondItem="aJr-dC-tFw" secondAttribute="trailing" constant="265" id="3uW-Dz-vBC"/>
                 <constraint firstItem="YCo-5d-JpX" firstAttribute="top" secondItem="v8n-r5-77u" secondAttribute="bottom" constant="19" id="8uQ-4K-qnK"/>
                 <constraint firstItem="jMy-aA-GYP" firstAttribute="top" secondItem="YCo-5d-JpX" secondAttribute="bottom" constant="7" id="Tbl-4V-alS"/>
                 <constraint firstItem="v8n-r5-77u" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="159" id="Ufb-O3-lgK"/>
-                <constraint firstItem="DNb-Nq-D8e" firstAttribute="centerX" secondItem="aJr-dC-tFw" secondAttribute="centerX" id="Vco-EM-dqp"/>
+                <constraint firstItem="DNb-Nq-D8e" firstAttribute="centerX" secondItem="aJr-dC-tFw" secondAttribute="centerX" constant="44.5" id="Vco-EM-dqp"/>
                 <constraint firstItem="EE7-gw-gaY" firstAttribute="centerX" secondItem="sDs-AO-kJy" secondAttribute="centerX" id="WFc-tt-KOy"/>
                 <constraint firstAttribute="trailing" secondItem="YCo-5d-JpX" secondAttribute="trailing" constant="141" id="Xrq-18-KXP"/>
                 <constraint firstItem="YsY-8f-tPI" firstAttribute="top" secondItem="aJr-dC-tFw" secondAttribute="bottom" constant="13" id="YBc-jx-vbY"/>
@@ -117,7 +123,7 @@
                 <constraint firstAttribute="trailing" secondItem="YsY-8f-tPI" secondAttribute="trailing" constant="14" id="dk9-ax-GUW"/>
                 <constraint firstAttribute="bottom" secondItem="EE7-gw-gaY" secondAttribute="bottom" constant="127" id="e9u-45-Iz9"/>
                 <constraint firstItem="sDs-AO-kJy" firstAttribute="top" secondItem="EE7-gw-gaY" secondAttribute="bottom" constant="20" id="eFn-7w-xcl"/>
-                <constraint firstItem="aJr-dC-tFw" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="221" id="fN1-AY-TVb"/>
+                <constraint firstItem="aJr-dC-tFw" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="177" id="fN1-AY-TVb"/>
                 <constraint firstItem="EE7-gw-gaY" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="123" id="hK7-L1-Agc"/>
                 <constraint firstItem="DNb-Nq-D8e" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="mwn-jg-ccq"/>
                 <constraint firstItem="Wrc-rx-cJW" firstAttribute="leading" secondItem="EE7-gw-gaY" secondAttribute="trailing" constant="16" id="nj5-ar-l9e"/>

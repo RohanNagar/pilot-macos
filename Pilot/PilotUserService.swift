@@ -85,4 +85,55 @@ class PilotUserService: NSObject {
     }
   }
 
+  func createPilotUser(_ username: String, password: String,
+                       completion: @escaping (PilotUser) -> Void,
+                       failure: @escaping (HTTPStatusCode) -> Void) {
+    // Build the authorization headers for the request
+    let headers: [String: String] = ["Authorization": "Basic \(basicCredentials)",
+      "password": "\(password)"]
+
+    let parameters = [
+      "email": username,
+      "password": password
+      ]
+
+    Alamofire.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+      .validate(statusCode: 200..<300)
+      .responseJSON { response in
+
+        print(response.timeline)
+
+        // Error handling
+        if response.result.isFailure {
+          if let status = response.response {
+            failure(HTTPStatusCode(HTTPResponse: status)!)
+          } else {
+            // If the response is nil, that means the server is down.
+            failure(HTTPStatusCode.internalServerError)
+          }
+
+          return
+        }
+
+        // TODO: not sure if data can be nil if we make it to this point, this check may be unnecessary.
+        if response.data == nil {
+          failure(HTTPStatusCode.internalServerError)
+          return
+        }
+
+        // Grab PilotUser from JSON response
+        let json = JSON(data: response.data!)
+
+        let user = PilotUser(
+          username: json["email"].stringValue,
+          password: json["password"].stringValue,
+          facebookAccessToken: json["facebookAccessToken"].stringValue,
+          twitterAccessToken: json["twitterAccessToken"].stringValue,
+          twitterAccessSecret: json["twitterAccessSecret"].stringValue)
+        
+        completion(user)
+    }
+
+  }
+
 }

@@ -74,11 +74,11 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
   }
   
   override func viewDidAppear() {
-    self.view.window!.backgroundColor = PilotColors.PilotBlue
+    self.view.window!.backgroundColor = PilotColors.White
 
     self.view.window!.titleVisibility = NSWindowTitleVisibility.hidden
     self.view.window!.titlebarAppearsTransparent = true
-    self.view.window!.isMovableByWindowBackground = true
+    self.view.window!.isMovableByWindowBackground = false
   }
   
   // Search the files in the collection view for the keywords sepcified
