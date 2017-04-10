@@ -16,7 +16,7 @@ class LoginViewController: NSViewController, SignInDelegate {
 
   @IBOutlet weak var signInButton: NSButton!
   @IBOutlet weak var iconView: NSImageView!
-  @IBOutlet weak var usernameTextField: NSTextField!
+  @IBOutlet weak var emailTextField: NSTextField!
   @IBOutlet weak var passwordTextField: NSSecureTextField!
   @IBOutlet weak var message: NSTextField!
 
@@ -35,8 +35,8 @@ class LoginViewController: NSViewController, SignInDelegate {
     // Set the app icon image
     iconView.image = NSImage(named: "LoginIcon")
 
-    // Change the textfield text color to custom pilot brown color
-    usernameTextField.textColor = PilotColors.PilotBrownText
+    // Change the textfield text color to custom pilot brown 
+    emailTextField.textColor = PilotColors.PilotBrownText
     passwordTextField.textColor = PilotColors.PilotBrownText
   }
   
@@ -60,8 +60,8 @@ class LoginViewController: NSViewController, SignInDelegate {
   /// - parameters
   ///   - sender: The `NSTextField` object that sent the action.
   ///
-  @IBAction func didEndUsernameEditing(_ sender: NSTextField) {
-    if sender != usernameTextField {
+  @IBAction func didEndEmailEditing(_ sender: NSTextField) {
+    if sender != emailTextField {
       return
     }
 
@@ -88,12 +88,12 @@ class LoginViewController: NSViewController, SignInDelegate {
   ///    - sender: The object that send the action.
   ///
   @IBAction func signInButton(_ sender: AnyObject) {
-    if usernameTextField.stringValue == "" || passwordTextField.stringValue == "" {
+    if emailTextField.stringValue == "" || passwordTextField.stringValue == "" {
       message.stringValue = "Cannot have an empty username or password field"
       return
     }
 
-    signIn(self.view.window!, username: usernameTextField.stringValue, password: passwordTextField.stringValue)
+    signIn(self.view.window!, email: emailTextField.stringValue, password: passwordTextField.stringValue)
   }
 
   @IBAction func signUp(_ sender: Any) {
@@ -103,20 +103,20 @@ class LoginViewController: NSViewController, SignInDelegate {
     self.view.window!.contentViewController = signUpViewController
   }
 
-  func signIn(_ window: NSWindow, username: String, password: String) {
+  func signIn(_ window: NSWindow, email: String, password: String) {
 
     // hash the password
     let hashedPassword = PasswordService.hashPassword(password)
 
     // Get the requested pilot user
-    userService.getPilotUser(username, password: hashedPassword,
+    userService.getPilotUser(email, password: hashedPassword,
       completion: { user in
         // Store the username in NSUserDefaults as the existingUser
-        self.defaults.set(user.username, forKey: "existingUser")
+        self.defaults.set(user.email, forKey: "existingUser")
 
         // Attempt to store the password for that user in KeyChain
         do {
-          try Locksmith.saveData(data: ["password": password], forUserAccount: user.username)
+          try Locksmith.saveData(data: ["password": password], forUserAccount: user.email)
         } catch LocksmithError.duplicate {
           print("Duplicate with LockSmith")
         } catch {
@@ -190,7 +190,7 @@ class LoginViewController: NSViewController, SignInDelegate {
 
   func fetchPreferences(_ user: PilotUser) -> Preferences {
     // Grab the raw JSON from userDefualts as a String
-    if let rawStringJSON = self.defaults.object(forKey: user.username) as? String {
+    if let rawStringJSON = self.defaults.object(forKey: user.email) as? String {
 
       // Creat a JSON object and convert it to an object of type Preferences
       return Preferences.fromJSON(JSON.parse(rawStringJSON))
@@ -201,9 +201,9 @@ class LoginViewController: NSViewController, SignInDelegate {
   }
 
   func registerDefaultPreferences(_ user: PilotUser) -> Preferences {
-    let updatePreferences = Preferences(rootPath: "\(Path.userHome)/pilot/\(user.username)/")
+    let updatePreferences = Preferences(rootPath: "\(Path.userHome)/pilot/\(user.email)/")
 
-    Preferences.updatePreferences(updatePreferences, username: user.username)
+    Preferences.updatePreferences(updatePreferences, email: user.email)
 
     return updatePreferences
   }

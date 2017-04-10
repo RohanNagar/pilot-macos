@@ -57,9 +57,9 @@ class Preferences: NSObject {
     return Preferences(rootPath: path)
   }
 
-  static func updatePreferences(_ preferences: Preferences, username: String) {
+  static func updatePreferences(_ preferences: Preferences, email: String) {
     let rawPreferencesJSON = preferences.toJSON().rawString()!
-    UserDefaults.standard.set(rawPreferencesJSON, forKey: username)
+    UserDefaults.standard.set(rawPreferencesJSON, forKey: email)
   }
 
 }

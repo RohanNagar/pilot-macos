@@ -45,9 +45,9 @@ class FacebookService: NSObject, FileService {
   // Note: This call is asynronous
   func refreshCachedCloudContent(_ completion: @escaping ([CloudFile]) -> ()) {
     // Fetch the photos and videos from facebook and combine them into one conglomerate
-    self.getFacebookPhotos(pilotUser.username, password: pilotUser.password,
+    self.getFacebookPhotos(pilotUser.email, password: pilotUser.password,
       completion: { returnPhotos in
-        self.getFacebookVideos(self.pilotUser.username, password: self.pilotUser.password,
+        self.getFacebookVideos(self.pilotUser.email, password: self.pilotUser.password,
           completion: { returnVideos in
             let returnFiles = returnPhotos + returnVideos
             self.cachedCloudContent = returnFiles
@@ -131,12 +131,12 @@ class FacebookService: NSObject, FileService {
   /// - note: The network request is made asynchronously.
   ///
   /// - parameters:
-  ///    - username: The name of the user to retrieve photo URLs for.
+  ///    - email: The email of the user to retrieve photo URLs for.
   ///    - password: The passowrd of the user to retieve photo URLs for.
   ///    - completion: The method to call upon completion. Will pass in the array of photos to the method.
   ///    - failure: The method to call upon failure.
   ///
-  func getFacebookPhotos(_ username: String, password: String,
+  func getFacebookPhotos(_ email: String, password: String,
                          completion: @escaping ([CloudFile]) -> Void,
                          failure: @escaping (String) -> Void) {
 
@@ -145,7 +145,7 @@ class FacebookService: NSObject, FileService {
                    "password": "\(password)"]
 
     // Build the parameters for the request
-    let parameters = ["email": username]
+    let parameters = ["email": email]
 
     Alamofire.request(photosEndpoint, parameters: parameters, headers: headers)
       .responseJSON { response in
@@ -179,12 +179,12 @@ class FacebookService: NSObject, FileService {
   /// - note: The network request is made asynchronously.
   ///
   /// - parameters:
-  ///    - username: The name of the user to retrieve videos for.
+  ///    - email: The email of the user to retrieve videos for.
   ///    - password: The password of the user to retrieve videos for.
   ///    - completion: The method to call upon completion. Will pass in the array of videos to the method.
   ///    - failure: The method to call upon failure.
   ///
-  func getFacebookVideos(_ username: String, password: String,
+  func getFacebookVideos(_ email: String, password: String,
                          completion: @escaping ([CloudFile]) -> Void,
                          failure: @escaping (Void) -> Void) {
 
@@ -193,7 +193,7 @@ class FacebookService: NSObject, FileService {
                    "password": "\(password)"]
 
     // build the parameters for the request
-    let parameters = ["email": username]
+    let parameters = ["email": email]
 
     Alamofire.request(videosEndpoint, parameters: parameters, headers: headers)
       .responseJSON { response in

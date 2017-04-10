@@ -27,16 +27,16 @@ class PilotUserService: NSObject {
     basicCredentials = "\(user):\(secret)".data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
   }
 
-  /// Retreives a `PilotUser` from Thunder for the given username.
+  /// Retreives a `PilotUser` from Thunder for the given email.
   ///
   /// - note: The network call is made asynchronously.
   ///
   /// - parameters:
-  ///    - username: The name to retrieve user information for.
+  ///    - email: The email to retrieve user information for.
   ///    - completion: The method to call upon success.
   ///    - failure: The method to call upon failure. The `HTTPStatusCode` that resulted from the network request will be passed into this method.
   ///
-  func getPilotUser(_ username: String, password: String,
+  func getPilotUser(_ email: String, password: String,
                     completion: @escaping (PilotUser) -> Void,
                     failure: @escaping (HTTPStatusCode) -> Void) {
 
@@ -45,7 +45,7 @@ class PilotUserService: NSObject {
                                      "password": "\(password)"]
 
     // Build the parameters for the request
-    let parameters: [String: String] = ["email": username]
+    let parameters: [String: String] = ["email": email]
 
     Alamofire.request(endpoint, parameters: parameters, headers: headers)
       .validate(statusCode: 200..<300)
@@ -75,7 +75,7 @@ class PilotUserService: NSObject {
         let json = JSON(data: response.data!)
 
         let user = PilotUser(
-          username: json["email"].stringValue,
+          email: json["email"].stringValue,
           password: json["password"].stringValue,
           facebookAccessToken: json["facebookAccessToken"].stringValue,
           twitterAccessToken: json["twitterAccessToken"].stringValue,
@@ -85,7 +85,7 @@ class PilotUserService: NSObject {
     }
   }
 
-  func createPilotUser(_ username: String, password: String,
+  func createPilotUser(_ email: String, password: String,
                        completion: @escaping (PilotUser) -> Void,
                        failure: @escaping (HTTPStatusCode) -> Void) {
     // Build the authorization headers for the request
@@ -93,7 +93,7 @@ class PilotUserService: NSObject {
       "password": "\(password)"]
 
     let parameters = [
-      "email": username,
+      "email": email,
       "password": password
       ]
 
@@ -125,7 +125,7 @@ class PilotUserService: NSObject {
         let json = JSON(data: response.data!)
 
         let user = PilotUser(
-          username: json["email"].stringValue,
+          email: json["email"].stringValue,
           password: json["password"].stringValue,
           facebookAccessToken: json["facebookAccessToken"].stringValue,
           twitterAccessToken: json["twitterAccessToken"].stringValue,

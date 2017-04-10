@@ -32,10 +32,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let defaults = UserDefaults.standard
 
     // If there is an existing user then try to grab the password for that user from KeyChain
-    if let username = defaults.string(forKey: "existingUser") {
-      if let existingUserInfo = Locksmith.loadDataForUserAccount(userAccount: username) {
+    if let email = defaults.string(forKey: "existingUser") {
+      if let existingUserInfo = Locksmith.loadDataForUserAccount(userAccount: email) {
         let password = existingUserInfo["password"] as! String
-        loginViewController.signIn(self.window, username: username, password: password)
+        loginViewController.signIn(self.window, email: email, password: password)
         return
       }
     }

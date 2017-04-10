@@ -38,7 +38,7 @@ class SignUpViewController: NSViewController {
       print("Signed Up.")
 
       if let delegate = self.signInDelegate {
-        delegate.signIn(self.view.window!, username: user.username, password: password)
+        delegate.signIn(self.view.window!, email: user.email, password: password)
       }
 
     }, failure: {_ in 
@@ -54,6 +54,6 @@ class SignUpViewController: NSViewController {
 }
 
 protocol SignInDelegate {
-  func signIn(_ window: NSWindow, username: String, password: String)
+  func signIn(_ window: NSWindow, email: String, password: String)
   func cancel(window: NSWindow)
 }

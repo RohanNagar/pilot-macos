@@ -8,11 +8,11 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="LoginViewController" customModule="Pilot" customModuleProvider="target">
             <connections>
+                <outlet property="emailTextField" destination="Wrc-rx-cJW" id="fLW-s1-5hh"/>
                 <outlet property="iconView" destination="DNb-Nq-D8e" id="ppg-Wy-qha"/>
                 <outlet property="message" destination="YsY-8f-tPI" id="u8F-xX-FVk"/>
                 <outlet property="passwordTextField" destination="YCo-5d-JpX" id="ak2-rA-PVH"/>
                 <outlet property="signInButton" destination="aJr-dC-tFw" id="tpk-ac-wLC"/>
-                <outlet property="usernameTextField" destination="Wrc-rx-cJW" id="kLi-z0-cHo"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="t0J-SM-zNv"/>
             </connections>
         </customObject>
@@ -57,23 +57,20 @@
                         <color key="textColor" red="0.93621155099999998" green="0.029812265649999999" blue="0.025193460769999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" red="0.86274509803921573" green="0.8784313725490196" blue="0.89803921568627454" alpha="0.0" colorSpace="calibratedRGB"/>
                     </textFieldCell>
-                    <connections>
-                        <action selector="message:" target="-2" id="ref-XV-6tI"/>
-                    </connections>
                 </textField>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sDs-AO-kJy" userLabel="PasswordIcon">
                     <rect key="frame" x="125" y="85" width="22" height="22"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="LockIcon" id="MyK-K5-K04"/>
                 </imageView>
-                <textField horizontalHuggingPriority="247" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrc-rx-cJW" userLabel="UsernameTextField">
+                <textField horizontalHuggingPriority="247" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrc-rx-cJW" userLabel="EmailTextField">
                     <rect key="frame" x="163" y="132" width="229" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" alignment="left" placeholderString="username" usesSingleLineMode="YES" id="4h8-F3-UC6">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" alignment="left" placeholderString="email" usesSingleLineMode="YES" id="4h8-F3-UC6">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </textFieldCell>
                     <connections>
-                        <action selector="didEndUsernameEditing:" target="-2" id="CCX-6e-kNa"/>
+                        <action selector="didEndEmailEditing:" target="-2" id="A50-sk-FgC"/>
                         <outlet property="nextKeyView" destination="YCo-5d-JpX" id="R85-IT-jWz"/>
                     </connections>
                 </textField>

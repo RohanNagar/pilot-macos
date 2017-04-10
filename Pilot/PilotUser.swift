@@ -9,14 +9,14 @@
 import Cocoa
 
 class PilotUser: NSObject {
-  var username: String
+  var email: String
   var password: String
   var facebookAccessToken: String
   var twitterAccessToken: String
   var twitterAccessSecret: String
 
-  init(username: String, password: String, facebookAccessToken: String, twitterAccessToken: String, twitterAccessSecret: String) {
-    self.username = username
+  init(email: String, password: String, facebookAccessToken: String, twitterAccessToken: String, twitterAccessSecret: String) {
+    self.email = email
     self.password = password
     self.facebookAccessToken = facebookAccessToken
     self.twitterAccessToken = twitterAccessToken
@@ -25,14 +25,14 @@ class PilotUser: NSObject {
 
   override func isEqual(_ object: Any?) -> Bool {
     if let obj = object as? PilotUser {
-      return self.username == obj.username
+      return self.email == obj.email
     }
 
     return false
   }
 
   override var description: String {
-    return "PilotUser{username=\(username), password=\(password), facebookAccessToken=\(facebookAccessToken), twitterAccessToken=\(twitterAccessToken), twitterAccessSecret=\(twitterAccessSecret)}"
+    return "PilotUser{email=\(email), password=\(password), facebookAccessToken=\(facebookAccessToken), twitterAccessToken=\(twitterAccessToken), twitterAccessSecret=\(twitterAccessSecret)}"
   }
 
 }
