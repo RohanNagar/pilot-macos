@@ -34,7 +34,7 @@ class Platform: NSObject {
 }
 
 enum PlatformType: String {
-  case Twitter = "twitter"
-  case Facebook = "facebook"
-  case Dropbox = "dropbox"
+  case twitter = "twitter"
+  case facebook = "facebook"
+  case dropbox = "dropbox"
 }

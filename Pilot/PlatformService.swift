@@ -31,7 +31,7 @@ class PlatformService: NSObject {
         if !localFiles.contains(where: {$0.name == item.name}) {
           // Create the DB entry and download the file upon completion! I'm so excited about this!
           DBController.sharedDBController.createFacebookFile(item, completion: { _ in
-            facebookService.download(item, platformType: PlatformType.Facebook, failure: { failedFile in
+            facebookService.download(item, platformType: PlatformType.facebook, failure: { failedFile in
               // If the download fialed then obliterate the file >:)
               DBController.sharedDBController.deleteFacebookFileByName(failedFile.name)
             })
@@ -42,7 +42,7 @@ class PlatformService: NSObject {
       // Check for localFiles not in the cloudFiles array. Delete them if this is the case
       for item in localFiles {
         if !cloudFiles.contains(where: {$0.name == item.name}) {
-          guard let itemStringPath = facebookService.preferences.getRootPath(.Facebook) else {
+          guard let itemStringPath = facebookService.preferences.getRootPath(.facebook) else {
             continue
           }
 

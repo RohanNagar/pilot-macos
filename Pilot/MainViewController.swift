@@ -78,7 +78,6 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
 
     self.view.window!.titleVisibility = NSWindowTitleVisibility.hidden
     self.view.window!.titlebarAppearsTransparent = true
-    self.view.window!.isMovableByWindowBackground = false
   }
   
   // Search the files in the collection view for the keywords sepcified
@@ -90,9 +89,9 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
   @IBAction func sync(_ sender: AnyObject) {
     let selection = platforms[tableView.selectedRow].type
       switch selection {
-      case .Facebook:
+      case .facebook:
         platformService!.syncFacebook(facebookService!)
-      case .Twitter:
+      case .twitter:
         print("Twitter")
       default:
         // Let the defualt slection be the all platform
@@ -147,11 +146,11 @@ extension MainViewController: NSTableViewDelegate {
 
     let selection = platforms[tableView.selectedRow].type
     switch selection {
-    case .Facebook:
+    case .facebook:
       headerTitle.stringValue = "Facebook"
       collectionViewController.content = facebookService!.fetchCachedLocalContent()
       collectionViewController.collectionView.reloadData()
-    case .Twitter:
+    case .twitter:
       headerTitle.stringValue = "Twitter"
       print("Twitter Pressed")
     default:

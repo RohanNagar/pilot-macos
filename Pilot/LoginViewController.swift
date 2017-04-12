@@ -42,8 +42,7 @@ class LoginViewController: NSViewController, SignInDelegate {
   
   override func awakeFromNib() {
     if self.view.layer != nil {
-      let color: CGColor = PilotColors.White.cgColor
-      self.view.layer?.backgroundColor = color
+      self.view.layer?.backgroundColor = PilotColors.White.cgColor
     }
   }
   
@@ -52,10 +51,9 @@ class LoginViewController: NSViewController, SignInDelegate {
     
     self.view.window!.titleVisibility = NSWindowTitleVisibility.hidden
     self.view.window!.titlebarAppearsTransparent = true
-    self.view.window!.isMovableByWindowBackground = false
   }
 
-  /// Called when `usernameTextField` sends an action.
+  /// Called when `emailTextField` sends an action.
   ///
   /// - parameters
   ///   - sender: The `NSTextField` object that sent the action.
@@ -89,7 +87,7 @@ class LoginViewController: NSViewController, SignInDelegate {
   ///
   @IBAction func signInButton(_ sender: AnyObject) {
     if emailTextField.stringValue == "" || passwordTextField.stringValue == "" {
-      message.stringValue = "Cannot have an empty username or password field"
+      message.stringValue = "Cannot have an empty email or password field."
       return
     }
 
@@ -104,26 +102,24 @@ class LoginViewController: NSViewController, SignInDelegate {
   }
 
   func signIn(_ window: NSWindow, email: String, password: String) {
-
-    // hash the password
     let hashedPassword = PasswordService.hashPassword(password)
 
-    // Get the requested pilot user
+    // Get the requested Pilot user
     userService.getPilotUser(email, password: hashedPassword,
       completion: { user in
-        // Store the username in NSUserDefaults as the existingUser
+        // Store the email in NSUserDefaults as the existingUser
         self.defaults.set(user.email, forKey: "existingUser")
 
         // Attempt to store the password for that user in KeyChain
         do {
           try Locksmith.saveData(data: ["password": password], forUserAccount: user.email)
         } catch LocksmithError.duplicate {
-          print("Duplicate with LockSmith")
+          print("Duplicate with Locksmith")
         } catch {
-          print("There was an error with LockSmith")
+          print("There was an error with Locksmith")
         }
 
-        // Set up the main view controller
+        // Set up the MainViewController
         guard let mainViewController = MainViewController(nibName: "MainViewController", bundle: nil) else {
           return
         }
@@ -141,7 +137,7 @@ class LoginViewController: NSViewController, SignInDelegate {
 
         // Determine the users platforms and add them to mainViewController
         if user.facebookAccessToken != "" {
-          mainViewController.addPlatform(Platform(title: "Facebook", icon: NSImage(named: "FacebookIcon"), type: .Facebook))
+          mainViewController.addPlatform(Platform(title: "Facebook", icon: NSImage(named: "FacebookIcon"), type: .facebook))
 
           // Set up and load the FacebookService class
           let facebookService = FacebookService(preferences: preferences, pilotUser: user)
@@ -157,7 +153,7 @@ class LoginViewController: NSViewController, SignInDelegate {
         }
 
         if user.twitterAccessToken != "" {
-          mainViewController.addPlatform(Platform(title: "Twitter", icon: NSImage(named: "TwitterIcon"), type: PlatformType.Twitter))
+          mainViewController.addPlatform(Platform(title: "Twitter", icon: NSImage(named: "TwitterIcon"), type: PlatformType.twitter))
 
           // Eventually load twitterService here
         }
@@ -175,7 +171,7 @@ class LoginViewController: NSViewController, SignInDelegate {
         case HTTPStatusCode.badRequest:
           self.message.stringValue = "Bad input, please fix and try again."
         case HTTPStatusCode.notFound:
-          self.message.stringValue = "Unable to find username in database. Please try again or sign up."
+          self.message.stringValue = "Unable to find email in database. Please try again or sign up."
         case HTTPStatusCode.internalServerError:
           self.message.stringValue = "Unable to connect to database. Please file a report and try again later."
         default:

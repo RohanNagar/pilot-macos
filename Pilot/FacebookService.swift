@@ -63,7 +63,7 @@ class FacebookService: NSObject, FileService {
   }
 
   func refreshCachedLocalContent() {
-    if let directoryContents = DirectoryService.getFilesFromPath(.Facebook, caller: self) {
+    if let directoryContents = DirectoryService.getFilesFromPath(.facebook, caller: self) {
       self.cachedLocalContent = directoryContents
     } else {
       ErrorController.sharedErrorController.displayError("Failed to load directory for facebook")
@@ -78,7 +78,7 @@ class FacebookService: NSObject, FileService {
       self.fileSystemWatcher.close()
     }
 
-    guard let pathToWatch = preferences.getRootPath(.Facebook) else {
+    guard let pathToWatch = preferences.getRootPath(.facebook) else {
       ErrorController.sharedErrorController.displayError("Pilot was unable to access the current root directory")
       return
     }
@@ -90,7 +90,7 @@ class FacebookService: NSObject, FileService {
         // Check to see if file was deleted or added
         if FileManager.default.fileExists(atPath: event.path.rawValue) {
           // If the file was added or renamed then add it to the cachedLocalContent array
-          if let localFile = DirectoryService.checkFile(fileName, platformType: .Facebook, caller: self) {
+          if let localFile = DirectoryService.checkFile(fileName, platformType: .facebook, caller: self) {
             self.cachedLocalContent.append(localFile)
           }
         } else {
@@ -112,7 +112,7 @@ class FacebookService: NSObject, FileService {
         }
       } else if event.flags.rawValue == FileSystemEventFlags.RootChanged.rawValue {
         // If there was a root change then attempt to create a new one based on existing preferences
-        if let newRoot = self.preferences.getRootPath(.Facebook) {
+        if let newRoot = self.preferences.getRootPath(.facebook) {
           ErrorController.sharedErrorController.displayError("Root change detected. New root created at path: \(newRoot)")
         }
       }
