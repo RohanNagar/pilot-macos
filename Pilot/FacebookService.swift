@@ -15,13 +15,9 @@ class FacebookService: NSObject, FileService {
   let photosEndpoint = PilotConfiguration.Lightning.endpoint + "/facebook/photos"
   let videosEndpoint = PilotConfiguration.Lightning.endpoint + "/facebook/videos"
 
-  // User object
   var pilotUser: PilotUser!
 
-  // Cached cloudFiles
   var cachedCloudContent: [CloudFile] = []
-
-  // Cached localFiles
   var cachedLocalContent: [LocalFile] = []
 
   var fileSystemWatcher: FileSystemWatcher!
@@ -38,23 +34,24 @@ class FacebookService: NSObject, FileService {
       .data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
   }
 
-  // Note: This call is asynronous
+  // Note: This call is asynchronous
   func refreshCachedCloudContent(_ completion: @escaping ([CloudFile]) -> ()) {
     // Fetch the photos and videos from facebook and combine them into one conglomerate
     self.getFacebookPhotos(pilotUser.email, password: pilotUser.password,
-      completion: { returnPhotos in
+      completion: { photos in
         self.getFacebookVideos(self.pilotUser.email, password: self.pilotUser.password,
-          completion: { returnVideos in
-            let returnFiles = returnPhotos + returnVideos
+          completion: { videos in
+            let returnFiles = photos + videos
+
             self.cachedCloudContent = returnFiles
             completion(returnFiles)
           },
           failure: { _ in
-            ErrorController.sharedErrorController.displayError("Failed to retrieve video list from facebook")
+            ErrorController.sharedErrorController.displayError("Failed to retrieve video list from Facebook.")
           })
       },
       failure: { _ in
-        ErrorController.sharedErrorController.displayError("Failed to retrieve photo list from facebook")
+        ErrorController.sharedErrorController.displayError("Failed to retrieve photo list from Facebook.")
       })
   }
 
@@ -62,20 +59,21 @@ class FacebookService: NSObject, FileService {
     if let directoryContents = DirectoryService.getFilesFromPath(.facebook, caller: self) {
       self.cachedLocalContent = directoryContents
     } else {
-      ErrorController.sharedErrorController.displayError("Failed to load directory for facebook")
+      ErrorController.sharedErrorController.displayError("Failed to load the local directory for Facebook.")
     }
 
   }
 
   func setFileSystemWatcher(_ mainViewController: MainViewController) {
     print("SetFileSystemWatcher was called")
+
     // Close the existing stream if it exists
     if self.fileSystemWatcher != nil {
       self.fileSystemWatcher.close()
     }
 
-    guard let pathToWatch = preferences.getRootPath(.facebook) else {
-      ErrorController.sharedErrorController.displayError("Pilot was unable to access the current root directory")
+    guard let pathToWatch = preferences.getRootPath(service: .facebook) else {
+      ErrorController.sharedErrorController.displayError("Pilot was unable to access the current root directory.")
       return
     }
 
@@ -108,7 +106,7 @@ class FacebookService: NSObject, FileService {
         }
       } else if event.flags.rawValue == FileSystemEventFlags.RootChanged.rawValue {
         // If there was a root change then attempt to create a new one based on existing preferences
-        if let newRoot = self.preferences.getRootPath(.facebook) {
+        if let newRoot = self.preferences.getRootPath(service: .facebook) {
           ErrorController.sharedErrorController.displayError("Root change detected. New root created at path: \(newRoot)")
         }
       }

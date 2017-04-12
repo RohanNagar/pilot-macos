@@ -175,11 +175,19 @@
 			name = config;
 			sourceTree = "<group>";
 		};
+		14BC1C1C1E9E941300E74002 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				14BC1C171E9E855100E74002 /* PasswordServiceTest.swift */,
+			);
+			name = services;
+			sourceTree = "<group>";
+		};
 		14C24E511E94A7A1008B284A /* PilotTests */ = {
 			isa = PBXGroup;
 			children = (
+				14BC1C1C1E9E941300E74002 /* services */,
 				14C24E541E94A7A1008B284A /* Info.plist */,
-				14BC1C171E9E855100E74002 /* PasswordServiceTest.swift */,
 			);
 			path = PilotTests;
 			sourceTree = "<group>";

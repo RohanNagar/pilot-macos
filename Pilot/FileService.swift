@@ -38,7 +38,7 @@ extension FileService {
 
   func download(_ fileToDownload: CloudFile, platformType: PlatformType, failure: @escaping (CloudFile) -> ()) {
 
-    if let path = preferences.getRootPath(platformType) {
+    if let path = preferences.getRootPath(service: platformType) {
 
       let destination: DownloadRequest.DownloadFileDestination =  {
         (temporaryURL, response) in

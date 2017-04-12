@@ -26,8 +26,8 @@ class Preferences: NSObject {
     self.rootPath = rootPath
   }
 
-  func getRootPath(_ forService: PlatformType) -> String? {
-    let rootServicePath = Path(rootPath + forService.rawValue)
+  func getRootPath(service: PlatformType) -> String? {
+    let rootServicePath = Path(rootPath + service.rawValue)
 
     // If the path doesn't exist then attempt to make a new one
     guard rootServicePath.exists else {
