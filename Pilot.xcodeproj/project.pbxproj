@@ -14,7 +14,7 @@
 		146693111BE94F1F006655A2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 146693101BE94F1F006655A2 /* LoginViewController.xib */; };
 		14B991571E96F9D700AF6FFF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B991551E96F9D600AF6FFF /* SignUpViewController.swift */; };
 		14B991581E96F9D700AF6FFF /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B991561E96F9D600AF6FFF /* SignUpViewController.xib */; };
-		14C24E531E94A7A1008B284A /* PilotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C24E521E94A7A1008B284A /* PilotTests.swift */; };
+		14BC1C181E9E855100E74002 /* PasswordServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BC1C171E9E855100E74002 /* PasswordServiceTest.swift */; };
 		14E1BD851C5321D20021FF9F /* PilotFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BD841C5321D20021FF9F /* PilotFile.swift */; };
 		14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51821BB777E20099C25E /* AppDelegate.swift */; };
 		14EA51851BB777E20099C25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51841BB777E20099C25E /* Assets.xcassets */; };
@@ -71,8 +71,8 @@
 		146693101BE94F1F006655A2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		14B991551E96F9D600AF6FFF /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		14B991561E96F9D600AF6FFF /* SignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
+		14BC1C171E9E855100E74002 /* PasswordServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordServiceTest.swift; sourceTree = "<group>"; };
 		14C24E501E94A7A1008B284A /* PilotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PilotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		14C24E521E94A7A1008B284A /* PilotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilotTests.swift; sourceTree = "<group>"; };
 		14C24E541E94A7A1008B284A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14E1BD841C5321D20021FF9F /* PilotFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotFile.swift; sourceTree = "<group>"; };
 		14EA517F1BB777E20099C25E /* Pilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,8 +168,8 @@
 		14C24E511E94A7A1008B284A /* PilotTests */ = {
 			isa = PBXGroup;
 			children = (
-				14C24E521E94A7A1008B284A /* PilotTests.swift */,
 				14C24E541E94A7A1008B284A /* Info.plist */,
+				14BC1C171E9E855100E74002 /* PasswordServiceTest.swift */,
 			);
 			path = PilotTests;
 			sourceTree = "<group>";
@@ -574,7 +574,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14C24E531E94A7A1008B284A /* PilotTests.swift in Sources */,
+				14BC1C181E9E855100E74002 /* PasswordServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

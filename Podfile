@@ -14,11 +14,13 @@ target 'Pilot' do
 
   target 'PilotTests' do
     inherit! :search_paths
+
     pod 'Nimble', '~> 6.1.0'
   end
 
   target 'PilotUITests' do
     inherit! :search_paths
+
     pod 'Nimble', '~> 6.1.0'
   end
 end
