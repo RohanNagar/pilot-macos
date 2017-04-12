@@ -11,11 +11,11 @@ import Cocoa
 class PilotUser: NSObject {
   var email: String
   var password: String
-  var facebookAccessToken: String
-  var twitterAccessToken: String
-  var twitterAccessSecret: String
+  var facebookAccessToken: String?
+  var twitterAccessToken: String?
+  var twitterAccessSecret: String?
 
-  init(email: String, password: String, facebookAccessToken: String, twitterAccessToken: String, twitterAccessSecret: String) {
+  init(email: String, password: String, facebookAccessToken: String?, twitterAccessToken: String?, twitterAccessSecret: String?) {
     self.email = email
     self.password = password
     self.facebookAccessToken = facebookAccessToken
@@ -31,8 +31,12 @@ class PilotUser: NSObject {
     return false
   }
 
+
   override var description: String {
-    return "PilotUser{email=\(email), password=\(password), facebookAccessToken=\(facebookAccessToken), twitterAccessToken=\(twitterAccessToken), twitterAccessSecret=\(twitterAccessSecret)}"
+    return "PilotUser{email=\(email), password=\(password), "
+      + "facebookAccessToken=\(String(describing: facebookAccessToken)), "
+      + "twitterAccessToken=\(String(describing: twitterAccessToken)), "
+      + "twitterAccessSecret=\(String(describing: twitterAccessSecret))}"
   }
 
 }

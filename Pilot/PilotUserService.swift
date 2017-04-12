@@ -77,9 +77,9 @@ class PilotUserService: NSObject {
         let user = PilotUser(
           email: json["email"].stringValue,
           password: json["password"].stringValue,
-          facebookAccessToken: json["facebookAccessToken"].stringValue,
-          twitterAccessToken: json["twitterAccessToken"].stringValue,
-          twitterAccessSecret: json["twitterAccessSecret"].stringValue)
+          facebookAccessToken: json["facebookAccessToken"].string,
+          twitterAccessToken: json["twitterAccessToken"].string,
+          twitterAccessSecret: json["twitterAccessSecret"].string)
 
         completion(user)
     }
@@ -127,9 +127,9 @@ class PilotUserService: NSObject {
         let user = PilotUser(
           email: json["email"].stringValue,
           password: json["password"].stringValue,
-          facebookAccessToken: json["facebookAccessToken"].stringValue,
-          twitterAccessToken: json["twitterAccessToken"].stringValue,
-          twitterAccessSecret: json["twitterAccessSecret"].stringValue)
+          facebookAccessToken: json["facebookAccessToken"].string,
+          twitterAccessToken: json["twitterAccessToken"].string,
+          twitterAccessSecret: json["twitterAccessSecret"].string)
         
         completion(user)
     }

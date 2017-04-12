@@ -136,7 +136,7 @@ class LoginViewController: NSViewController, SignInDelegate {
         mainViewController.loadUserPreferences(preferences)
 
         // Determine the users platforms and add them to mainViewController
-        if user.facebookAccessToken != "" {
+        if user.facebookAccessToken != nil {
           mainViewController.addPlatform(Platform(title: "Facebook", icon: NSImage(named: "FacebookIcon"), type: .facebook))
 
           // Set up and load the FacebookService class
@@ -152,7 +152,7 @@ class LoginViewController: NSViewController, SignInDelegate {
           mainViewController.loadFacebookService(facebookService)
         }
 
-        if user.twitterAccessToken != "" {
+        if user.twitterAccessToken != nil {
           mainViewController.addPlatform(Platform(title: "Twitter", icon: NSImage(named: "TwitterIcon"), type: PlatformType.twitter))
 
           // Eventually load twitterService here
