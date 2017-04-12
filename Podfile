@@ -11,12 +11,14 @@ target 'Pilot' do
   pod 'FileKit', '~> 4.0.1'
   pod 'RealmSwift', '~> 2.5.0'
   pod 'Locksmith', '~> 3.0.0'
-end
 
-target 'PilotTests' do
-  pod 'Nimble', '~> 6.1.0'
-end
+  target 'PilotTests' do
+    inherit! :search_paths
+    pod 'Nimble', '~> 6.1.0'
+  end
 
-target 'PilotUITests' do
-  pod 'Nimble', '~> 6.1.0'
+  target 'PilotUITests' do
+    inherit! :search_paths
+    pod 'Nimble', '~> 6.1.0'
+  end
 end

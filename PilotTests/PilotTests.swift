@@ -8,6 +8,8 @@
 
 import XCTest
 
+@testable import Pilot
+
 class PilotTests: XCTestCase {
     
     override func setUp() {
