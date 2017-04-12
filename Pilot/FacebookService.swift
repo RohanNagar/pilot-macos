@@ -12,6 +12,8 @@ import SwiftyJSON
 import FileKit
 
 class FacebookService: NSObject, FileService {
+  let photosEndpoint = PilotConfiguration.Lightning.endpoint + "/facebook/photos"
+  let videosEndpoint = PilotConfiguration.Lightning.endpoint + "/facebook/videos"
 
   // User object
   var pilotUser: PilotUser!
@@ -23,13 +25,6 @@ class FacebookService: NSObject, FileService {
   var cachedLocalContent: [LocalFile] = []
 
   var fileSystemWatcher: FileSystemWatcher!
-  // Auth keys
-  let user = "application"
-  let secret = "secret"
-
-  // Endpoints to use
-  let photosEndpoint = "http://lightning.nickeckert.com/facebook/photos"
-  let videosEndpoint = "http://lightning.nickeckert.com/facebook/videos"
 
   internal var preferences: Preferences
   internal var basicCredentials: String
@@ -39,7 +34,8 @@ class FacebookService: NSObject, FileService {
     self.preferences = preferences
     self.pilotUser = pilotUser
 
-    basicCredentials = "\(user):\(secret)".data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
+    basicCredentials = "\(PilotConfiguration.Lightning.userKey):\(PilotConfiguration.Lightning.userSecret)"
+      .data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
   }
 
   // Note: This call is asynronous

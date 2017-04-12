@@ -12,19 +12,14 @@ import SwiftyJSON
 import HTTPStatusCodes
 
 class PilotUserService: NSObject {
-
-  // Auth keys
-  let user = "lightning"
-  let secret = "secret"
-
-  // Endpoint to connect to Thunder
-  let endpoint = "http://thunder.nickeckert.com/users"
+  let endpoint = PilotConfiguration.Thunder.endpoint + "/users"
 
   fileprivate var basicCredentials: String
 
   /* Default init */
   override init() {
-    basicCredentials = "\(user):\(secret)".data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
+    basicCredentials = "\(PilotConfiguration.Thunder.userKey):\(PilotConfiguration.Thunder.userSecret)"
+      .data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
   }
 
   /// Retreives a `PilotUser` from Thunder for the given email.

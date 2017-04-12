@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "14EA518D1BB777E30099C25E"
+               BlueprintIdentifier = "14C24E4F1E94A7A1008B284A"
                BuildableName = "PilotTests.xctest"
                BlueprintName = "PilotTests"
                ReferencedContainer = "container:Pilot.xcodeproj">
@@ -60,7 +60,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "14EA518D1BB777E30099C25E"
+               BlueprintIdentifier = "14C24E4F1E94A7A1008B284A"
                BuildableName = "PilotTests.xctest"
                BlueprintName = "PilotTests"
                ReferencedContainer = "container:Pilot.xcodeproj">

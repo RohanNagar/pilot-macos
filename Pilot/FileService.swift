@@ -27,9 +27,6 @@ protocol FileService: NSObjectProtocol {
 
   var preferences: Preferences { get }
 
-  var user: String { get }
-  var secret: String { get }
-
   func refreshCachedCloudContent(_ completion: @escaping ([CloudFile]) -> ()) -> Void
 
   func refreshCachedLocalContent() -> Void

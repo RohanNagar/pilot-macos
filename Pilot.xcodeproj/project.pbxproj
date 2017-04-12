@@ -15,6 +15,7 @@
 		14B991571E96F9D700AF6FFF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B991551E96F9D600AF6FFF /* SignUpViewController.swift */; };
 		14B991581E96F9D700AF6FFF /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B991561E96F9D600AF6FFF /* SignUpViewController.xib */; };
 		14BC1C181E9E855100E74002 /* PasswordServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BC1C171E9E855100E74002 /* PasswordServiceTest.swift */; };
+		14BC1C1B1E9E8F5700E74002 /* PilotConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BC1C1A1E9E8F5700E74002 /* PilotConfiguration.swift */; };
 		14E1BD851C5321D20021FF9F /* PilotFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BD841C5321D20021FF9F /* PilotFile.swift */; };
 		14EA51831BB777E20099C25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EA51821BB777E20099C25E /* AppDelegate.swift */; };
 		14EA51851BB777E20099C25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EA51841BB777E20099C25E /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 		14B991551E96F9D600AF6FFF /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		14B991561E96F9D600AF6FFF /* SignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
 		14BC1C171E9E855100E74002 /* PasswordServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordServiceTest.swift; sourceTree = "<group>"; };
+		14BC1C1A1E9E8F5700E74002 /* PilotConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotConfiguration.swift; sourceTree = "<group>"; };
 		14C24E501E94A7A1008B284A /* PilotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PilotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14C24E541E94A7A1008B284A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14E1BD841C5321D20021FF9F /* PilotFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotFile.swift; sourceTree = "<group>"; };
@@ -165,6 +167,14 @@
 			name = services;
 			sourceTree = "<group>";
 		};
+		14BC1C191E9E8F3600E74002 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				14BC1C1A1E9E8F5700E74002 /* PilotConfiguration.swift */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
 		14C24E511E94A7A1008B284A /* PilotTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +209,7 @@
 		14EA51811BB777E20099C25E /* Pilot */ = {
 			isa = PBXGroup;
 			children = (
+				14BC1C191E9E8F3600E74002 /* config */,
 				946378CF1D5D9F80005CD845 /* error */,
 				14EFF6C41D39EF55004A357E /* util */,
 				145EACD41BC0A49C00EE8790 /* services */,
@@ -603,6 +614,7 @@
 				14E1BD851C5321D20021FF9F /* PilotFile.swift in Sources */,
 				94E92A031D3E9A340045250F /* CloudFile.swift in Sources */,
 				1418CD171BD488AA00CD0540 /* PilotUser.swift in Sources */,
+				14BC1C1B1E9E8F5700E74002 /* PilotConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
