@@ -42,7 +42,7 @@ class PlatformService: NSObject {
       // Check for localFiles not in the cloudFiles array. Delete them if this is the case
       for item in localFiles {
         if !cloudFiles.contains(where: {$0.name == item.name}) {
-          guard let itemStringPath = facebookService.preferences.getRootPath(.facebook) else {
+          guard let itemStringPath = facebookService.preferences.getRootPath(service: .facebook) else {
             continue
           }
 

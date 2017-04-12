@@ -13,7 +13,7 @@ class DirectoryService: NSObject {
 
   static func getFilesFromPath(_ platformType: PlatformType, caller: FileService) -> [LocalFile]? {
 
-    if let filePath = caller.fetchPreferences().getRootPath(platformType) {
+    if let filePath = caller.fetchPreferences().getRootPath(service: platformType) {
       let platformPath = Path(filePath)
 
       var contents: [LocalFile] = []
@@ -41,7 +41,7 @@ class DirectoryService: NSObject {
 
   static func checkFile(_ name: String, platformType: PlatformType, caller: FileService) -> LocalFile? {
 
-    if let filePath = caller.fetchPreferences().getRootPath(platformType) {
+    if let filePath = caller.fetchPreferences().getRootPath(service: platformType) {
 
       print("FilePath for checkFile method: \(filePath + "/" + name)")
       let file = File<NSDictionary>(path: Path(filePath + "/" + name))

@@ -1,0 +1,6 @@
+coverage_service: coveralls
+xcodeproj: Pilot.xcodeproj
+workspace: Pilot.xcworkspace
+scheme: Pilot
+ignore:
+    - Pods/*
