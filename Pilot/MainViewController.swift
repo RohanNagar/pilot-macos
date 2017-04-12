@@ -87,16 +87,21 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
 
   // Sync the files for the current platform with its online platform
   @IBAction func sync(_ sender: AnyObject) {
+    // Do nothing if selected a non-existant cell
+    if tableView.selectedRow == -1 {
+      return
+    }
+
     let selection = platforms[tableView.selectedRow].type
-      switch selection {
+    switch selection {
       case .facebook:
         platformService!.syncFacebook(facebookService!)
       case .twitter:
-        print("Twitter")
+        print("Syncing Twitter files...")
       default:
         // Let the defualt slection be the all platform
-        print("default selection")
-      }
+        print("Default selection.")
+    }
   }
 
   // Upload files to the current platform
@@ -146,15 +151,16 @@ extension MainViewController: NSTableViewDelegate {
 
     let selection = platforms[tableView.selectedRow].type
     switch selection {
-    case .facebook:
-      headerTitle.stringValue = "Facebook"
-      collectionViewController.content = facebookService!.fetchCachedLocalContent()
-      collectionViewController.collectionView.reloadData()
-    case .twitter:
-      headerTitle.stringValue = "Twitter"
-      print("Twitter Pressed")
-    default:
-      print("Default Switch")
+      case .facebook:
+        headerTitle.stringValue = "Facebook"
+        collectionViewController.content = facebookService!.fetchCachedLocalContent()
+        collectionViewController.collectionView.reloadData()
+      case .twitter:
+        headerTitle.stringValue = "Twitter"
+        collectionViewController.content = []
+        collectionViewController.collectionView.reloadData()
+      default:
+        print("Default Switch")
     }
   }
 

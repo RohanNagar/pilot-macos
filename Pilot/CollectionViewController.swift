@@ -13,8 +13,8 @@ class CollectionViewController: NSViewController {
   @IBOutlet weak var collectionView: NSCollectionView!
 
   // This is the array of files to display to the user, this array will be indexed the same as it
-  // will show to the user so you can re-order the array and reload the colleciton view to meet the
-  // requirnments for the sort drop down
+  // will show to the user so you can re-order the array and reload the collection view to meet the
+  // requirements for the sort drop down
   var content: [LocalFile] = []
 
   override func viewDidLoad() {
