@@ -1,12 +1,14 @@
 <img align="left" src="Pilot/Assets.xcassets/AppIcon.appiconset/icon_128x128.png">
 
-# Pilot (OS X)
+# Pilot (macOS)
 [![Build Status](https://travis-ci.org/RohanNagar/pilot-osx.svg?branch=master)](https://travis-ci.org/RohanNagar/pilot-osx)
+[![Coverage Status](https://coveralls.io/repos/github/RohanNagar/pilot-osx/badge.svg?branch=master)](https://coveralls.io/github/RohanNagar/pilot-osx?branch=master)
 ![Version](https://img.shields.io/badge/version-dev-7f8c8d.svg)
 [![Twitter](https://img.shields.io/badge/twitter-%40RohanNagar22-00aced.svg)](http://twitter.com/RohanNagar22)
 
 Pilot is a cloud-management application for macOS. Combine your files from Dropbox, Google Drive, Facebook, and more all in one location!
 
+* [Supported Platforms](https://github.com/RohanNagar/pilot-osx/wiki/Platform-Support)
 * [Building Locally](#building-locally)
 
 ## Building Locally

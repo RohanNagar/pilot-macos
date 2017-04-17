@@ -112,10 +112,14 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
     uploadViewController.view.bindFrameToSuperviewBounds()
   }
     
-    func returnFromUpload() {
-        collectionViewController.view.isHidden = false
-    }
+  func returnFromUpload() {
+    collectionViewController.view.isHidden = false
+  }
 
+  @IBAction func signOut(_ sender: NSButton) {
+    
+  }
+  
   // Add a new platform to the left side table
   @IBAction func add(_ sender: AnyObject) {
 

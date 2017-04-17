@@ -7,6 +7,6 @@ xcode_sdk: macosx10.12
 before_install:
     - gem install slather --no-rdoc --no-ri --no-document --quiet
 
-script: set -o pipefail && xcodebuild test -workspace Pilot.xcworkspace -scheme Pilot -sdk macosx10.12
+script: set -o pipefail && xcodebuild test -workspace Pilot.xcworkspace -scheme Pilot -sdk macosx10.12 | xcpretty
 
 after_success: slather
