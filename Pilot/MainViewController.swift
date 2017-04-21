@@ -9,13 +9,9 @@
 import Cocoa
 
 class MainViewController: NSViewController, UploadViewControllerDelegate {
-
   @IBOutlet weak var tableView: NSTableView!
-
   @IBOutlet weak var errorMessage: NSTextField!
-
   @IBOutlet weak var uploadButton: NSButton!
-
   @IBOutlet weak var headerTitle: NSTextField!
   
   // This view holds the various switchable views such as uploadView and collectionView
@@ -54,7 +50,6 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
     uploadViewController.view.frame = customView.frame
     uploadViewController.delegate = self
     uploadViewController.facebookService = facebookService
-    uploadViewController.user = user
 
     // Create a collectionViewConrtoller to be used with the custom view
     collectionViewController = CollectionViewController(nibName: "CollectionViewController", bundle: nil)

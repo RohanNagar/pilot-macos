@@ -16,7 +16,7 @@ protocol FileService: NSObjectProtocol {
   // PilotUser object
   var pilotUser: PilotUser! { get set }
 
-  // Local copy of CloudFile's
+  // Local copy of CloudFiles
   var cachedCloudContent: [CloudFile] { get set }
 
   // Local copy of LocalFiles for faster access when interfacting with collectionView
@@ -70,19 +70,16 @@ extension FileService {
     }
   }
 
-  func upload(_ files: [URL], to url: String, forUser user: PilotUser) {
+  func upload(_ files: [URL], to url: String) {
     for file in files {
-      upload(file, to: url, forUser: user)
+      upload(file, to: url)
     }
   }
 
-  func upload(_ file: URL, to url: String, forUser user: PilotUser) {
-    // Build the location of file to upload
-    //let fileURL = Bundle.main.url(forResource: "~/desktop/test", withExtension: "png")
-
+  func upload(_ file: URL, to url: String) {
     // Build the authorization headers for the request
     let headers = ["Authorization": "Basic \(basicCredentials)",
-      "password": "\(user.password)"]
+      "password": "\(pilotUser.password)"]
 
     // Build the parameters for the request
     // TODO: get type from file extension
@@ -93,7 +90,7 @@ extension FileService {
       multipartFormData: { multipartFormData in
         multipartFormData.append(file, withName: "file")
       },
-      to: "\(url)?email=\(user.email)&type=photo",
+      to: "\(url)?email=\(pilotUser.email)&type=photo",
       headers: headers,
       encodingCompletion: { encodingResult in
         switch encodingResult {
@@ -106,18 +103,6 @@ extension FileService {
           }
       }
     )
-
-//    Alamofire.upload(file, to: url)
-//      .uploadProgress { progress in
-//        print(progress.fractionCompleted)
-//
-//        DispatchQueue.main.async {
-//          // print("Total bytes written on main queue: \(totalBytesWritten)")
-//        }
-//      }
-//      .responseJSON { response in
-//        debugPrint(response)
-//    }
   }
 
   func fetchCachedCloudContent() -> [CloudFile] {

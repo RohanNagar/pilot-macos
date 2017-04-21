@@ -13,9 +13,9 @@ class UploadViewController: NSViewController {
 
   @IBOutlet weak var backButton: NSButtonCell!
   @IBOutlet weak var tableView: NSTableView!
+
   var files = [URL]()
 
-  var user: PilotUser?
   var facebookService: FacebookService?
 
   override func viewDidLoad() {
@@ -28,17 +28,15 @@ class UploadViewController: NSViewController {
     panel.title = "Select Files to Upload"
     panel.allowsMultipleSelection = true
     panel.canChooseDirectories = false
-    //panel.allowedFileTypes = ["jpg","png","pdf","pct", "bmp", "tiff"]
+    //panel.allowedFileTypes = ["jpg", "png", "pdf", "pct", "bmp", "tiff"]
 
+    // Display file selection modal
     panel.beginSheetModal(for: self.view.window!, completionHandler: { result in
       guard result == NSFileHandlingPanelOKButton else {
         return
       }
 
-      let urls = panel.urls
-      print("files selected = \(urls)")
-
-      for url in urls {
+      for url in panel.urls {
         self.files.append(url)
       }
 
@@ -48,7 +46,7 @@ class UploadViewController: NSViewController {
 
   @IBAction func upload(_ sender: NSButton) {
     if let service = facebookService {
-      service.upload(self.files, to: "\(PilotConfiguration.Lightning.endpoint)/facebook/publish", forUser: user!)
+      service.upload(self.files, to: "\(PilotConfiguration.Lightning.endpoint)/facebook/publish")
     }
   }
 
@@ -94,7 +92,6 @@ extension UploadViewController: NSTableViewDataSource {
   }
   
 }
-
 
 protocol UploadViewControllerDelegate {
     func returnFromUpload()
