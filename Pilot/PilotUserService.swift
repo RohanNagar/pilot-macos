@@ -28,6 +28,7 @@ class PilotUserService: NSObject {
   ///
   /// - parameters:
   ///    - email: The email to retrieve user information for.
+  ///    - password: The password for the user.
   ///    - completion: The method to call upon success.
   ///    - failure: The method to call upon failure. The `HTTPStatusCode` that resulted from the network request will be passed into this method.
   ///
@@ -45,8 +46,7 @@ class PilotUserService: NSObject {
     Alamofire.request(endpoint, parameters: parameters, headers: headers)
       .validate(statusCode: 200..<300)
       .responseJSON { response in
-
-        print(response.timeline)
+        print("Successfully retrieved user \(email).")
 
         // Error handling
         if response.result.isFailure {
@@ -80,6 +80,16 @@ class PilotUserService: NSObject {
     }
   }
 
+  /// Creates a new `PilotUser` with Thunder for the given email.
+  ///
+  /// - note: The network call is made asynchronously.
+  ///
+  /// - parameters:
+  ///    - email: The email to create user information for.
+  ///    - password: The password to set for the new user.
+  ///    - completion: The method to call upon success.
+  ///    - failure: The method to call upon failure. The `HTTPStatusCode` that resulted from the network request will be passed into this method.
+  ///
   func createPilotUser(_ email: String, password: String,
                        completion: @escaping (PilotUser) -> Void,
                        failure: @escaping (HTTPStatusCode) -> Void) {
@@ -95,8 +105,7 @@ class PilotUserService: NSObject {
     Alamofire.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
       .validate(statusCode: 200..<300)
       .responseJSON { response in
-
-        print(response.timeline)
+        print("Successfully created user \(email).")
 
         // Error handling
         if response.result.isFailure {

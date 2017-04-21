@@ -48,11 +48,19 @@ class UploadViewController: NSViewController {
     if let service = facebookService {
       service.upload(self.files, to: "\(PilotConfiguration.Lightning.endpoint)/facebook/publish")
     }
+
+    // Clear all recently added files and return
+    files.removeAll()
+    tableView.reloadData()
+
+    dismiss(sender)
   }
 
   @IBAction func dismiss(_ sender: AnyObject) {
-    self.view.removeFromSuperview()
+    files.removeAll()
+    tableView.reloadData()
 
+    self.view.removeFromSuperview()
     if let del = delegate {
       del.returnFromUpload()
     }
