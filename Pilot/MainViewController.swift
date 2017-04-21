@@ -53,6 +53,8 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
 
     uploadViewController.view.frame = customView.frame
     uploadViewController.delegate = self
+    uploadViewController.facebookService = facebookService
+    uploadViewController.user = user
 
     // Create a collectionViewConrtoller to be used with the custom view
     collectionViewController = CollectionViewController(nibName: "CollectionViewController", bundle: nil)
@@ -168,17 +170,7 @@ extension MainViewController: NSTableViewDelegate {
     }
   }
 
-}
-
-/// MARK: - NSTableViewDataSource
-extension MainViewController: NSTableViewDataSource {
-
-  /// Returns the number of rows that should be present in the TableView.
-  func numberOfRows(in tableView: NSTableView) -> Int {
-    return self.platforms.count
-  }
-
-  // Returns the cell view for the requested column and row.
+  /// Returns the cell view for the requested column and row.
   func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 
     // Make a cell view
@@ -198,6 +190,15 @@ extension MainViewController: NSTableViewDataSource {
     return nil
   }
 
+}
+
+/// MARK: - NSTableViewDataSource
+extension MainViewController: NSTableViewDataSource {
+
+  /// Returns the number of rows that should be present in the TableView.
+  func numberOfRows(in tableView: NSTableView) -> Int {
+    return self.platforms.count
+  }
 }
 
 extension NSImage {

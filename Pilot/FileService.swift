@@ -27,6 +27,8 @@ protocol FileService: NSObjectProtocol {
 
   var preferences: Preferences { get }
 
+  var basicCredentials: String { get }
+
   func refreshCachedCloudContent(_ completion: @escaping ([CloudFile]) -> ()) -> Void
 
   func refreshCachedLocalContent() -> Void
@@ -68,22 +70,54 @@ extension FileService {
     }
   }
 
-  func upload(_ url: String, file: String) {
-
-    // Build the location of file to upload
-    let fileURL = Bundle.main.url(forResource: "~/desktop/test", withExtension: "png")
-
-    Alamofire.upload(fileURL!, to: url)
-      .uploadProgress { progress in
-        print(progress.fractionCompleted)
-
-        DispatchQueue.main.async {
-          // print("Total bytes written on main queue: \(totalBytesWritten)")
-        }
-      }
-      .responseJSON { response in
-        debugPrint(response)
+  func upload(_ files: [URL], to url: String, forUser user: PilotUser) {
+    for file in files {
+      upload(file, to: url, forUser: user)
     }
+  }
+
+  func upload(_ file: URL, to url: String, forUser user: PilotUser) {
+    // Build the location of file to upload
+    //let fileURL = Bundle.main.url(forResource: "~/desktop/test", withExtension: "png")
+
+    // Build the authorization headers for the request
+    let headers = ["Authorization": "Basic \(basicCredentials)",
+      "password": "\(user.password)"]
+
+    // Build the parameters for the request
+    // TODO: get type from file extension
+    //let parameters = ["email": user.email, "type": "photo"]
+
+
+    Alamofire.upload(
+      multipartFormData: { multipartFormData in
+        multipartFormData.append(file, withName: "file")
+      },
+      to: "\(url)?email=\(user.email)&type=photo",
+      headers: headers,
+      encodingCompletion: { encodingResult in
+        switch encodingResult {
+          case .success(let upload, _, _):
+            upload.responseString { response in
+              debugPrint(response)
+            }
+          case .failure(let encodingError):
+            print(encodingError)
+          }
+      }
+    )
+
+//    Alamofire.upload(file, to: url)
+//      .uploadProgress { progress in
+//        print(progress.fractionCompleted)
+//
+//        DispatchQueue.main.async {
+//          // print("Total bytes written on main queue: \(totalBytesWritten)")
+//        }
+//      }
+//      .responseJSON { response in
+//        debugPrint(response)
+//    }
   }
 
   func fetchCachedCloudContent() -> [CloudFile] {
