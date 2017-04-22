@@ -26,8 +26,19 @@ class DirectoryService: NSObject {
         let name = fileName.deletingPathExtension
 
         // Access the correcponsing file data stored in the DB if it exists
+        // TODO: should be able to get any file, not just getFacebookFileByName
         if let metaData = DBController.sharedDBController.getFacebookFileByName(name) {
-          contents.append(LocalFile(name: name, fileType: metaData.fileType))
+          var thumbnail: NSImage
+
+          if metaData.fileType == .Photo {
+            thumbnail = NSImage(named: "PhotoFileIcon")!
+          } else if metaData.fileType == .Video {
+            thumbnail = NSImage(named: "VideoFileIcon")!
+          } else {
+            thumbnail = NSImage(named: "GenericFileIcon")!
+          }
+
+          contents.append(LocalFile(name: name, fileType: metaData.fileType, thumbnail: thumbnail))
         } else {
           print("File not recognized at path: \(file.path)")
         }

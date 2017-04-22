@@ -141,7 +141,7 @@ class MainViewController: NSViewController, UploadViewControllerDelegate {
 
 }
 
-/// MARK: - NSTableViewDelegate
+// MARK: - NSTableViewDelegate
 extension MainViewController: NSTableViewDelegate {
 
   func tableViewSelectionDidChange(_ notification: Notification) {
@@ -174,7 +174,7 @@ extension MainViewController: NSTableViewDelegate {
       // If we're looking at the right column, set up the cell view
       if tableColumn!.identifier == "PlatformColumn" {
         let platform = platforms[row]
-        // cellView.imageView!.image = platform.icon
+        //cellView.imageView!.image = platform.icon
         cellView.textField!.stringValue = platform.name
         return cellView
       }
@@ -187,23 +187,11 @@ extension MainViewController: NSTableViewDelegate {
 
 }
 
-/// MARK: - NSTableViewDataSource
+// MARK: - NSTableViewDataSource
 extension MainViewController: NSTableViewDataSource {
 
   /// Returns the number of rows that should be present in the TableView.
   func numberOfRows(in tableView: NSTableView) -> Int {
     return self.platforms.count
   }
-}
-
-extension NSImage {
-
-  static func swatchWithColor(_ color: NSColor, size: NSSize) -> NSImage {
-    let image = NSImage(size: size)
-    image.lockFocus()
-    color.drawSwatch(in: NSMakeRect(0, 0, size.width, size.height))
-    image.unlockFocus()
-    return image
-  }
-
 }

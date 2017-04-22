@@ -12,8 +12,8 @@ import Locksmith
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
   @IBOutlet weak var window: NSWindow!
+
   var loginViewController: LoginViewController!
   var toolbar: NSToolbar!
   

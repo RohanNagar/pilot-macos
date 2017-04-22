@@ -28,7 +28,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="125" height="380"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="PkN-KV-Dmo">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" viewBased="YES" id="PkN-KV-Dmo">
                                 <rect key="frame" x="1" y="0.0" width="125" height="380"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" red="0.65224358974358976" green="0.65224358974358976" blue="0.65224358974358976" alpha="0.0" colorSpace="calibratedRGB"/>
@@ -60,8 +60,14 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Or3-2d-Hje">
+                                                        <rect key="frame" x="84" y="-15" width="48" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="dwv-1Q-Uyk"/>
+                                                    </imageView>
                                                 </subviews>
                                                 <connections>
+                                                    <outlet property="imageView" destination="Or3-2d-Hje" id="fbS-4X-TjE"/>
                                                     <outlet property="textField" destination="oyT-6H-Noe" id="37b-88-yhj"/>
                                                 </connections>
                                             </tableCellView>

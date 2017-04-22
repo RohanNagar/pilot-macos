@@ -34,27 +34,40 @@ class FacebookService: NSObject, FileService {
       .data(using: String.Encoding.utf8)!.base64EncodedString(options: [])
   }
 
-  // Note: This call is asynchronous
+  /// Updates the Facebook cloud content by retreiving
+  /// all of the photo and video URLs from Lightning.
+  ///
+  /// - note: The network call is made asynchronously.
+  ///
+  /// - parameters:
+  ///    - completion: The method to call upon success.
+  ///
   func refreshCachedCloudContent(_ completion: @escaping ([CloudFile]) -> ()) {
     // Fetch the photos and videos from facebook and combine them into one conglomerate
-    self.getFacebookPhotos(pilotUser.email, password: pilotUser.password,
-      completion: { photos in
-        self.getFacebookVideos(self.pilotUser.email, password: self.pilotUser.password,
-          completion: { videos in
-            let returnFiles = photos + videos
+    self.getFacebookPhotos(completion: { photos in
 
-            self.cachedCloudContent = returnFiles
-            completion(returnFiles)
-          },
-          failure: { _ in
-            ErrorController.sharedErrorController.displayError("Failed to retrieve video list from Facebook.")
-          })
-      },
-      failure: { _ in
-        ErrorController.sharedErrorController.displayError("Failed to retrieve photo list from Facebook.")
+      self.getFacebookVideos(completion: { videos in
+        let returnFiles = photos + videos
+
+        self.cachedCloudContent = returnFiles
+        completion(returnFiles)
+      }, failure: { _ in
+        ErrorController.sharedErrorController.displayError("Failed to retrieve video list from Facebook.")
       })
+
+    }, failure: {_ in
+      ErrorController.sharedErrorController.displayError("Failed to retrieve photo list from Facebook.")
+    })
   }
 
+  /// Updates the local Facebook content by retreiving
+  /// all of the contents of the local Facebook directory.
+  ///
+  /// - note: The network call is made asynchronously.
+  ///
+  /// - parameters:
+  ///    - completion: The method to call upon success.
+  ///
   func refreshCachedLocalContent() {
     if let directoryContents = DirectoryService.getFilesFromPath(.facebook, caller: self) {
       self.cachedLocalContent = directoryContents
@@ -125,21 +138,18 @@ class FacebookService: NSObject, FileService {
   /// - note: The network request is made asynchronously.
   ///
   /// - parameters:
-  ///    - email: The email of the user to retrieve photo URLs for.
-  ///    - password: The passowrd of the user to retieve photo URLs for.
   ///    - completion: The method to call upon completion. Will pass in the array of photos to the method.
   ///    - failure: The method to call upon failure.
   ///
-  func getFacebookPhotos(_ email: String, password: String,
-                         completion: @escaping ([CloudFile]) -> Void,
+  func getFacebookPhotos(completion: @escaping ([CloudFile]) -> Void,
                          failure: @escaping (String) -> Void) {
 
     // Build the authorization headers for the request
     let headers = ["Authorization": "Basic \(basicCredentials)",
-                   "password": "\(password)"]
+                   "password": "\(pilotUser.password)"]
 
     // Build the parameters for the request
-    let parameters = ["email": email]
+    let parameters = ["email": pilotUser.email]
 
     Alamofire.request(photosEndpoint, parameters: parameters, headers: headers)
       .responseJSON { response in
@@ -173,21 +183,18 @@ class FacebookService: NSObject, FileService {
   /// - note: The network request is made asynchronously.
   ///
   /// - parameters:
-  ///    - email: The email of the user to retrieve videos for.
-  ///    - password: The password of the user to retrieve videos for.
   ///    - completion: The method to call upon completion. Will pass in the array of videos to the method.
   ///    - failure: The method to call upon failure.
   ///
-  func getFacebookVideos(_ email: String, password: String,
-                         completion: @escaping ([CloudFile]) -> Void,
+  func getFacebookVideos(completion: @escaping ([CloudFile]) -> Void,
                          failure: @escaping (Void) -> Void) {
 
-    // build the authorization headers for the request
+    // Build the authorization headers for the request
     let headers = ["Authorization": "Basic \(basicCredentials)",
-                   "password": "\(password)"]
+                   "password": "\(pilotUser.password)"]
 
-    // build the parameters for the request
-    let parameters = ["email": email]
+    // Build the parameters for the request
+    let parameters = ["email": pilotUser.email]
 
     Alamofire.request(videosEndpoint, parameters: parameters, headers: headers)
       .responseJSON { response in

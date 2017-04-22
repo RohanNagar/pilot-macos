@@ -11,26 +11,21 @@ import Alamofire
 import FileKit
 
 protocol FileService: NSObjectProtocol {
-  init(preferences: Preferences, pilotUser: PilotUser)
-
-  // PilotUser object
   var pilotUser: PilotUser! { get set }
 
-  // Local copy of CloudFiles
+  // Local copies of CloudFiles and LocalFiles
   var cachedCloudContent: [CloudFile] { get set }
-
-  // Local copy of LocalFiles for faster access when interfacting with collectionView
   var cachedLocalContent: [LocalFile] { get set }
 
-  // FileWatch class for updating collectionView given a folder change occures
+  // FileWatch class for updating the collection view when a folder change occures
   var fileSystemWatcher: FileSystemWatcher! { get set }
 
   var preferences: Preferences { get }
-
   var basicCredentials: String { get }
 
-  func refreshCachedCloudContent(_ completion: @escaping ([CloudFile]) -> ()) -> Void
+  init(preferences: Preferences, pilotUser: PilotUser)
 
+  func refreshCachedCloudContent(_ completion: @escaping ([CloudFile]) -> ()) -> Void
   func refreshCachedLocalContent() -> Void
 
   func setFileSystemWatcher(_ mainViewController: MainViewController) -> Void
@@ -81,16 +76,14 @@ extension FileService {
     let headers = ["Authorization": "Basic \(basicCredentials)",
       "password": "\(pilotUser.password)"]
 
-    // Build the parameters for the request
-    // TODO: get type from file extension
-    //let parameters = ["email": user.email, "type": "photo"]
-
+    // TODO: get type from file
+    let type = "photo"
 
     Alamofire.upload(
       multipartFormData: { multipartFormData in
         multipartFormData.append(file, withName: "file")
       },
-      to: "\(url)?email=\(pilotUser.email)&type=photo",
+      to: "\(url)?email=\(pilotUser.email)&type=\(type)",
       headers: headers,
       encodingCompletion: { encodingResult in
         switch encodingResult {

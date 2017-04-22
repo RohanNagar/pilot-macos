@@ -21,6 +21,10 @@ class LocalFile: NSObject, PilotFile {
     self.init(name: name, fileType: fileType, size: nil, thumbnail: nil, directory: nil, width: nil, height: nil)
   }
 
+  convenience init(name: String, fileType: FileType, thumbnail: NSImage) {
+    self.init(name: name, fileType: fileType, size: nil, thumbnail: thumbnail, directory: nil, width: nil, height: nil)
+  }
+
   init(name: String, fileType: FileType, size: Int?, thumbnail: NSImage?, directory: String?, width: String?, height: String?) {
     self.name = name
     self.fileType = fileType
